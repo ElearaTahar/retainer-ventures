@@ -53,7 +53,7 @@ export function App() {
   return (
     <main className="app-content">
       <TargetedVentureList
-        category="hunting"
+        category="mining"
         ventures={ventures}
         itemsById={itemsById}
       />

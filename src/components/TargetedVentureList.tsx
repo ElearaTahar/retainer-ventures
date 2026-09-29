@@ -128,31 +128,34 @@ export function TargetedVentureList({
                     {durationSteps.map((step) => (
                       <div key={step.levelOffset}>
                         <dt>Lv. {venture.requiredLevel + step.levelOffset}</dt>
+                        <span aria-hidden="true">→</span>
                         <dd>{step.minutes}m</dd>
                       </div>
                     ))}
                   </dl>
                 </div>
 
-                <table className="venture-yields">
-                  <caption>Possible quantities</caption>
-                  <tbody>
-                    <tr>
-                      <th scope="row">{yieldStatLabel}</th>
+                <div className="venture-yields-wrapper">
+                  <table className="venture-yields">
+                    <caption>Possible quantities</caption>
+                    <tbody>
+                      <tr>
+                        <th scope="row">{yieldStatLabel}</th>
 
-                      {yieldThresholds.map((threshold, index) => (
-                        <td key={index}>{threshold}</td>
-                      ))}
-                    </tr>
-                    <tr>
-                      <th scope="row">Quantity</th>
+                        {yieldThresholds.map((threshold, index) => (
+                          <td key={index}>{threshold}</td>
+                        ))}
+                      </tr>
+                      <tr>
+                        <th scope="row">Quantity</th>
 
-                      {venture.quantities.map((quantity, index) => (
-                        <td key={index}>{quantity}</td>
-                      ))}
-                    </tr>
-                  </tbody>
-                </table>
+                        {venture.quantities.map((quantity, index) => (
+                          <td key={index}>{quantity}</td>
+                        ))}
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             )}
           </div>
