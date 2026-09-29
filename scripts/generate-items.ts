@@ -126,7 +126,7 @@ async function main() {
 
   const json = JSON.stringify(output);
 
-  await writeFile("data/item-search-index.json", json, "utf-8");
+  await writeFile("public/data/item-search-index.json", json, "utf-8");
 }
 
 main();
