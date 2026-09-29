@@ -1,0 +1,47 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: system-ui, sans-serif;
+
+  --color-background: #ffffff;
+  --color-text: #1a1a1a;
+  --color-surface: #f2f2f2;
+  --color-surface-hover: #e6e6e6;
+  --color-border: #b0b0b0;
+  --color-focus: #1a1a1a;
+
+  --content-width: 1120px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #121417;
+    --color-text: #f2f2f2;
+    --color-surface: #1c2127;
+    --color-surface-hover: #252b33;
+    --color-border: #3a4149;
+    --color-focus: #ffffff;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.app-content {
+  width: min(100% - 2rem, var(--content-width));
+  margin-inline: auto;
+}

@@ -468,7 +468,7 @@ async function main() {
   };
 
   const json = JSON.stringify(output, null, 2);
-  await writeFile("data/ventures.json", json, "utf-8");
+  await writeFile("public/data/ventures.json", json, "utf-8");
 }
 
 main();

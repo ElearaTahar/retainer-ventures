@@ -1,0 +1,177 @@
+.venture + .venture {
+  margin-block-start: 0.25rem;
+}
+
+.venture-summary {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20rem 1fr auto;
+  align-items: center;
+  padding: 0;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+}
+
+.venture-summary:hover {
+  background: var(--color-surface-hover);
+}
+
+.venture-summary:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.venture-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.venture-icon {
+  width: 40px;
+  height: 40px;
+  display: block;
+  object-fit: cover;
+}
+
+.venture-name {
+  overflow-wrap: anywhere;
+  padding-inline-end: 0.5rem;
+}
+
+.venture-level {
+  justify-self: start;
+  white-space: nowrap;
+  padding-inline: 0.5rem;
+}
+
+.venture-chevron {
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-inline: 0.75rem;
+
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+
+  transform: rotate(45deg);
+  transition: transform 150ms ease;
+}
+
+.venture-chevron--expanded {
+  transform: rotate(225deg);
+}
+
+.venture-details {
+  display: grid;
+  grid-template-columns: 12rem 12rem 1fr;
+  gap: 2rem;
+  padding: 0.75rem;
+
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-top: 0;
+}
+
+.venture-properties {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.venture-properties,
+.venture-duration dl {
+  margin: 0;
+}
+
+.venture-properties dd,
+.venture-duration dd {
+  margin: 0;
+}
+
+.venture-properties dt,
+.venture-duration > p,
+.venture-yields caption {
+  margin-top: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.venture-duration > p,
+.venture-yields caption {
+  margin: 0 0 0.75rem;
+}
+
+.venture-duration dt,
+.venture-duration dd {
+  margin: 0;
+}
+
+.venture-duration dl > div {
+  display: grid;
+  grid-template-columns: 3.5rem 1rem auto;
+  align-items: baseline;
+  justify-content: start;
+  column-gap: 0.25rem;
+}
+
+.venture-yields {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.venture-yields th,
+.venture-yields td {
+  padding-block: 0.25rem;
+  padding-inline: 0.75rem;
+}
+
+.venture-yields th:first-child {
+  padding-inline-start: 0;
+}
+
+.venture-yields td {
+  text-align: center;
+}
+
+.venture-yields th {
+  font-weight: normal;
+  text-align: left;
+}
+
+.venture-yields caption {
+  text-align: left;
+}
+
+@media (max-width: 40rem) {
+  .venture-summary {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+
+  .venture-level {
+    justify-self: end;
+  }
+
+  .venture-details {
+    grid-template-columns: 1fr;
+  }
+
+  .venture-yields-wrapper {
+    min-width: 0;
+    overflow-x: auto;
+  }
+
+  .venture-yields {
+    width: max-content;
+    min-width: 100%;
+    table-layout: auto;
+  }
+
+  .venture-yields th,
+  .venture-yields td {
+    white-space: nowrap;
+  }
+}
