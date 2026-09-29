@@ -5,6 +5,7 @@ import type {
   TargetedVenture,
   YieldStat,
 } from "../types/ventures";
+import { buildItemIconUrl } from "../utils/itemIcon";
 
 type TargetedVentureListProps = {
   category: TargetedCategory;
@@ -39,9 +40,9 @@ export function TargetedVentureList({
     null,
   );
 
-  const categoryVentures = ventures.filter(
-    (venture) => venture.category === category,
-  );
+  const categoryVentures = ventures
+    .filter((venture) => venture.category === category)
+    .sort((a, b) => a.requiredLevel - b.requiredLevel);
 
   const categoryLabel = categoryLabels[category];
 
@@ -83,6 +84,7 @@ export function TargetedVentureList({
                 setExpandedVentureId(isExpanded ? null : venture.id);
               }}
             >
+              {item && <img src={buildItemIconUrl(item.iconId)} alt="" />}
               <span>
                 {item?.name.en ?? `Unknown item #${venture.targetItemId}`}
               </span>

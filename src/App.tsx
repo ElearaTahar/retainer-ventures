@@ -55,7 +55,7 @@ export function App() {
       <h1>Retainer Ventures</h1>
 
       <TargetedVentureList
-        category="hunting"
+        category="mining"
         ventures={ventures}
         itemsById={itemsById}
       />
