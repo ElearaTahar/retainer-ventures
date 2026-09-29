@@ -1,3 +1,7 @@
+.venture + .venture {
+  margin-block-start: 0.25rem;
+}
+
 .venture-summary {
   width: 100%;
   display: grid;
@@ -45,7 +49,19 @@
 }
 
 .venture-chevron {
-  padding-inline: 0.5rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-inline: 0.75rem;
+
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+
+  transform: rotate(45deg);
+  transition: transform 150ms ease;
+}
+
+.venture-chevron--expanded {
+  transform: rotate(225deg);
 }
 
 .venture-details {

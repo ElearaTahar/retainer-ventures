@@ -101,9 +101,10 @@ export function TargetedVentureList({
 
               <span className="venture-level">{`Level ${venture.requiredLevel}`}</span>
 
-              <span className="venture-chevron" aria-hidden="true">
-                {isExpanded ? "⌄" : "›"}
-              </span>
+              <span
+                className={`venture-chevron ${isExpanded ? "venture-chevron--expanded" : ""}`}
+                aria-hidden="true"
+              />
             </button>
 
             {isExpanded && (
