@@ -6,6 +6,7 @@ import type {
   YieldStat,
 } from "../types/ventures";
 import { buildItemIconUrl } from "../utils/itemIcon";
+import "../styles/targeted-venture-list.css";
 
 type TargetedVentureListProps = {
   category: TargetedCategory;
@@ -75,26 +76,39 @@ export function TargetedVentureList({
             ];
 
         return (
-          <div key={venture.id}>
+          <div className="venture" key={venture.id}>
             <button
               type="button"
+              className="venture-summary"
               aria-expanded={isExpanded}
               aria-controls={panelId}
               onClick={() => {
                 setExpandedVentureId(isExpanded ? null : venture.id);
               }}
             >
-              {item && <img src={buildItemIconUrl(item.iconId)} alt="" />}
-              <span>
-                {item?.name.en ?? `Unknown item #${venture.targetItemId}`}
+              <span className="venture-item">
+                {item && (
+                  <img
+                    className="venture-icon"
+                    src={buildItemIconUrl(item.iconId)}
+                    alt=""
+                  />
+                )}
+                <span className="venture-name">
+                  {item?.name.en ?? `Unknown item #${venture.targetItemId}`}
+                </span>
               </span>
-              <span>{`Level ${venture.requiredLevel}`}</span>
-              <span aria-hidden="true">{isExpanded ? "⌄" : "›"}</span>
+
+              <span className="venture-level">{`Level ${venture.requiredLevel}`}</span>
+
+              <span className="venture-chevron" aria-hidden="true">
+                {isExpanded ? "⌄" : "›"}
+              </span>
             </button>
 
             {isExpanded && (
-              <div id={panelId}>
-                <dl>
+              <div id={panelId} className="venture-details">
+                <dl className="venture-properties">
                   <div>
                     <dt>Experience</dt>
                     <dd>{venture.experience}</dd>
@@ -107,7 +121,7 @@ export function TargetedVentureList({
                   )}
                 </dl>
 
-                <div>
+                <div className="venture-duration">
                   <p>Duration</p>
 
                   <dl>
@@ -120,7 +134,7 @@ export function TargetedVentureList({
                   </dl>
                 </div>
 
-                <table>
+                <table className="venture-yields">
                   <caption>Possible quantities</caption>
                   <tbody>
                     <tr>

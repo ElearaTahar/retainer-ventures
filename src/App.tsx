@@ -51,14 +51,12 @@ export function App() {
   }
 
   return (
-    <>
-      <h1>Retainer Ventures</h1>
-
+    <main className="app-content">
       <TargetedVentureList
-        category="mining"
+        category="hunting"
         ventures={ventures}
         itemsById={itemsById}
       />
-    </>
+    </main>
   );
 }

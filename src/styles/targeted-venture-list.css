@@ -1,0 +1,59 @@
+.venture-summary {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20rem 1fr auto;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+}
+
+.venture-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.venture-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.venture-name {
+  overflow-wrap: anywhere;
+}
+
+.venture-level {
+  justify-self: start;
+  white-space: nowrap;
+}
+
+.venture-details {
+  display: grid;
+  grid-template-columns: 12rem 12rem 1fr;
+  gap: 2rem;
+  padding: 0.75rem;
+}
+
+.venture-properties,
+.venture-duration dl {
+  margin: 0;
+}
+
+.venture-properties dd,
+.venture-duration dd {
+  margin: 0;
+}
+
+@media (max-width: 40rem) {
+  .venture-summary {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+
+  .venture-level {
+    justify-self: end;
+  }
+
+  .venture-details {
+    grid-template-columns: 1fr;
+  }
+}

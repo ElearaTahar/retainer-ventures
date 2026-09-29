@@ -1,0 +1,33 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: system-ui, sans-serif;
+
+  --color-background: #ffffff;
+  --color-text: #1a1a1a;
+  --color-border: #b0b0b0;
+
+  --content-width: 1120px;
+}
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.app-content {
+  width: min(100% - 2rem, var(--content-width));
+  margin-inline: auto;
+}
