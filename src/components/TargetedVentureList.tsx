@@ -1,10 +1,8 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import type { Language } from "../types/i18n";
 import type { ItemSearchEntry } from "../types/items";
-import type {
-  TargetedCategory,
-  TargetedVenture,
-  YieldStat,
-} from "../types/ventures";
+import type { TargetedCategory, TargetedVenture } from "../types/ventures";
 import { buildItemIconUrl } from "../utils/itemIcon";
 import "../styles/targeted-venture-list.css";
 
@@ -12,18 +10,6 @@ type TargetedVentureListProps = {
   category: TargetedCategory;
   ventures: TargetedVenture[];
   itemsById: Map<number, ItemSearchEntry>;
-};
-
-const categoryLabels: Record<TargetedCategory, string> = {
-  hunting: "Hunting",
-  mining: "Mining",
-  botany: "Botany",
-  fishing: "Fishing",
-};
-
-const yieldStatLabels: Record<YieldStat, string> = {
-  "item-level": "Retainer iLvl",
-  perception: "Perception",
 };
 
 const durationSteps = [
@@ -37,6 +23,12 @@ export function TargetedVentureList({
   ventures,
   itemsById,
 }: TargetedVentureListProps) {
+  const { t, i18n } = useTranslation();
+
+  const language: Language = i18n.language === "fr" ? "fr" : "en";
+
+  const numberFormatter = new Intl.NumberFormat(language);
+
   const [expandedVentureId, setExpandedVentureId] = useState<number | null>(
     null,
   );
@@ -45,21 +37,24 @@ export function TargetedVentureList({
     .filter((venture) => venture.category === category)
     .sort((a, b) => a.requiredLevel - b.requiredLevel);
 
-  const categoryLabel = categoryLabels[category];
-
   return (
     <>
-      <h1>{categoryLabel} ventures</h1>
+      <h1>{t(`targetedVenture.categories.${category}`)}</h1>
 
-      <p>Short ventures targeting specific items</p>
+      <p>{t("targetedVenture.description")}</p>
 
-      <p>40 min to 60 min depending on the retainer level • 1 venture</p>
+      <p>
+        {t("targetedVenture.durationSummary")} •{" "}
+        {t("ventureCost", { count: 1 })}
+      </p>
 
       {categoryVentures.map((venture) => {
         const isExpanded = expandedVentureId === venture.id;
         const panelId = `venture-${venture.id}-details`;
 
-        const yieldStatLabel = yieldStatLabels[venture.yieldStat];
+        const yieldStatLabel = t(
+          `targetedVenture.details.yieldStats.${venture.yieldStat}`,
+        );
         const requirementIsYieldStat =
           venture.requirement.type === venture.yieldStat;
 
@@ -95,11 +90,16 @@ export function TargetedVentureList({
                   />
                 )}
                 <span className="venture-name">
-                  {item?.name.en ?? `Unknown item #${venture.targetItemId}`}
+                  {item?.name[language] ??
+                    t("targetedVenture.details.unknownItem", {
+                      id: venture.targetItemId,
+                    })}
                 </span>
               </span>
 
-              <span className="venture-level">{`Level ${venture.requiredLevel}`}</span>
+              <span className="venture-level">
+                {t("level", { level: venture.requiredLevel })}
+              </span>
 
               <span
                 className={`venture-chevron ${isExpanded ? "venture-chevron--expanded" : ""}`}
@@ -111,26 +111,38 @@ export function TargetedVentureList({
               <div id={panelId} className="venture-details">
                 <dl className="venture-properties">
                   <div>
-                    <dt>Experience</dt>
-                    <dd>{venture.experience}</dd>
+                    <dt>{t("targetedVenture.details.experience")}</dt>
+                    <dd>{numberFormatter.format(venture.experience)}</dd>
                   </div>
                   {!requirementIsYieldStat && (
                     <div>
-                      <dt>Requirement</dt>
-                      <dd>Gathering {venture.requirement.value}</dd>
+                      <dt>{t("targetedVenture.details.requirement")}</dt>
+                      <dd>
+                        {t("targetedVenture.details.gathering", {
+                          value: venture.requirement.value,
+                        })}
+                      </dd>
                     </div>
                   )}
                 </dl>
 
                 <div className="venture-duration">
-                  <p>Duration</p>
+                  <p>{t("targetedVenture.details.duration")}</p>
 
                   <dl>
                     {durationSteps.map((step) => (
                       <div key={step.levelOffset}>
-                        <dt>Lv. {venture.requiredLevel + step.levelOffset}</dt>
+                        <dt>
+                          {t("abbreviatedLevel", {
+                            level: venture.requiredLevel + step.levelOffset,
+                          })}
+                        </dt>
                         <span aria-hidden="true">→</span>
-                        <dd>{step.minutes}m</dd>
+                        <dd>
+                          {t("targetedVenture.details.minutesShort", {
+                            minutes: step.minutes,
+                          })}
+                        </dd>
                       </div>
                     ))}
                   </dl>
@@ -138,7 +150,9 @@ export function TargetedVentureList({
 
                 <div className="venture-yields-wrapper">
                   <table className="venture-yields">
-                    <caption>Possible quantities</caption>
+                    <caption>
+                      {t("targetedVenture.details.possibleQuantities")}
+                    </caption>
                     <tbody>
                       <tr>
                         <th scope="row">{yieldStatLabel}</th>
@@ -148,7 +162,9 @@ export function TargetedVentureList({
                         ))}
                       </tr>
                       <tr>
-                        <th scope="row">Quantity</th>
+                        <th scope="row">
+                          {t("targetedVenture.details.quantity")}
+                        </th>
 
                         {venture.quantities.map((quantity, index) => (
                           <td key={index}>{quantity}</td>

@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import type { Language } from "../types/i18n";
 
 type Theme = "light" | "dark";
 
 export function AppHeader() {
+  const { t, i18n } = useTranslation();
+
   const [systemTheme, setSystemTheme] = useState<Theme>(() =>
     window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
@@ -57,9 +61,21 @@ export function AppHeader() {
   return (
     <header className="app-header">
       <div className="app-header-content">
-        <span className="app-title">FFXIV Retainer Ventures</span>
+        <span className="app-title">{t("appTitle")}</span>
 
         <div className="app-header-actions">
+          <button
+            type="button"
+            onClick={() => {
+              const nextLanguage = i18n.language === "en" ? "fr" : "en";
+
+              localStorage.setItem("language", nextLanguage);
+              i18n.changeLanguage(nextLanguage);
+            }}
+          >
+            {i18n.language.toUpperCase()}
+          </button>
+
           <button
             className="theme-toggle"
             type="button"

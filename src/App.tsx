@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import type { Language } from "./types/i18n";
 import type { TargetedVenture } from "./types/ventures";
 import type { ItemSearchEntry } from "./types/items";
 import { fetchVentures } from "./data/ventures";
