@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import type { TargetedVenture, VenturesResponse } from "./types/ventures";
-import type { ItemSearchEntry, ItemSearchResponse } from "./types/items";
+import type { TargetedVenture } from "./types/ventures";
+import type { ItemSearchEntry } from "./types/items";
 import { fetchVentures } from "./data/ventures";
 import { fetchItems } from "./data/items";
+import { AppHeader } from "./components/AppHeader";
 import { TargetedVentureList } from "./components/TargetedVentureList";
 
 export function App() {
@@ -51,12 +52,16 @@ export function App() {
   }
 
   return (
-    <main className="app-content">
-      <TargetedVentureList
-        category="mining"
-        ventures={ventures}
-        itemsById={itemsById}
-      />
-    </main>
+    <>
+      <AppHeader />
+
+      <main className="app-content">
+        <TargetedVentureList
+          category="mining"
+          ventures={ventures}
+          itemsById={itemsById}
+        />
+      </main>
+    </>
   );
 }
