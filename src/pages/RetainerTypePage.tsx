@@ -5,6 +5,7 @@ import {
   isRetainerType,
 } from "../data/ventureCategories";
 import { Breadcrumb } from "../components/Breadcrumb";
+import { NotFoundPage } from "./NotFoundPage";
 
 export function RetainerTypePage() {
   const { t } = useTranslation();
@@ -12,7 +13,7 @@ export function RetainerTypePage() {
   const { retainerType } = useParams();
 
   if (!isRetainerType(retainerType)) {
-    return <p>Unknown retainer type</p>;
+    return <NotFoundPage />;
   }
 
   const categories = categoriesByRetainerType[retainerType];
@@ -33,7 +34,7 @@ export function RetainerTypePage() {
 
       <h1>{t(`retainerTypes.${retainerType}`)}</h1>
 
-      <nav aria-label="Venture categories">
+      <nav aria-label={t("navigation.ventureCategories")}>
         {categories.map((category) => (
           <Link
             key={category.slug}

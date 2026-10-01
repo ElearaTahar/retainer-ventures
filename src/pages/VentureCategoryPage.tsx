@@ -4,7 +4,7 @@ import {
   categoriesByRetainerType,
   isRetainerType,
 } from "../data/ventureCategories";
-import { ItemSearchEntry } from "../types/items";
+import type { ItemSearchEntry } from "../types/items";
 import { TargetedVentureList } from "../components/TargetedVentureList";
 import { Breadcrumb } from "../components/Breadcrumb";
 import { useTranslation } from "react-i18next";

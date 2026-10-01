@@ -17,12 +17,17 @@ const resources = {
         breadcrumb: "Breadcrumb",
         main: "Main navigation",
         ventures: "Ventures",
+        ventureCategories: "Venture categories",
         retainers: "My Retainers",
       },
       notFound: {
         title: "Page not found",
         description: "The requested page does not exist.",
         backToVentures: "Back to Ventures",
+      },
+      ventures: {
+        chooseRetainerType: "Choose a retainer type",
+        retainerTypes: "Retainer types",
       },
       retainerTypes: {
         combat: "Combat",
@@ -84,12 +89,17 @@ const resources = {
         breadcrumb: "Fil d’Ariane",
         main: "Navigation principale",
         ventures: "Tâches",
+        ventureCategories: "Catégories de tâches",
         retainers: "Mes servants",
       },
       notFound: {
         title: "Page introuvable",
         description: "La page demandée n’existe pas.",
         backToVentures: "Retour aux tâches",
+      },
+      ventures: {
+        chooseRetainerType: "Choisissez un type de servant",
+        retainerTypes: "Types de servants",
       },
       retainerTypes: {
         combat: "Combat",
