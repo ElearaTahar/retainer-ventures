@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import type { TargetedVenture } from "./types/ventures";
 import type { ItemSearchEntry } from "./types/items";
 import { fetchVentures } from "./data/ventures";
@@ -9,6 +9,7 @@ import { VenturesPage } from "./pages/VenturesPage";
 import { RetainerTypePage } from "./pages/RetainerTypePage";
 import { VentureCategoryPage } from "./pages/VentureCategoryPage";
 import { RetainersPage } from "./pages/RetainersPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
 export function App() {
   const [ventures, setVentures] = useState<TargetedVenture[] | null>(null);
@@ -61,6 +62,7 @@ export function App() {
 
       <main className="app-content">
         <Routes>
+          <Route path="/" element={<Navigate to="/ventures" replace />} />
           <Route path="/ventures" element={<VenturesPage />} />
           <Route path="/retainers" element={<RetainersPage />} />
           <Route
@@ -73,6 +75,7 @@ export function App() {
               <VentureCategoryPage ventures={ventures} itemsById={itemsById} />
             }
           />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
     </>

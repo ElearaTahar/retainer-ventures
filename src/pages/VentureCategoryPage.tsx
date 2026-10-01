@@ -8,6 +8,7 @@ import { ItemSearchEntry } from "../types/items";
 import { TargetedVentureList } from "../components/TargetedVentureList";
 import { Breadcrumb } from "../components/Breadcrumb";
 import { useTranslation } from "react-i18next";
+import { NotFoundPage } from "./NotFoundPage";
 
 function isTargetedCategory(
   value: string | undefined,
@@ -33,7 +34,7 @@ export function VentureCategoryPage({
   const { retainerType, category } = useParams();
 
   if (!isRetainerType(retainerType)) {
-    return <p>Unknown retainer type</p>;
+    return <NotFoundPage />;
   }
 
   const categories = categoriesByRetainerType[retainerType];
@@ -42,36 +43,36 @@ export function VentureCategoryPage({
   );
 
   if (!ventureCategory) {
-    return <p>Unknown venture category</p>;
+    return <NotFoundPage />;
   }
 
-  if (isTargetedCategory(category)) {
-    return (
-      <>
-        <Breadcrumb
-          items={[
-            {
-              label: t("navigation.ventures"),
-              to: "/ventures",
-            },
-            {
-              label: t(`retainerTypes.${retainerType}`),
-              to: `/ventures/${retainerType}`,
-            },
-            {
-              label: t(ventureCategory.translationKey),
-            },
-          ]}
-        />
+  return (
+    <>
+      <Breadcrumb
+        items={[
+          {
+            label: t("navigation.ventures"),
+            to: "/ventures",
+          },
+          {
+            label: t(`retainerTypes.${retainerType}`),
+            to: `/ventures/${retainerType}`,
+          },
+          {
+            label: t(ventureCategory.translationKey),
+          },
+        ]}
+      />
 
+      {isTargetedCategory(category) ? (
         <TargetedVentureList
           category={category}
           ventures={ventures}
           itemsById={itemsById}
         />
-      </>
-    );
-  }
-
-  return <p>Exploration: {category}</p>;
+      ) : (
+        <p>{t("explorationVenture.unavailable")}</p>
+      )}
+    </>
+  );
 }

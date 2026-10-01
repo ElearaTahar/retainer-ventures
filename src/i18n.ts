@@ -19,6 +19,11 @@ const resources = {
         ventures: "Ventures",
         retainers: "My Retainers",
       },
+      notFound: {
+        title: "Page not found",
+        description: "The requested page does not exist.",
+        backToVentures: "Back to Ventures",
+      },
       retainerTypes: {
         combat: "Combat",
         miner: "Miner",
@@ -54,6 +59,7 @@ const resources = {
         },
       },
       explorationVenture: {
+        unavailable: "Exploration ventures are not available yet.",
         categories: {
           field: "Field Exploration",
           highland: "Highland Exploration",
@@ -79,6 +85,11 @@ const resources = {
         main: "Navigation principale",
         ventures: "Tâches",
         retainers: "Mes servants",
+      },
+      notFound: {
+        title: "Page introuvable",
+        description: "La page demandée n’existe pas.",
+        backToVentures: "Retour aux tâches",
       },
       retainerTypes: {
         combat: "Combat",
@@ -115,6 +126,7 @@ const resources = {
         },
       },
       explorationVenture: {
+        unavailable: "Les tâches d’exploration ne sont pas encore disponibles.",
         categories: {
           field: "Exploration en plaine",
           highland: "Exploration en montagne",
