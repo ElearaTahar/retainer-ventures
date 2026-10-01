@@ -5,7 +5,7 @@
 .venture-summary {
   width: 100%;
   display: grid;
-  grid-template-columns: 20rem 1fr auto;
+  grid-template-columns: 22rem 1fr auto;
   align-items: center;
   padding: 0;
   color: var(--color-text);
@@ -112,7 +112,7 @@
 
 .venture-duration dl > div {
   display: grid;
-  grid-template-columns: 3.5rem 1rem auto;
+  grid-template-columns: max-content 1rem auto;
   align-items: baseline;
   justify-content: start;
   column-gap: 0.25rem;
@@ -120,7 +120,7 @@
 
 .venture-yields {
   width: 100%;
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 .venture-yields th,
