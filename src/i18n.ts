@@ -13,6 +13,11 @@ const resources = {
           dark: "dark",
         },
       },
+      navigation: {
+        main: "Main navigation",
+        ventures: "Ventures",
+        retainers: "My Retainers",
+      },
       retainerTypes: {
         combat: "Combat",
         miner: "Miner",
@@ -67,6 +72,11 @@ const resources = {
           light: "clair",
           dark: "sombre",
         },
+      },
+      navigation: {
+        main: "Navigation principale",
+        ventures: "Tâches",
+        retainers: "Mes servants",
       },
       retainerTypes: {
         combat: "Combat",

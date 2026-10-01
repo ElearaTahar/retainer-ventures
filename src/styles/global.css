@@ -70,7 +70,7 @@ textarea {
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 2rem;
 }
 
 .app-header {
@@ -81,10 +81,32 @@ textarea {
   font-weight: 600;
 }
 
+.app-navigation {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.app-navigation a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.app-navigation a:hover {
+  color: var(--color-text);
+}
+
+.app-navigation a.active {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
 .app-header-actions {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  margin-inline-start: auto;
 }
 
 .theme-toggle {

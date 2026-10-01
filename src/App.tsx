@@ -8,6 +8,7 @@ import { AppHeader } from "./components/AppHeader";
 import { VenturesPage } from "./pages/VenturesPage";
 import { RetainerTypePage } from "./pages/RetainerTypePage";
 import { VentureCategoryPage } from "./pages/VentureCategoryPage";
+import { RetainersPage } from "./pages/RetainersPage";
 
 export function App() {
   const [ventures, setVentures] = useState<TargetedVenture[] | null>(null);
@@ -61,6 +62,7 @@ export function App() {
       <main className="app-content">
         <Routes>
           <Route path="/ventures" element={<VenturesPage />} />
+          <Route path="/retainers" element={<RetainersPage />} />
           <Route
             path="/ventures/:retainerType"
             element={<RetainerTypePage />}
