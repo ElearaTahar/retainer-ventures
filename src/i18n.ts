@@ -13,6 +13,12 @@ const resources = {
           dark: "dark",
         },
       },
+      retainerTypes: {
+        combat: "Combat",
+        miner: "Miner",
+        botanist: "Botanist",
+        fisher: "Fisher",
+      },
       level: "Level {{level}}",
       abbreviatedLevel: "Lv. {{level}}",
       ventureCost_one: "{{count}} venture",
@@ -41,6 +47,14 @@ const resources = {
           minutesShort: "{{minutes}}m",
         },
       },
+      explorationVenture: {
+        categories: {
+          field: "Field Exploration",
+          highland: "Highland Exploration",
+          woodland: "Woodland Exploration",
+          waterside: "Waterside Exploration",
+        },
+      },
     },
   },
   fr: {
@@ -53,6 +67,12 @@ const resources = {
           light: "clair",
           dark: "sombre",
         },
+      },
+      retainerTypes: {
+        combat: "Combat",
+        miner: "Mineur",
+        botanist: "Botaniste",
+        fisher: "Pêcheur",
       },
       level: "Niveau {{level}}",
       abbreviatedLevel: "Niv. {{level}}",
@@ -80,6 +100,14 @@ const resources = {
           quantity: "Quantité",
           unknownItem: "Objet inconnu n°{{id}}",
           minutesShort: "{{minutes}} min",
+        },
+      },
+      explorationVenture: {
+        categories: {
+          field: "Exploration en plaine",
+          highland: "Exploration en montagne",
+          woodland: "Exploration en forêt",
+          waterside: "Exploration en rivage",
         },
       },
     },

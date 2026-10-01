@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import type { Language } from "./types/i18n";
+import { Route, Routes } from "react-router-dom";
 import type { TargetedVenture } from "./types/ventures";
 import type { ItemSearchEntry } from "./types/items";
 import { fetchVentures } from "./data/ventures";
 import { fetchItems } from "./data/items";
 import { AppHeader } from "./components/AppHeader";
-import { TargetedVentureList } from "./components/TargetedVentureList";
+import { VenturesPage } from "./pages/VenturesPage";
+import { RetainerTypePage } from "./pages/RetainerTypePage";
+import { VentureCategoryPage } from "./pages/VentureCategoryPage";
 
 export function App() {
   const [ventures, setVentures] = useState<TargetedVenture[] | null>(null);
@@ -57,11 +59,19 @@ export function App() {
       <AppHeader />
 
       <main className="app-content">
-        <TargetedVentureList
-          category="mining"
-          ventures={ventures}
-          itemsById={itemsById}
-        />
+        <Routes>
+          <Route path="/ventures" element={<VenturesPage />} />
+          <Route
+            path="/ventures/:retainerType"
+            element={<RetainerTypePage />}
+          />
+          <Route
+            path="/ventures/:retainerType/:category"
+            element={
+              <VentureCategoryPage ventures={ventures} itemsById={itemsById} />
+            }
+          />
+        </Routes>
       </main>
     </>
   );
