@@ -64,17 +64,20 @@ export function AppHeader() {
         <span className="app-title">{t("appTitle")}</span>
 
         <div className="app-header-actions">
-          <button
-            type="button"
-            onClick={() => {
-              const nextLanguage = i18n.language === "en" ? "fr" : "en";
+          <select
+            className="language-select"
+            value={i18n.language}
+            onChange={(event) => {
+              const language = event.target.value;
 
-              localStorage.setItem("language", nextLanguage);
-              i18n.changeLanguage(nextLanguage);
+              localStorage.setItem("language", language);
+              i18n.changeLanguage(language);
             }}
+            aria-label="Language"
           >
-            {i18n.language.toUpperCase()}
-          </button>
+            <option value="en">EN</option>
+            <option value="fr">FR</option>
+          </select>
 
           <button
             className="theme-toggle"
