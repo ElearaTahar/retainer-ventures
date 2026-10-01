@@ -23,6 +23,7 @@ export function AppHeader() {
   const effectiveTheme = themeOverrride !== null ? themeOverrride : systemTheme;
 
   const nextTheme = effectiveTheme === "dark" ? "light" : "dark";
+  const nextThemeLabel = t(`header.themes.${nextTheme}`);
 
   function toggleTheme() {
     if (nextTheme === systemTheme) {
@@ -73,7 +74,7 @@ export function AppHeader() {
               localStorage.setItem("language", language);
               i18n.changeLanguage(language);
             }}
-            aria-label="Language"
+            aria-label={t("header.language")}
           >
             <option value="en">EN</option>
             <option value="fr">FR</option>
@@ -83,8 +84,8 @@ export function AppHeader() {
             className="theme-toggle"
             type="button"
             onClick={toggleTheme}
-            aria-label={`Switch to ${nextTheme} theme`}
-            title={`Switch to ${nextTheme} theme`}
+            aria-label={t("header.switchTheme", { theme: nextThemeLabel })}
+            title={t("header.switchTheme", { theme: nextThemeLabel })}
           >
             <span className="theme-toggle-icons" aria-hidden="true">
               <svg

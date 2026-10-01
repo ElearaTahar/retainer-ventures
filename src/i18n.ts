@@ -5,6 +5,14 @@ const resources = {
   en: {
     translation: {
       appTitle: "FFXIV Retainer Ventures",
+      header: {
+        language: "Language",
+        switchTheme: "Switch to {{theme}} theme",
+        themes: {
+          light: "light",
+          dark: "dark",
+        },
+      },
       level: "Level {{level}}",
       abbreviatedLevel: "Lv. {{level}}",
       ventureCost_one: "{{count}} venture",
@@ -38,6 +46,14 @@ const resources = {
   fr: {
     translation: {
       appTitle: "FFXIV Retainer Ventures",
+      header: {
+        language: "Langue",
+        switchTheme: "Passer au thème {{theme}}",
+        themes: {
+          light: "clair",
+          dark: "sombre",
+        },
+      },
       level: "Niveau {{level}}",
       abbreviatedLevel: "Niv. {{level}}",
       ventureCost_one: "{{count}} jeton de tâche",
