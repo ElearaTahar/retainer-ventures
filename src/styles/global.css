@@ -46,6 +46,10 @@
   --color-focus: #ffffff;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   margin: 0;
   background: var(--color-background);
@@ -88,7 +92,7 @@ textarea {
 }
 
 .app-navigation a {
-  color: var(--color-text-secondary);
+  color: var(--color-text);
   text-decoration: none;
 }
 
@@ -184,4 +188,37 @@ textarea {
 .language-select option {
   color: var(--color-text);
   background: var(--color-surface);
+}
+
+.breadcrumb {
+  margin-block: 1rem;
+}
+
+.breadcrumb ol {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.breadcrumb a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb [aria-current="page"] {
+  font-weight: 600;
 }

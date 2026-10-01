@@ -14,6 +14,7 @@ const resources = {
         },
       },
       navigation: {
+        breadcrumb: "Breadcrumb",
         main: "Main navigation",
         ventures: "Ventures",
         retainers: "My Retainers",
@@ -74,6 +75,7 @@ const resources = {
         },
       },
       navigation: {
+        breadcrumb: "Fil d’Ariane",
         main: "Navigation principale",
         ventures: "Tâches",
         retainers: "Mes servants",

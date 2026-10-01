@@ -4,6 +4,7 @@ import {
   categoriesByRetainerType,
   isRetainerType,
 } from "../data/ventureCategories";
+import { Breadcrumb } from "../components/Breadcrumb";
 
 export function RetainerTypePage() {
   const { t } = useTranslation();
@@ -18,6 +19,18 @@ export function RetainerTypePage() {
 
   return (
     <>
+      <Breadcrumb
+        items={[
+          {
+            label: t("navigation.ventures"),
+            to: "/ventures",
+          },
+          {
+            label: t(`retainerTypes.${retainerType}`),
+          },
+        ]}
+      />
+
       <h1>{t(`retainerTypes.${retainerType}`)}</h1>
 
       <nav aria-label="Venture categories">
