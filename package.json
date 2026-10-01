@@ -17,6 +17,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate:ventures": "tsc -p tsconfig.scripts.json && node .generated-scripts/generate-ventures.js",
+    "generate:items": "tsc -p tsconfig.scripts.json && node .generated-scripts/generate-items.js"
   }
 }

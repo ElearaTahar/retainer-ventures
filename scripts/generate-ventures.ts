@@ -70,6 +70,18 @@ type RetainerTaskCollectionResponse = {
   rows: RetainerTaskResponse[];
 };
 
+type RetainerTaskRandomNameResponse = {
+  row_id: number;
+  fields: {
+    Name: string;
+    "Name@lang(fr)": string;
+  };
+};
+
+type RetainerTaskRandomNameCollectionResponse = {
+  rows: RetainerTaskRandomNameResponse[];
+};
+
 function getRetainerType(classJobCategoryId: number): RetainerType {
   switch (classJobCategoryId) {
     case 17:
@@ -267,7 +279,10 @@ type ExplorationVenture = {
   retainerType: RetainerType;
   category: ExplorationCategory;
   retainerTaskRandomId: number;
-  name: string;
+  name: {
+    en: string;
+    fr: string;
+  };
   requiredLevel: number;
   durationMinutes: number;
   ventureCost: number;
@@ -275,7 +290,10 @@ type ExplorationVenture = {
   requirement: Requirement;
 };
 
-function toExplorationVenture(data: RetainerTaskResponse): ExplorationVenture {
+function toExplorationVenture(
+  data: RetainerTaskResponse,
+  randomTasksById: Map<number, RetainerTaskRandomNameResponse>,
+): ExplorationVenture {
   const sheet = data.fields.Task.sheet;
   const classJobCategoryId = data.fields.ClassJobCategory.value;
   const ventureKind = getVentureKind(data.fields.IsRandom, classJobCategoryId);
@@ -295,13 +313,24 @@ function toExplorationVenture(data: RetainerTaskResponse): ExplorationVenture {
             value: data.fields.RequiredGathering,
           };
 
+    const randomTask = randomTasksById.get(data.fields.Task.row_id);
+
+    if (!randomTask) {
+      throw new Error(
+        `Missing RetainerTaskRandom ${data.fields.Task.row_id} for exploration ${data.row_id}`,
+      );
+    }
+
     return {
       id: data.row_id,
       kind: "exploration",
       retainerType,
       category,
       retainerTaskRandomId: data.fields.Task.row_id,
-      name: data.fields.Task.fields.Name,
+      name: {
+        en: randomTask.fields.Name,
+        fr: randomTask.fields["Name@lang(fr)"],
+      },
       requiredLevel: data.fields.RetainerLevel,
       durationMinutes: data.fields.MaxTimemin,
       ventureCost: data.fields.VentureCost,
@@ -319,12 +348,18 @@ type QuickExploration = {
   id: number;
   kind: "quick";
   retainerTaskRandomId: number;
-  name: string;
+  name: {
+    en: string;
+    fr: string;
+  };
   durationMinutes: number;
   ventureCost: number;
 };
 
-function toQuickExploration(data: RetainerTaskResponse): QuickExploration {
+function toQuickExploration(
+  data: RetainerTaskResponse,
+  randomTasksById: Map<number, RetainerTaskRandomNameResponse>,
+): QuickExploration {
   const sheet = data.fields.Task.sheet;
   const classJobCategoryId = data.fields.ClassJobCategory.value;
   const ventureKind = getVentureKind(data.fields.IsRandom, classJobCategoryId);
@@ -336,11 +371,22 @@ function toQuickExploration(data: RetainerTaskResponse): QuickExploration {
       );
     }
 
+    const randomTask = randomTasksById.get(data.fields.Task.row_id);
+
+    if (!randomTask) {
+      throw new Error(
+        `Missing RetainerTaskRandom ${data.fields.Task.row_id} for quick exploration ${data.row_id}`,
+      );
+    }
+
     return {
       id: data.row_id,
       kind: "quick",
       retainerTaskRandomId: data.fields.Task.row_id,
-      name: data.fields.Task.fields.Name,
+      name: {
+        en: randomTask.fields.Name,
+        fr: randomTask.fields["Name@lang(fr)"],
+      },
       durationMinutes: data.fields.MaxTimemin,
       ventureCost: data.fields.VentureCost,
     };
@@ -353,7 +399,10 @@ function toQuickExploration(data: RetainerTaskResponse): QuickExploration {
 
 type Venture = TargetedVenture | ExplorationVenture | QuickExploration;
 
-function toVenture(data: RetainerTaskResponse): Venture {
+function toVenture(
+  data: RetainerTaskResponse,
+  randomTasksById: Map<number, RetainerTaskRandomNameResponse>,
+): Venture {
   const classJobCategoryId = data.fields.ClassJobCategory.value;
   const ventureKind = getVentureKind(data.fields.IsRandom, classJobCategoryId);
 
@@ -361,9 +410,9 @@ function toVenture(data: RetainerTaskResponse): Venture {
     case "targeted":
       return toTargetedVenture(data);
     case "exploration":
-      return toExplorationVenture(data);
+      return toExplorationVenture(data, randomTasksById);
     case "quick":
-      return toQuickExploration(data);
+      return toQuickExploration(data, randomTasksById);
     default:
       throw new Error(
         `venture ${data.row_id}: unknown venture kind ${ventureKind}`,
@@ -412,6 +461,36 @@ async function fetchAllRetainerTasks(
   return rows;
 }
 
+async function fetchAllRetainerTaskRandomNames(): Promise<
+  RetainerTaskRandomNameResponse[]
+> {
+  const rows: RetainerTaskRandomNameResponse[] = [];
+  let after: number | undefined;
+
+  while (true) {
+    let url =
+      `${XIVAPI_BASE_URL}/sheet/RetainerTaskRandom` +
+      `?limit=500&fields=Name,Name@lang(fr)`;
+
+    if (after !== undefined) {
+      url += `&after=${after}`;
+    }
+
+    const data = await fetchJSON<RetainerTaskRandomNameCollectionResponse>(url);
+
+    const lastRow = data.rows[data.rows.length - 1];
+
+    if (!lastRow) {
+      break;
+    }
+
+    rows.push(...data.rows);
+    after = lastRow.row_id;
+  }
+
+  return rows;
+}
+
 async function main() {
   const fields = [
     "ClassJobCategory",
@@ -429,9 +508,15 @@ async function main() {
 
   const rows = await fetchAllRetainerTasks(fieldsParam);
 
+  const randomTasks = await fetchAllRetainerTaskRandomNames();
+
+  const randomTasksById = new Map(
+    randomTasks.map((task) => [task.row_id, task]),
+  );
+
   const ventures = rows
     .filter((row) => row.fields.Task.row_id !== 0)
-    .map(toVenture);
+    .map((row) => toVenture(row, randomTasksById));
 
   const targeted = ventures.filter((venture) => venture.kind === "targeted");
 
