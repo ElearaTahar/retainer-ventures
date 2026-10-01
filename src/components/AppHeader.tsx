@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { Language } from "../types/i18n";
+import { NavLink } from "react-router-dom";
 
 type Theme = "light" | "dark";
 
@@ -63,6 +63,11 @@ export function AppHeader() {
     <header className="app-header">
       <div className="app-header-content">
         <span className="app-title">{t("appTitle")}</span>
+
+        <nav className="app-navigation" aria-label={t("navigation.main")}>
+          <NavLink to="/ventures">{t("navigation.ventures")}</NavLink>
+          <NavLink to="/retainers">{t("navigation.retainers")}</NavLink>
+        </nav>
 
         <div className="app-header-actions">
           <select
