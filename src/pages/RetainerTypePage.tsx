@@ -6,6 +6,7 @@ import {
 } from "../data/ventureCategories";
 import { Breadcrumb } from "../components/Breadcrumb";
 import { NotFoundPage } from "./NotFoundPage";
+import "../styles/retainer-type-page.css";
 
 export function RetainerTypePage() {
   const { t } = useTranslation();
@@ -34,7 +35,10 @@ export function RetainerTypePage() {
 
       <h1>{t(`retainerTypes.${retainerType}`)}</h1>
 
-      <nav aria-label={t("navigation.ventureCategories")}>
+      <nav
+        className="venture-category-navigation"
+        aria-label={t("navigation.ventureCategories")}
+      >
         {categories.map((category) => (
           <Link
             key={category.slug}
