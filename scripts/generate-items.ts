@@ -118,6 +118,7 @@ async function main() {
 
   const output = {
     metadata: {
+      source: "XIVAPI",
       generatedAt: new Date().toISOString(),
       count: items.length,
     },
