@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { Language } from "../types/i18n";
 import type { ItemSearchEntry } from "../types/items";
 import type { TargetedCategory, TargetedVenture } from "../types/ventures";
 import { buildItemIconUrl } from "../utils/itemIcon";
 import "../styles/targeted-venture-list.css";
+import { useExpandedItems } from "../hooks/useExpandedItems";
 
 type TargetedVentureListProps = {
   category: TargetedCategory;
@@ -29,9 +29,7 @@ export function TargetedVentureList({
 
   const numberFormatter = new Intl.NumberFormat(language);
 
-  const [expandedVentureId, setExpandedVentureId] = useState<number | null>(
-    null,
-  );
+  const { isExpanded, toggleExpanded } = useExpandedItems();
 
   const categoryVentures = ventures
     .filter((venture) => venture.category === category)
@@ -49,7 +47,7 @@ export function TargetedVentureList({
       </p>
 
       {categoryVentures.map((venture) => {
-        const isExpanded = expandedVentureId === venture.id;
+        const expanded = isExpanded(venture.id);
         const panelId = `venture-${venture.id}-details`;
 
         const yieldStatLabel = t(
@@ -75,10 +73,10 @@ export function TargetedVentureList({
             <button
               type="button"
               className="venture-summary"
-              aria-expanded={isExpanded}
+              aria-expanded={expanded}
               aria-controls={panelId}
               onClick={() => {
-                setExpandedVentureId(isExpanded ? null : venture.id);
+                toggleExpanded(venture.id);
               }}
             >
               <span className="venture-item">
@@ -102,12 +100,12 @@ export function TargetedVentureList({
               </span>
 
               <span
-                className={`venture-chevron ${isExpanded ? "venture-chevron--expanded" : ""}`}
+                className={`venture-chevron ${expanded ? "venture-chevron--expanded" : ""}`}
                 aria-hidden="true"
               />
             </button>
 
-            {isExpanded && (
+            {expanded && (
               <div id={panelId} className="venture-details">
                 <dl className="venture-properties">
                   <div>

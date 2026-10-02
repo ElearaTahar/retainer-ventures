@@ -192,9 +192,15 @@ const resources = {
   },
 };
 
+function getBrowserLanguage() {
+  return navigator.language.startsWith("fr") ? "fr" : "en";
+}
+
 const storedLanguage = localStorage.getItem("language");
 const initialLanguage =
-  storedLanguage === "en" || storedLanguage === "fr" ? storedLanguage : "en";
+  storedLanguage === "en" || storedLanguage === "fr"
+    ? storedLanguage
+    : getBrowserLanguage();
 
 i18n.use(initReactI18next).init({
   resources,
@@ -205,6 +211,12 @@ i18n.use(initReactI18next).init({
   interpolation: {
     escapeValue: false,
   },
+});
+
+document.documentElement.lang = initialLanguage;
+
+i18n.on("languageChanged", (language) => {
+  document.documentElement.lang = language;
 });
 
 export default i18n;
