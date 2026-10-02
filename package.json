@@ -19,6 +19,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "generate:ventures": "tsc -p tsconfig.scripts.json && node .generated-scripts/generate-ventures.js",
-    "generate:items": "tsc -p tsconfig.scripts.json && node .generated-scripts/generate-items.js"
+    "generate:items": "tsc -p tsconfig.scripts.json && node .generated-scripts/generate-items.js",
+    "generate:rewards": "tsc -p tsconfig.scripts.json && node .generated-scripts/generate-venture-rewards.js",
+    "generate:reward-supplement": "tsc -p tsconfig.scripts.json && node .generated-scripts/generate-exploration-reward-supplement.js",
+    "check:missing-rewards": "tsc -p tsconfig.scripts.json && node .generated-scripts/check-missing-exploration-rewards.js",
+    "generate:data": "npm run generate:ventures && npm run generate:items && npm run generate:reward-supplement && npm run generate:rewards && npm run check:missing-rewards"
   }
 }

@@ -1,0 +1,1947 @@
+{
+  "metadata": {
+    "rewardSource": "LuminaSupplemental + FFXIV Community Wiki supplement",
+    "classificationSource": "FFXIV game data",
+    "generatedAt": "2026-10-02T03:26:45.631Z",
+    "sourceRewardCount": 802,
+    "sourceVentureCount": 124,
+    "classifiedRewardCount": 842,
+    "classifiedVentureCount": 123,
+    "skippedRewardCount": 42,
+    "skippedVentureCount": 1
+  },
+  "rewardsByRetainerTaskRandomId": {
+    "30001": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4850,
+        5434
+      ],
+      "otherItems": []
+    },
+    "30002": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5292,
+        5442
+      ],
+      "otherItems": [
+        5888
+      ]
+    },
+    "30003": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4760,
+        4773,
+        5435,
+        5454,
+        5551
+      ],
+      "otherItems": [
+        5889
+      ]
+    },
+    "30004": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5296,
+        5355
+      ],
+      "otherItems": []
+    },
+    "30005": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5436,
+        5496
+      ],
+      "otherItems": [
+        5629
+      ]
+    },
+    "30006": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5447,
+        5455,
+        5554,
+        6149
+      ],
+      "otherItems": [
+        5664,
+        5669,
+        5674,
+        5679
+      ]
+    },
+    "30007": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5303,
+        5347
+      ],
+      "otherItems": []
+    },
+    "30008": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5322,
+        5555
+      ],
+      "otherItems": [
+        5630
+      ]
+    },
+    "30009": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4768,
+        4775,
+        5263,
+        5348
+      ],
+      "otherItems": [
+        5665,
+        5670,
+        5675,
+        5680
+      ]
+    },
+    "30010": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5310
+      ],
+      "otherItems": [
+        5631,
+        5701,
+        5711,
+        6140
+      ]
+    },
+    "30011": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        4816,
+        5316,
+        7042,
+        7605
+      ],
+      "otherItems": []
+    },
+    "30012": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        5316,
+        6150,
+        7579,
+        7581,
+        7582,
+        12909
+      ],
+      "otherItems": []
+    },
+    "30013": {
+      "allaganPieces": [],
+      "minions": [
+        7566
+      ],
+      "jobItems": [
+        5316,
+        6150,
+        7599,
+        7794,
+        7795,
+        7806
+      ],
+      "otherItems": []
+    },
+    "30014": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        2,
+        6,
+        5106,
+        5488
+      ],
+      "otherItems": []
+    },
+    "30015": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        2,
+        6,
+        5128,
+        5133
+      ],
+      "otherItems": []
+    },
+    "30016": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5111,
+        5267,
+        5518
+      ],
+      "otherItems": [
+        5744,
+        5895
+      ]
+    },
+    "30017": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5129,
+        5229,
+        5465
+      ],
+      "otherItems": [
+        5684,
+        5699,
+        5759,
+        5901
+      ]
+    },
+    "30018": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5153,
+        5156,
+        5270
+      ],
+      "otherItems": [
+        5689,
+        5744,
+        5812,
+        5895
+      ]
+    },
+    "30019": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5523,
+        5527,
+        5528
+      ],
+      "otherItems": [
+        5773,
+        5790,
+        5901
+      ]
+    },
+    "30020": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5134,
+        5136,
+        5137
+      ],
+      "otherItems": [
+        5685,
+        5700,
+        5749,
+        5799,
+        5895
+      ]
+    },
+    "30021": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5142,
+        5526
+      ],
+      "otherItems": [
+        5690,
+        5710,
+        5767,
+        5790,
+        5901
+      ]
+    },
+    "30022": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5140,
+        5145,
+        5272
+      ],
+      "otherItems": [
+        5695,
+        5766,
+        5795,
+        5895
+      ]
+    },
+    "30023": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5263,
+        5458
+      ],
+      "otherItems": [
+        5686,
+        5691,
+        5696,
+        5701,
+        5706,
+        5711
+      ]
+    },
+    "30024": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        5118,
+        5121,
+        5273,
+        6152
+      ],
+      "otherItems": [
+        7041,
+        7602
+      ]
+    },
+    "30025": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        5121,
+        5158,
+        5273,
+        6152
+      ],
+      "otherItems": [
+        7584
+      ]
+    },
+    "30026": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        7566
+      ],
+      "jobItems": [
+        5118,
+        5273,
+        6152
+      ],
+      "otherItems": [
+        7597,
+        7794,
+        7795
+      ]
+    },
+    "30027": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4,
+        5,
+        4828,
+        5516
+      ],
+      "otherItems": []
+    },
+    "30028": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5,
+        4803,
+        4831,
+        5351,
+        5383
+      ],
+      "otherItems": []
+    },
+    "30029": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4778,
+        5343,
+        5539
+      ],
+      "otherItems": [
+        5767,
+        5894
+      ]
+    },
+    "30030": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4785,
+        5405
+      ],
+      "otherItems": [
+        5781
+      ]
+    },
+    "30031": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4812,
+        4836
+      ],
+      "otherItems": [
+        5749,
+        5797,
+        5894
+      ]
+    },
+    "30032": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5359
+      ],
+      "otherItems": [
+        5777,
+        5900
+      ]
+    },
+    "30033": {
+      "allaganPieces": [],
+      "minions": [],
+      "jobItems": [
+        5360,
+        5409,
+        5543
+      ],
+      "otherItems": [
+        5690,
+        5753,
+        5812
+      ]
+    },
+    "30034": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4793,
+        4814,
+        4842
+      ],
+      "otherItems": [
+        5695,
+        5900
+      ]
+    },
+    "30035": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4815,
+        4845,
+        5564
+      ],
+      "otherItems": [
+        5700,
+        5784,
+        5894
+      ]
+    },
+    "30036": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        5055,
+        5414
+      ],
+      "otherItems": [
+        5686,
+        5691,
+        5696,
+        5701,
+        5706,
+        5711
+      ]
+    },
+    "30037": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        4816,
+        5350,
+        5395,
+        5537
+      ],
+      "otherItems": [
+        7041
+      ]
+    },
+    "30038": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        5350,
+        5537,
+        5545,
+        6148
+      ],
+      "otherItems": [
+        7580,
+        12910
+      ]
+    },
+    "30039": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        5350,
+        5545
+      ],
+      "otherItems": []
+    },
+    "30040": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4871,
+        5460
+      ],
+      "otherItems": [
+        7
+      ]
+    },
+    "30042": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [],
+      "otherItems": [
+        5893
+      ]
+    },
+    "30043": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4881,
+        4884
+      ],
+      "otherItems": []
+    },
+    "30044": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4958
+      ],
+      "otherItems": [
+        5753,
+        5893
+      ]
+    },
+    "30045": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4893
+      ],
+      "otherItems": [
+        5709,
+        5781,
+        5798
+      ]
+    },
+    "30046": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4896,
+        4898
+      ],
+      "otherItems": [
+        5695,
+        5744
+      ]
+    },
+    "30047": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4982,
+        5462
+      ],
+      "otherItems": [
+        5700
+      ]
+    },
+    "30048": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4903,
+        5466
+      ],
+      "otherItems": [
+        5690,
+        5785
+      ]
+    },
+    "30049": {
+      "allaganPieces": [
+        5824
+      ],
+      "minions": [],
+      "jobItems": [
+        4997,
+        5040
+      ],
+      "otherItems": [
+        5701
+      ]
+    },
+    "30050": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        5020
+      ],
+      "otherItems": [
+        4816,
+        6147
+      ]
+    },
+    "30051": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        4915,
+        5020
+      ],
+      "otherItems": [
+        6147,
+        7587
+      ]
+    },
+    "30052": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        7566
+      ],
+      "jobItems": [
+        4915,
+        5020
+      ],
+      "otherItems": [
+        6147,
+        7794,
+        7795
+      ]
+    },
+    "30054": {
+      "allaganPieces": [],
+      "minions": [
+        8199
+      ],
+      "jobItems": [
+        5316,
+        5317,
+        6150,
+        7579,
+        7581,
+        7582
+      ],
+      "otherItems": []
+    },
+    "30055": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        8201
+      ],
+      "jobItems": [
+        5118,
+        5121,
+        6152
+      ],
+      "otherItems": [
+        7583,
+        7584,
+        7770,
+        9375
+      ]
+    },
+    "30056": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        9348
+      ],
+      "jobItems": [
+        4800,
+        5350,
+        5537
+      ],
+      "otherItems": [
+        7586,
+        8025
+      ]
+    },
+    "30057": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        9347
+      ],
+      "jobItems": [
+        4915,
+        5020
+      ],
+      "otherItems": [
+        6147,
+        7585,
+        7587,
+        8022
+      ]
+    },
+    "30058": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        8199
+      ],
+      "jobItems": [
+        5313,
+        5314,
+        5316,
+        7806
+      ],
+      "otherItems": []
+    },
+    "30059": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        5146,
+        6152,
+        7588,
+        7589,
+        7766
+      ],
+      "otherItems": []
+    },
+    "30060": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        9348
+      ],
+      "jobItems": [
+        6148,
+        7591,
+        7592,
+        7593
+      ],
+      "otherItems": [
+        7596,
+        8025
+      ]
+    },
+    "30061": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        9347
+      ],
+      "jobItems": [
+        4915,
+        4923,
+        5020,
+        5028
+      ],
+      "otherItems": [
+        7598,
+        8022
+      ]
+    },
+    "30062": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        5313,
+        5314,
+        5316,
+        5437,
+        7599,
+        7806
+      ],
+      "otherItems": []
+    },
+    "30063": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        5146,
+        6152,
+        7588,
+        7589
+      ],
+      "otherItems": [
+        7597
+      ]
+    },
+    "30064": {
+      "allaganPieces": [],
+      "minions": [
+        9348
+      ],
+      "jobItems": [
+        6148,
+        7591,
+        7592,
+        7593
+      ],
+      "otherItems": [
+        7596,
+        8025
+      ]
+    },
+    "30065": {
+      "allaganPieces": [],
+      "minions": [
+        9347
+      ],
+      "jobItems": [
+        4923,
+        5020,
+        5025,
+        5028
+      ],
+      "otherItems": [
+        7598,
+        7601
+      ]
+    },
+    "30066": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        5313,
+        7041,
+        7599,
+        7795,
+        7806,
+        12574,
+        12909
+      ],
+      "otherItems": []
+    },
+    "30067": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        5147,
+        5148,
+        5149,
+        5150,
+        7588,
+        7610
+      ],
+      "otherItems": [
+        7597
+      ]
+    },
+    "30068": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        9348
+      ],
+      "jobItems": [
+        5365,
+        5394,
+        7611,
+        8024
+      ],
+      "otherItems": [
+        8025
+      ]
+    },
+    "30069": {
+      "allaganPieces": [],
+      "minions": [
+        9347
+      ],
+      "jobItems": [
+        5025,
+        7690,
+        7916,
+        7930,
+        7951
+      ],
+      "otherItems": [
+        12911
+      ]
+    },
+    "30070": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        5313,
+        7041,
+        7599,
+        7795,
+        7806,
+        12574,
+        12651,
+        12909
+      ],
+      "otherItems": []
+    },
+    "30071": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        5147,
+        7610,
+        8030,
+        9519,
+        10093
+      ],
+      "otherItems": [
+        12648
+      ]
+    },
+    "30072": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        9348
+      ],
+      "jobItems": [
+        7611,
+        8031,
+        9518,
+        10096
+      ],
+      "otherItems": [
+        8025,
+        12650
+      ]
+    },
+    "30073": {
+      "allaganPieces": [],
+      "minions": [
+        9347,
+        12061
+      ],
+      "jobItems": [
+        5025,
+        7690,
+        7916,
+        7930,
+        7951,
+        10123
+      ],
+      "otherItems": []
+    },
+    "30074": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        8199
+      ],
+      "jobItems": [
+        5507,
+        12566,
+        12592,
+        12596,
+        12612,
+        12614,
+        12651
+      ],
+      "otherItems": []
+    },
+    "30075": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        20525
+      ],
+      "jobItems": [
+        5159,
+        12538,
+        12901
+      ],
+      "otherItems": [
+        12520,
+        12522,
+        12526,
+        12548,
+        12648
+      ]
+    },
+    "30076": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        20525
+      ],
+      "jobItems": [
+        12897,
+        12898,
+        12899,
+        12943,
+        12944
+      ],
+      "otherItems": [
+        8025,
+        12613,
+        12650
+      ]
+    },
+    "30077": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        9347,
+        12061,
+        20525
+      ],
+      "jobItems": [
+        12718,
+        12719,
+        12720,
+        12741
+      ],
+      "otherItems": [
+        12615,
+        12616
+      ]
+    },
+    "30078": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        20530
+      ],
+      "jobItems": [
+        19874,
+        19877,
+        19919,
+        19922,
+        19923,
+        19924,
+        19999
+      ],
+      "otherItems": []
+    },
+    "30079": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        20525
+      ],
+      "jobItems": [
+        19951,
+        19968,
+        19969,
+        19970
+      ],
+      "otherItems": []
+    },
+    "30080": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        20525
+      ],
+      "jobItems": [
+        19853,
+        19856,
+        19860,
+        19861,
+        19931
+      ],
+      "otherItems": []
+    },
+    "30081": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        20525
+      ],
+      "jobItems": [
+        4894,
+        20050
+      ],
+      "otherItems": []
+    },
+    "30082": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        20530
+      ],
+      "jobItems": [
+        19873,
+        19878,
+        19920,
+        19921,
+        19985,
+        20000,
+        20001
+      ],
+      "otherItems": []
+    },
+    "30083": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        20525
+      ],
+      "jobItems": [
+        19952,
+        19954,
+        19957,
+        19971,
+        19972,
+        19973
+      ],
+      "otherItems": []
+    },
+    "30084": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        20525
+      ],
+      "jobItems": [
+        19852,
+        19857,
+        19932,
+        19933,
+        19989
+      ],
+      "otherItems": []
+    },
+    "30085": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        20525
+      ],
+      "jobItems": [
+        20105,
+        20191,
+        20198,
+        20209,
+        20226
+      ],
+      "otherItems": []
+    },
+    "30086": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        20530,
+        21059
+      ],
+      "jobItems": [
+        19873,
+        19877,
+        19985,
+        19999,
+        20000,
+        20001
+      ],
+      "otherItems": []
+    },
+    "30087": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        20525,
+        21058
+      ],
+      "jobItems": [
+        19907,
+        19968,
+        19969,
+        19970,
+        19971,
+        19972
+      ],
+      "otherItems": []
+    },
+    "30088": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        20525,
+        21064
+      ],
+      "jobItems": [
+        19857,
+        19865,
+        19918,
+        19931,
+        19932,
+        19933
+      ],
+      "otherItems": []
+    },
+    "30089": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        20525,
+        21063
+      ],
+      "jobItems": [
+        20090,
+        20105,
+        20138,
+        20165,
+        20198,
+        20209
+      ],
+      "otherItems": []
+    },
+    "30090": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        27732,
+        27733,
+        27763,
+        27797,
+        27798,
+        27850,
+        27851
+      ],
+      "otherItems": []
+    },
+    "30091": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        27696,
+        27697,
+        27698,
+        27699,
+        27801,
+        27817,
+        27954
+      ],
+      "otherItems": []
+    },
+    "30092": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        27683,
+        27684,
+        27685,
+        27747,
+        27750,
+        27753,
+        27832
+      ],
+      "otherItems": []
+    },
+    "30093": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        12061
+      ],
+      "jobItems": [
+        27457,
+        27462,
+        27473,
+        27475,
+        27540
+      ],
+      "otherItems": []
+    },
+    "30094": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        8199
+      ],
+      "jobItems": [
+        27734,
+        27735,
+        27736,
+        27756,
+        27773,
+        27852
+      ],
+      "otherItems": []
+    },
+    "30095": {
+      "allaganPieces": [],
+      "minions": [
+        21058
+      ],
+      "jobItems": [
+        27702,
+        27703,
+        27726,
+        27727,
+        27728,
+        27729,
+        27730
+      ],
+      "otherItems": []
+    },
+    "30096": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        21064
+      ],
+      "jobItems": [
+        27686,
+        27687,
+        27828,
+        27833
+      ],
+      "otherItems": []
+    },
+    "30097": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        9347
+      ],
+      "jobItems": [
+        27451,
+        27483,
+        27513,
+        27571,
+        27576
+      ],
+      "otherItems": []
+    },
+    "30098": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        28620
+      ],
+      "jobItems": [
+        27732,
+        27735,
+        27736,
+        27756,
+        27773,
+        27799,
+        27851
+      ],
+      "otherItems": []
+    },
+    "30099": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        28620,
+        28627
+      ],
+      "jobItems": [
+        27697,
+        27698,
+        27699,
+        27728,
+        27729,
+        27730,
+        27801
+      ],
+      "otherItems": []
+    },
+    "30100": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        28618
+      ],
+      "jobItems": [
+        27686,
+        27687,
+        27753,
+        27822,
+        27828,
+        27832,
+        27836
+      ],
+      "otherItems": []
+    },
+    "30101": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        9347,
+        28624
+      ],
+      "jobItems": [
+        27462,
+        27473,
+        27475,
+        27513,
+        27540,
+        27571
+      ],
+      "otherItems": []
+    },
+    "30102": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        35970
+      ],
+      "jobItems": [
+        36203,
+        36242,
+        36243,
+        36244,
+        36245,
+        36258
+      ],
+      "otherItems": []
+    },
+    "30103": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        36163,
+        36164,
+        36174,
+        36241
+      ],
+      "otherItems": []
+    },
+    "30104": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        35986
+      ],
+      "jobItems": [
+        36086,
+        36190,
+        36191,
+        36192,
+        36202,
+        36204
+      ],
+      "otherItems": []
+    },
+    "30105": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        36392,
+        36404,
+        36425,
+        36448,
+        36461,
+        36465
+      ],
+      "otherItems": []
+    },
+    "30106": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        35970
+      ],
+      "jobItems": [
+        36246,
+        36256,
+        36260,
+        36261,
+        36262,
+        36630
+      ],
+      "otherItems": []
+    },
+    "30107": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        35987
+      ],
+      "jobItems": [
+        36165,
+        36166,
+        36177,
+        36178,
+        36181,
+        36263
+      ],
+      "otherItems": []
+    },
+    "30108": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        35986
+      ],
+      "jobItems": [
+        36094,
+        36095,
+        36097,
+        36193,
+        36194,
+        36205,
+        36206
+      ],
+      "otherItems": []
+    },
+    "30109": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        35980
+      ],
+      "jobItems": [
+        36519,
+        36545,
+        36547,
+        36575,
+        36581
+      ],
+      "otherItems": []
+    },
+    "30110": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        35970,
+        36856
+      ],
+      "jobItems": [
+        36242,
+        36244,
+        36245,
+        36246,
+        36256,
+        36261
+      ],
+      "otherItems": []
+    },
+    "30111": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        35987,
+        36852
+      ],
+      "jobItems": [
+        36165,
+        36166,
+        36177,
+        36178,
+        36181,
+        36263
+      ],
+      "otherItems": []
+    },
+    "30112": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        35986,
+        36855
+      ],
+      "jobItems": [
+        36094,
+        36095,
+        36097,
+        36194,
+        36204,
+        36206
+      ],
+      "otherItems": []
+    },
+    "30113": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        35980,
+        36860
+      ],
+      "jobItems": [
+        36519,
+        36545,
+        36547,
+        36575,
+        36581
+      ],
+      "otherItems": []
+    },
+    "30114": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        36856
+      ],
+      "jobItems": [
+        44063,
+        44054,
+        44067,
+        44068,
+        44053
+      ],
+      "otherItems": []
+    },
+    "30115": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        28620
+      ],
+      "jobItems": [
+        44055,
+        44065,
+        44066,
+        44064,
+        44070
+      ],
+      "otherItems": []
+    },
+    "30116": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        44072,
+        44057,
+        44056,
+        44027,
+        44071
+      ],
+      "otherItems": [
+        44111,
+        44119,
+        44120
+      ]
+    },
+    "30117": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        36852
+      ],
+      "jobItems": [
+        44002,
+        43992,
+        43982,
+        44003,
+        43993
+      ],
+      "otherItems": []
+    },
+    "30118": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        28627
+      ],
+      "jobItems": [
+        44003,
+        44004
+      ],
+      "otherItems": []
+    },
+    "30119": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        43582
+      ],
+      "jobItems": [
+        44007,
+        44004,
+        43995,
+        44005,
+        44034
+      ],
+      "otherItems": []
+    },
+    "30120": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        36855
+      ],
+      "jobItems": [
+        44015,
+        44042,
+        44014,
+        44024,
+        43989,
+        43978,
+        43990
+      ],
+      "otherItems": []
+    },
+    "30121": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        44040,
+        43991
+      ],
+      "otherItems": []
+    },
+    "30122": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        43573
+      ],
+      "jobItems": [
+        43984,
+        43983,
+        44028,
+        44041
+      ],
+      "otherItems": []
+    },
+    "30123": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        43673,
+        43695,
+        43676,
+        43666,
+        43806,
+        43804
+      ],
+      "otherItems": []
+    },
+    "30124": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [],
+      "jobItems": [
+        43808,
+        43702,
+        43692
+      ],
+      "otherItems": []
+    },
+    "30125": {
+      "allaganPieces": [
+        5825
+      ],
+      "minions": [
+        43575
+      ],
+      "jobItems": [
+        43808,
+        43837,
+        43702,
+        43843,
+        43739,
+        43769
+      ],
+      "otherItems": []
+    }
+  }
+}
