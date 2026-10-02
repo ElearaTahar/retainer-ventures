@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { Language } from "../types/i18n";
 import type {
@@ -10,6 +9,7 @@ import type { VentureRewardsData } from "../types/ventureRewards";
 import { ExplorationRewardGroup } from "./ExplorationRewardGroup";
 import "../styles/targeted-venture-list.css";
 import "../styles/exploration-venture-list.css";
+import { useExpandedItems } from "../hooks/useExpandedItems";
 
 const categoryTranslationKeys: Record<ExplorationCategory, string> = {
   "field-exploration": "explorationVenture.categories.field",
@@ -37,9 +37,7 @@ export function ExplorationVentureList({
 
   const numberFormatter = new Intl.NumberFormat(language);
 
-  const [expandedVentureId, setExpandedVentureId] = useState<number | null>(
-    null,
-  );
+  const { isExpanded, toggleExpanded } = useExpandedItems();
 
   const categoryVentures = ventures
     .filter((venture) => venture.category === category)
@@ -59,7 +57,7 @@ export function ExplorationVentureList({
       <p>{t("explorationVenture.communityRewardsNotice")}</p>
 
       {categoryVentures.map((venture) => {
-        const isExpanded = expandedVentureId === venture.id;
+        const expanded = isExpanded(venture.id);
         const panelId = `exploration-venture-${venture.id}-details`;
 
         const rewards =
@@ -72,10 +70,10 @@ export function ExplorationVentureList({
             <button
               type="button"
               className="venture-summary exploration-venture-summary"
-              aria-expanded={isExpanded}
+              aria-expanded={expanded}
               aria-controls={panelId}
               onClick={() => {
-                setExpandedVentureId(isExpanded ? null : venture.id);
+                toggleExpanded(venture.id);
               }}
             >
               <span className="venture-name">{venture.name[language]}</span>
@@ -86,13 +84,13 @@ export function ExplorationVentureList({
 
               <span
                 className={`venture-chevron ${
-                  isExpanded ? "venture-chevron--expanded" : ""
+                  expanded ? "venture-chevron--expanded" : ""
                 }`}
                 aria-hidden="true"
               />
             </button>
 
-            {isExpanded && (
+            {expanded && (
               <div id={panelId} className="venture-details">
                 <div className="exploration-details-grid">
                   <dl className="venture-properties">
