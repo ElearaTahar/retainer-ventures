@@ -64,13 +64,35 @@ const resources = {
         },
       },
       explorationVenture: {
-        unavailable: "Exploration ventures are not available yet.",
         categories: {
           field: "Field Exploration",
           highland: "Highland Exploration",
           woodland: "Woodland Exploration",
           waterside: "Waterside Exploration",
         },
+        description: "Exploration ventures for this retainer type.",
+        durationSummary: "18 hours",
+        communityRewardsNotice:
+          "Possible rewards are based on community data and may be incomplete.",
+        details: {
+          requirement: "REQUIREMENT",
+          experience: "EXPERIENCE",
+          itemLevelRequirement: "Retainer item level {{value}}",
+          gatheringRequirement: "Gathering {{value}}",
+        },
+        rewards: {
+          allaganPieces: "ALLAGAN PIECES",
+          jobItems: {
+            combat: "CRAFTING MATERIALS",
+            miner: "MINING ITEMS",
+            botanist: "BOTANY ITEMS",
+            fisher: "FISHING ITEMS",
+          },
+          minions: "MINIONS",
+          otherItems: "OTHER ITEMS",
+        },
+        unknownItem: "Unknown item ({{id}})",
+        noKnownRewards: "No known rewards",
       },
     },
   },
@@ -136,13 +158,35 @@ const resources = {
         },
       },
       explorationVenture: {
-        unavailable: "Les tâches d’exploration ne sont pas encore disponibles.",
         categories: {
           field: "Exploration en plaine",
           highland: "Exploration en montagne",
           woodland: "Exploration en forêt",
           waterside: "Exploration en rivage",
         },
+        description: "Tâches d'exploration pour ce type de servant.",
+        durationSummary: "18 heures",
+        communityRewardsNotice:
+          "Les récompenses possibles reposent sur des données communautaires et peuvent être incomplètes.",
+        details: {
+          requirement: "PRÉREQUIS",
+          experience: "EXPÉRIENCE",
+          itemLevelRequirement: "Niv. objet du servant {{value}}",
+          gatheringRequirement: "Collecte {{value}}",
+        },
+        rewards: {
+          allaganPieces: "PIÈCES ALLAGOISES",
+          jobItems: {
+            combat: "MATÉRIAUX D'ARTISANAT",
+            miner: "OBJETS DE MINEUR",
+            botanist: "OBJETS DE BOTANISTE",
+            fisher: "OBJETS DE PÊCHE",
+          },
+          minions: "MASCOTTES",
+          otherItems: "AUTRES OBJETS",
+        },
+        unknownItem: "Objet inconnu ({{id}})",
+        noKnownRewards: "Aucune récompense connue",
       },
     },
   },

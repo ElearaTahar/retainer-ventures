@@ -1,0 +1,88 @@
+.exploration-section-title {
+  margin: 0 0 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.exploration-venture-summary {
+  min-height: 40px;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr) auto;
+  align-items: center;
+  padding-inline: 16px;
+}
+
+.exploration-venture-summary .venture-name {
+  text-align: left;
+}
+
+.exploration-venture-summary .venture-level {
+  justify-self: start;
+}
+
+.exploration-details-grid {
+  display: grid;
+  grid-template-columns:
+    180px
+    minmax(190px, 220px)
+    minmax(190px, 220px)
+    minmax(190px, 220px)
+    minmax(190px, 300px);
+  gap: 24px;
+  align-items: start;
+  justify-content: start;
+}
+
+.exploration-reward-group h3 {
+  margin-top: 0;
+}
+
+.exploration-reward-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.exploration-reward-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+}
+
+.exploration-reward-item img {
+  flex: 0 0 auto;
+}
+
+.exploration-details-grid dd,
+.exploration-reward-item,
+.exploration-reward-group > p {
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.exploration-reward-group > p {
+  margin: 0;
+}
+
+@media (max-width: 1000px) {
+  .exploration-details-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .exploration-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .exploration-venture-summary {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 8px;
+  }
+
+  .exploration-venture-summary .venture-name {
+    min-width: 0;
+  }
+}
