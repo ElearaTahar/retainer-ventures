@@ -1,6 +1,7 @@
 {
   "metadata": {
-    "generatedAt": "2026-09-28T23:47:12.987Z",
+    "source": "XIVAPI",
+    "generatedAt": "2026-10-01T22:40:16.998Z",
     "counts": {
       "targeted": 968,
       "exploration": 124,
@@ -28088,7 +28089,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30001,
-      "name": "Field Exploration I",
+      "name": {
+        "en": "Field Exploration I",
+        "fr": "Exploration en plaine I"
+      },
       "requiredLevel": 1,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28104,7 +28108,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30002,
-      "name": "Field Exploration II",
+      "name": {
+        "en": "Field Exploration II",
+        "fr": "Exploration en plaine II"
+      },
       "requiredLevel": 5,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28120,7 +28127,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30003,
-      "name": "Field Exploration III",
+      "name": {
+        "en": "Field Exploration III",
+        "fr": "Exploration en plaine III"
+      },
       "requiredLevel": 10,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28136,7 +28146,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30004,
-      "name": "Field Exploration IV",
+      "name": {
+        "en": "Field Exploration IV",
+        "fr": "Exploration en plaine IV"
+      },
       "requiredLevel": 15,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28152,7 +28165,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30005,
-      "name": "Field Exploration V",
+      "name": {
+        "en": "Field Exploration V",
+        "fr": "Exploration en plaine V"
+      },
       "requiredLevel": 20,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28168,7 +28184,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30006,
-      "name": "Field Exploration VI",
+      "name": {
+        "en": "Field Exploration VI",
+        "fr": "Exploration en plaine VI"
+      },
       "requiredLevel": 25,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28184,7 +28203,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30007,
-      "name": "Field Exploration VII",
+      "name": {
+        "en": "Field Exploration VII",
+        "fr": "Exploration en plaine VII"
+      },
       "requiredLevel": 30,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28200,7 +28222,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30008,
-      "name": "Field Exploration VIII",
+      "name": {
+        "en": "Field Exploration VIII",
+        "fr": "Exploration en plaine VIII"
+      },
       "requiredLevel": 35,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28216,7 +28241,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30009,
-      "name": "Field Exploration IX",
+      "name": {
+        "en": "Field Exploration IX",
+        "fr": "Exploration en plaine IX"
+      },
       "requiredLevel": 40,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28232,7 +28260,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30010,
-      "name": "Field Exploration X",
+      "name": {
+        "en": "Field Exploration X",
+        "fr": "Exploration en plaine X"
+      },
       "requiredLevel": 45,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28248,7 +28279,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30011,
-      "name": "Field Exploration XI",
+      "name": {
+        "en": "Field Exploration XI",
+        "fr": "Exploration en plaine XI"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28264,7 +28298,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30012,
-      "name": "Field Exploration XII",
+      "name": {
+        "en": "Field Exploration XII",
+        "fr": "Exploration en plaine XII"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28280,7 +28317,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30013,
-      "name": "Field Exploration XIII",
+      "name": {
+        "en": "Field Exploration XIII",
+        "fr": "Exploration en plaine XIII"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28296,7 +28336,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30014,
-      "name": "Highland Exploration I",
+      "name": {
+        "en": "Highland Exploration I",
+        "fr": "Exploration en montagne I"
+      },
       "requiredLevel": 1,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28312,7 +28355,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30015,
-      "name": "Highland Exploration II",
+      "name": {
+        "en": "Highland Exploration II",
+        "fr": "Exploration en montagne II"
+      },
       "requiredLevel": 5,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28328,7 +28374,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30016,
-      "name": "Highland Exploration III",
+      "name": {
+        "en": "Highland Exploration III",
+        "fr": "Exploration en montagne III"
+      },
       "requiredLevel": 10,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28344,7 +28393,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30017,
-      "name": "Highland Exploration IV",
+      "name": {
+        "en": "Highland Exploration IV",
+        "fr": "Exploration en montagne IV"
+      },
       "requiredLevel": 15,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28360,7 +28412,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30018,
-      "name": "Highland Exploration V",
+      "name": {
+        "en": "Highland Exploration V",
+        "fr": "Exploration en montagne V"
+      },
       "requiredLevel": 20,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28376,7 +28431,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30019,
-      "name": "Highland Exploration VI",
+      "name": {
+        "en": "Highland Exploration VI",
+        "fr": "Exploration en montagne VI"
+      },
       "requiredLevel": 25,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28392,7 +28450,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30020,
-      "name": "Highland Exploration VII",
+      "name": {
+        "en": "Highland Exploration VII",
+        "fr": "Exploration en montagne VII"
+      },
       "requiredLevel": 30,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28408,7 +28469,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30021,
-      "name": "Highland Exploration VIII",
+      "name": {
+        "en": "Highland Exploration VIII",
+        "fr": "Exploration en montagne VIII"
+      },
       "requiredLevel": 35,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28424,7 +28488,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30022,
-      "name": "Highland Exploration IX",
+      "name": {
+        "en": "Highland Exploration IX",
+        "fr": "Exploration en montagne IX"
+      },
       "requiredLevel": 40,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28440,7 +28507,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30023,
-      "name": "Highland Exploration X",
+      "name": {
+        "en": "Highland Exploration X",
+        "fr": "Exploration en montagne X"
+      },
       "requiredLevel": 45,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28456,7 +28526,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30024,
-      "name": "Highland Exploration XI",
+      "name": {
+        "en": "Highland Exploration XI",
+        "fr": "Exploration en montagne XI"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28472,7 +28545,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30025,
-      "name": "Highland Exploration XII",
+      "name": {
+        "en": "Highland Exploration XII",
+        "fr": "Exploration en montagne XII"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28488,7 +28564,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30026,
-      "name": "Highland Exploration XIII",
+      "name": {
+        "en": "Highland Exploration XIII",
+        "fr": "Exploration en montagne XIII"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28504,7 +28583,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30027,
-      "name": "Woodland Exploration I",
+      "name": {
+        "en": "Woodland Exploration I",
+        "fr": "Exploration en forêt I"
+      },
       "requiredLevel": 1,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28520,7 +28602,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30028,
-      "name": "Woodland Exploration II",
+      "name": {
+        "en": "Woodland Exploration II",
+        "fr": "Exploration en forêt II"
+      },
       "requiredLevel": 5,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28536,7 +28621,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30029,
-      "name": "Woodland Exploration III",
+      "name": {
+        "en": "Woodland Exploration III",
+        "fr": "Exploration en forêt III"
+      },
       "requiredLevel": 10,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28552,7 +28640,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30030,
-      "name": "Woodland Exploration IV",
+      "name": {
+        "en": "Woodland Exploration IV",
+        "fr": "Exploration en forêt IV"
+      },
       "requiredLevel": 15,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28568,7 +28659,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30031,
-      "name": "Woodland Exploration V",
+      "name": {
+        "en": "Woodland Exploration V",
+        "fr": "Exploration en forêt V"
+      },
       "requiredLevel": 20,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28584,7 +28678,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30032,
-      "name": "Woodland Exploration VI",
+      "name": {
+        "en": "Woodland Exploration VI",
+        "fr": "Exploration en forêt VI"
+      },
       "requiredLevel": 25,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28600,7 +28697,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30033,
-      "name": "Woodland Exploration VII",
+      "name": {
+        "en": "Woodland Exploration VII",
+        "fr": "Exploration en forêt VII"
+      },
       "requiredLevel": 30,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28616,7 +28716,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30034,
-      "name": "Woodland Exploration VIII",
+      "name": {
+        "en": "Woodland Exploration VIII",
+        "fr": "Exploration en forêt VIII"
+      },
       "requiredLevel": 35,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28632,7 +28735,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30035,
-      "name": "Woodland Exploration IX",
+      "name": {
+        "en": "Woodland Exploration IX",
+        "fr": "Exploration en forêt IX"
+      },
       "requiredLevel": 40,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28648,7 +28754,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30036,
-      "name": "Woodland Exploration X",
+      "name": {
+        "en": "Woodland Exploration X",
+        "fr": "Exploration en forêt X"
+      },
       "requiredLevel": 45,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28664,7 +28773,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30037,
-      "name": "Woodland Exploration XI",
+      "name": {
+        "en": "Woodland Exploration XI",
+        "fr": "Exploration en forêt XI"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28680,7 +28792,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30038,
-      "name": "Woodland Exploration XII",
+      "name": {
+        "en": "Woodland Exploration XII",
+        "fr": "Exploration en forêt XII"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28696,7 +28811,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30039,
-      "name": "Woodland Exploration XIII",
+      "name": {
+        "en": "Woodland Exploration XIII",
+        "fr": "Exploration en forêt XIII"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28712,7 +28830,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30040,
-      "name": "Waterside Exploration I",
+      "name": {
+        "en": "Waterside Exploration I",
+        "fr": "Exploration en rivage I"
+      },
       "requiredLevel": 1,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28728,7 +28849,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30041,
-      "name": "Waterside Exploration II",
+      "name": {
+        "en": "Waterside Exploration II",
+        "fr": "Exploration en rivage II"
+      },
       "requiredLevel": 5,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28744,7 +28868,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30042,
-      "name": "Waterside Exploration III",
+      "name": {
+        "en": "Waterside Exploration III",
+        "fr": "Exploration en rivage III"
+      },
       "requiredLevel": 10,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28760,7 +28887,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30043,
-      "name": "Waterside Exploration IV",
+      "name": {
+        "en": "Waterside Exploration IV",
+        "fr": "Exploration en rivage IV"
+      },
       "requiredLevel": 15,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28776,7 +28906,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30044,
-      "name": "Waterside Exploration V",
+      "name": {
+        "en": "Waterside Exploration V",
+        "fr": "Exploration en rivage V"
+      },
       "requiredLevel": 20,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28792,7 +28925,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30045,
-      "name": "Waterside Exploration VI",
+      "name": {
+        "en": "Waterside Exploration VI",
+        "fr": "Exploration en rivage VI"
+      },
       "requiredLevel": 25,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28808,7 +28944,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30046,
-      "name": "Waterside Exploration VII",
+      "name": {
+        "en": "Waterside Exploration VII",
+        "fr": "Exploration en rivage VII"
+      },
       "requiredLevel": 30,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28824,7 +28963,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30047,
-      "name": "Waterside Exploration VIII",
+      "name": {
+        "en": "Waterside Exploration VIII",
+        "fr": "Exploration en rivage VIII"
+      },
       "requiredLevel": 35,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28840,7 +28982,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30048,
-      "name": "Waterside Exploration IX",
+      "name": {
+        "en": "Waterside Exploration IX",
+        "fr": "Exploration en rivage IX"
+      },
       "requiredLevel": 40,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28856,7 +29001,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30049,
-      "name": "Waterside Exploration X",
+      "name": {
+        "en": "Waterside Exploration X",
+        "fr": "Exploration en rivage X"
+      },
       "requiredLevel": 45,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28872,7 +29020,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30050,
-      "name": "Waterside Exploration XI",
+      "name": {
+        "en": "Waterside Exploration XI",
+        "fr": "Exploration en rivage XI"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28888,7 +29039,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30051,
-      "name": "Waterside Exploration XII",
+      "name": {
+        "en": "Waterside Exploration XII",
+        "fr": "Exploration en rivage XII"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28904,7 +29058,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30052,
-      "name": "Waterside Exploration XIII",
+      "name": {
+        "en": "Waterside Exploration XIII",
+        "fr": "Exploration en rivage XIII"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28920,7 +29077,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30054,
-      "name": "Field Exploration XIV",
+      "name": {
+        "en": "Field Exploration XIV",
+        "fr": "Exploration en plaine XIV"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28936,7 +29096,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30055,
-      "name": "Highland Exploration XIV",
+      "name": {
+        "en": "Highland Exploration XIV",
+        "fr": "Exploration en montagne XIV"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28952,7 +29115,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30056,
-      "name": "Woodland Exploration XIV",
+      "name": {
+        "en": "Woodland Exploration XIV",
+        "fr": "Exploration en forêt XIV"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28968,7 +29134,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30057,
-      "name": "Waterside Exploration XIV",
+      "name": {
+        "en": "Waterside Exploration XIV",
+        "fr": "Exploration en rivage XIV"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -28984,7 +29153,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30058,
-      "name": "Field Exploration XV",
+      "name": {
+        "en": "Field Exploration XV",
+        "fr": "Exploration en plaine XV"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29000,7 +29172,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30059,
-      "name": "Highland Exploration XV",
+      "name": {
+        "en": "Highland Exploration XV",
+        "fr": "Exploration en montagne XV"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29016,7 +29191,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30060,
-      "name": "Woodland Exploration XV",
+      "name": {
+        "en": "Woodland Exploration XV",
+        "fr": "Exploration en forêt XV"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29032,7 +29210,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30061,
-      "name": "Waterside Exploration XV",
+      "name": {
+        "en": "Waterside Exploration XV",
+        "fr": "Exploration en rivage XV"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29048,7 +29229,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30062,
-      "name": "Field Exploration XVI",
+      "name": {
+        "en": "Field Exploration XVI",
+        "fr": "Exploration en plaine XVI"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29064,7 +29248,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30063,
-      "name": "Highland Exploration XVI",
+      "name": {
+        "en": "Highland Exploration XVI",
+        "fr": "Exploration en montagne XVI"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29080,7 +29267,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30064,
-      "name": "Woodland Exploration XVI",
+      "name": {
+        "en": "Woodland Exploration XVI",
+        "fr": "Exploration en forêt XVI"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29096,7 +29286,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30065,
-      "name": "Waterside Exploration XVI",
+      "name": {
+        "en": "Waterside Exploration XVI",
+        "fr": "Exploration en rivage XVI"
+      },
       "requiredLevel": 50,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29112,7 +29305,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30066,
-      "name": "Field Exploration XVII",
+      "name": {
+        "en": "Field Exploration XVII",
+        "fr": "Exploration en plaine XVII"
+      },
       "requiredLevel": 51,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29128,7 +29324,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30067,
-      "name": "Highland Exploration XVII",
+      "name": {
+        "en": "Highland Exploration XVII",
+        "fr": "Exploration en montagne XVII"
+      },
       "requiredLevel": 51,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29144,7 +29343,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30068,
-      "name": "Woodland Exploration XVII",
+      "name": {
+        "en": "Woodland Exploration XVII",
+        "fr": "Exploration en forêt XVII"
+      },
       "requiredLevel": 51,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29160,7 +29362,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30069,
-      "name": "Waterside Exploration XVII",
+      "name": {
+        "en": "Waterside Exploration XVII",
+        "fr": "Exploration en rivage XVII"
+      },
       "requiredLevel": 51,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29176,7 +29381,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30070,
-      "name": "Field Exploration XVIII",
+      "name": {
+        "en": "Field Exploration XVIII",
+        "fr": "Exploration en plaine XVIII"
+      },
       "requiredLevel": 55,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29192,7 +29400,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30071,
-      "name": "Highland Exploration XVIII",
+      "name": {
+        "en": "Highland Exploration XVIII",
+        "fr": "Exploration en montagne XVIII"
+      },
       "requiredLevel": 55,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29208,7 +29419,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30072,
-      "name": "Woodland Exploration XVIII",
+      "name": {
+        "en": "Woodland Exploration XVIII",
+        "fr": "Exploration en forêt XVIII"
+      },
       "requiredLevel": 55,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29224,7 +29438,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30073,
-      "name": "Waterside Exploration XVIII",
+      "name": {
+        "en": "Waterside Exploration XVIII",
+        "fr": "Exploration en rivage XVIII"
+      },
       "requiredLevel": 55,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29240,7 +29457,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30074,
-      "name": "Field Exploration XIX",
+      "name": {
+        "en": "Field Exploration XIX",
+        "fr": "Exploration en plaine XIX"
+      },
       "requiredLevel": 60,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29256,7 +29476,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30075,
-      "name": "Highland Exploration XIX",
+      "name": {
+        "en": "Highland Exploration XIX",
+        "fr": "Exploration en montagne XIX"
+      },
       "requiredLevel": 60,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29272,7 +29495,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30076,
-      "name": "Woodland Exploration XIX",
+      "name": {
+        "en": "Woodland Exploration XIX",
+        "fr": "Exploration en forêt XIX"
+      },
       "requiredLevel": 60,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29288,7 +29514,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30077,
-      "name": "Waterside Exploration XIX",
+      "name": {
+        "en": "Waterside Exploration XIX",
+        "fr": "Exploration en rivage XIX"
+      },
       "requiredLevel": 60,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29304,7 +29533,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30078,
-      "name": "Field Exploration XX",
+      "name": {
+        "en": "Field Exploration XX",
+        "fr": "Exploration en plaine XX"
+      },
       "requiredLevel": 61,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29320,7 +29552,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30079,
-      "name": "Highland Exploration XX",
+      "name": {
+        "en": "Highland Exploration XX",
+        "fr": "Exploration en montagne XX"
+      },
       "requiredLevel": 61,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29336,7 +29571,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30080,
-      "name": "Woodland Exploration XX",
+      "name": {
+        "en": "Woodland Exploration XX",
+        "fr": "Exploration en forêt XX"
+      },
       "requiredLevel": 61,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29352,7 +29590,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30081,
-      "name": "Waterside Exploration XX",
+      "name": {
+        "en": "Waterside Exploration XX",
+        "fr": "Exploration en rivage XX"
+      },
       "requiredLevel": 61,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29368,7 +29609,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30082,
-      "name": "Field Exploration XXI",
+      "name": {
+        "en": "Field Exploration XXI",
+        "fr": "Exploration en plaine XXI"
+      },
       "requiredLevel": 65,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29384,7 +29628,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30083,
-      "name": "Highland Exploration XXI",
+      "name": {
+        "en": "Highland Exploration XXI",
+        "fr": "Exploration en montagne XXI"
+      },
       "requiredLevel": 65,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29400,7 +29647,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30084,
-      "name": "Woodland Exploration XXI",
+      "name": {
+        "en": "Woodland Exploration XXI",
+        "fr": "Exploration en forêt XXI"
+      },
       "requiredLevel": 65,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29416,7 +29666,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30085,
-      "name": "Waterside Exploration XXI",
+      "name": {
+        "en": "Waterside Exploration XXI",
+        "fr": "Exploration en rivage XXI"
+      },
       "requiredLevel": 65,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29432,7 +29685,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30086,
-      "name": "Field Exploration XXII",
+      "name": {
+        "en": "Field Exploration XXII",
+        "fr": "Exploration en plaine XXII"
+      },
       "requiredLevel": 70,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29448,7 +29704,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30087,
-      "name": "Highland Exploration XXII",
+      "name": {
+        "en": "Highland Exploration XXII",
+        "fr": "Exploration en montagne XXII"
+      },
       "requiredLevel": 70,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29464,7 +29723,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30088,
-      "name": "Woodland Exploration XXII",
+      "name": {
+        "en": "Woodland Exploration XXII",
+        "fr": "Exploration en forêt XXII"
+      },
       "requiredLevel": 70,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29480,7 +29742,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30089,
-      "name": "Waterside Exploration XXII",
+      "name": {
+        "en": "Waterside Exploration XXII",
+        "fr": "Exploration en rivage XXII"
+      },
       "requiredLevel": 70,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29496,7 +29761,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30090,
-      "name": "Field Exploration XXIII",
+      "name": {
+        "en": "Field Exploration XXIII",
+        "fr": "Exploration en plaine XXIII"
+      },
       "requiredLevel": 71,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29512,7 +29780,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30091,
-      "name": "Highland Exploration XXIII",
+      "name": {
+        "en": "Highland Exploration XXIII",
+        "fr": "Exploration en montagne XXIII"
+      },
       "requiredLevel": 71,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29528,7 +29799,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30092,
-      "name": "Woodland Exploration XXIII",
+      "name": {
+        "en": "Woodland Exploration XXIII",
+        "fr": "Exploration en forêt XXIII"
+      },
       "requiredLevel": 71,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29544,7 +29818,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30093,
-      "name": "Waterside Exploration XXIII",
+      "name": {
+        "en": "Waterside Exploration XXIII",
+        "fr": "Exploration en rivage XXIII"
+      },
       "requiredLevel": 71,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29560,7 +29837,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30094,
-      "name": "Field Exploration XXIV",
+      "name": {
+        "en": "Field Exploration XXIV",
+        "fr": "Exploration en plaine XXIV"
+      },
       "requiredLevel": 75,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29576,7 +29856,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30095,
-      "name": "Highland Exploration XXIV",
+      "name": {
+        "en": "Highland Exploration XXIV",
+        "fr": "Exploration en montagne XXIV"
+      },
       "requiredLevel": 75,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29592,7 +29875,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30096,
-      "name": "Woodland Exploration XXIV",
+      "name": {
+        "en": "Woodland Exploration XXIV",
+        "fr": "Exploration en forêt XXIV"
+      },
       "requiredLevel": 75,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29608,7 +29894,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30097,
-      "name": "Waterside Exploration XXIV",
+      "name": {
+        "en": "Waterside Exploration XXIV",
+        "fr": "Exploration en rivage XXIV"
+      },
       "requiredLevel": 75,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29624,7 +29913,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30098,
-      "name": "Field Exploration XXV",
+      "name": {
+        "en": "Field Exploration XXV",
+        "fr": "Exploration en plaine XXV"
+      },
       "requiredLevel": 80,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29640,7 +29932,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30099,
-      "name": "Highland Exploration XXV",
+      "name": {
+        "en": "Highland Exploration XXV",
+        "fr": "Exploration en montagne XXV"
+      },
       "requiredLevel": 80,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29656,7 +29951,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30100,
-      "name": "Woodland Exploration XXV",
+      "name": {
+        "en": "Woodland Exploration XXV",
+        "fr": "Exploration en forêt XXV"
+      },
       "requiredLevel": 80,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29672,7 +29970,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30101,
-      "name": "Waterside Exploration XXV",
+      "name": {
+        "en": "Waterside Exploration XXV",
+        "fr": "Exploration en rivage XXV"
+      },
       "requiredLevel": 80,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29688,7 +29989,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30102,
-      "name": "Field Exploration XXVI",
+      "name": {
+        "en": "Field Exploration XXVI",
+        "fr": "Exploration en plaine XXVI"
+      },
       "requiredLevel": 81,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29704,7 +30008,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30106,
-      "name": "Field Exploration XXVII",
+      "name": {
+        "en": "Field Exploration XXVII",
+        "fr": "Exploration en plaine XXVII"
+      },
       "requiredLevel": 85,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29720,7 +30027,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30103,
-      "name": "Highland Exploration XXVI",
+      "name": {
+        "en": "Highland Exploration XXVI",
+        "fr": "Exploration en montagne XXVI"
+      },
       "requiredLevel": 81,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29736,7 +30046,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30107,
-      "name": "Highland Exploration XXVII",
+      "name": {
+        "en": "Highland Exploration XXVII",
+        "fr": "Exploration en montagne XXVII"
+      },
       "requiredLevel": 85,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29752,7 +30065,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30104,
-      "name": "Woodland Exploration XXVI",
+      "name": {
+        "en": "Woodland Exploration XXVI",
+        "fr": "Exploration en forêt XXVI"
+      },
       "requiredLevel": 81,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29768,7 +30084,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30108,
-      "name": "Woodland Exploration XXVII",
+      "name": {
+        "en": "Woodland Exploration XXVII",
+        "fr": "Exploration en forêt XXVII"
+      },
       "requiredLevel": 85,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29784,7 +30103,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30105,
-      "name": "Waterside Exploration XXVI",
+      "name": {
+        "en": "Waterside Exploration XXVI",
+        "fr": "Exploration en rivage XXVI"
+      },
       "requiredLevel": 81,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29800,7 +30122,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30109,
-      "name": "Waterside Exploration XXVII",
+      "name": {
+        "en": "Waterside Exploration XXVII",
+        "fr": "Exploration en rivage XXVII"
+      },
       "requiredLevel": 85,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29816,7 +30141,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30110,
-      "name": "Field Exploration XXVIII",
+      "name": {
+        "en": "Field Exploration XXVIII",
+        "fr": "Exploration en plaine XXVIII"
+      },
       "requiredLevel": 90,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29832,7 +30160,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30111,
-      "name": "Highland Exploration XXVIII",
+      "name": {
+        "en": "Highland Exploration XXVIII",
+        "fr": "Exploration en montagne XXVIII"
+      },
       "requiredLevel": 90,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29848,7 +30179,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30112,
-      "name": "Woodland Exploration XXVIII",
+      "name": {
+        "en": "Woodland Exploration XXVIII",
+        "fr": "Exploration en forêt XXVIII"
+      },
       "requiredLevel": 90,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29864,7 +30198,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30113,
-      "name": "Waterside Exploration XXVIII",
+      "name": {
+        "en": "Waterside Exploration XXVIII",
+        "fr": "Exploration en rivage XXVIII"
+      },
       "requiredLevel": 90,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29880,7 +30217,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30114,
-      "name": "Field Exploration XXIX",
+      "name": {
+        "en": "Field Exploration XXIX",
+        "fr": "Exploration en plaine XXIX"
+      },
       "requiredLevel": 91,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29896,7 +30236,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30115,
-      "name": "Field Exploration XXX",
+      "name": {
+        "en": "Field Exploration XXX",
+        "fr": "Exploration en plaine XXX"
+      },
       "requiredLevel": 95,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29912,7 +30255,10 @@
       "retainerType": "combat",
       "category": "field-exploration",
       "retainerTaskRandomId": 30116,
-      "name": "Field Exploration XXXI",
+      "name": {
+        "en": "Field Exploration XXXI",
+        "fr": "Exploration en plaine XXXI"
+      },
       "requiredLevel": 100,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29928,7 +30274,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30117,
-      "name": "Highland Exploration XXIX",
+      "name": {
+        "en": "Highland Exploration XXIX",
+        "fr": "Exploration en montagne XXIX"
+      },
       "requiredLevel": 91,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29944,7 +30293,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30118,
-      "name": "Highland Exploration XXX",
+      "name": {
+        "en": "Highland Exploration XXX",
+        "fr": "Exploration en montagne XXX"
+      },
       "requiredLevel": 95,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29960,7 +30312,10 @@
       "retainerType": "miner",
       "category": "highland-exploration",
       "retainerTaskRandomId": 30119,
-      "name": "Highland Exploration XXXI",
+      "name": {
+        "en": "Highland Exploration XXXI",
+        "fr": "Exploration en montagne XXXI"
+      },
       "requiredLevel": 100,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29976,7 +30331,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30120,
-      "name": "Woodland Exploration XXIX",
+      "name": {
+        "en": "Woodland Exploration XXIX",
+        "fr": "Exploration en forêt XXIX"
+      },
       "requiredLevel": 91,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -29992,7 +30350,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30121,
-      "name": "Woodland Exploration XXX",
+      "name": {
+        "en": "Woodland Exploration XXX",
+        "fr": "Exploration en forêt XXX"
+      },
       "requiredLevel": 95,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -30008,7 +30369,10 @@
       "retainerType": "botanist",
       "category": "woodland-exploration",
       "retainerTaskRandomId": 30122,
-      "name": "Woodland Exploration XXXI",
+      "name": {
+        "en": "Woodland Exploration XXXI",
+        "fr": "Exploration en forêt XXXI"
+      },
       "requiredLevel": 100,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -30024,7 +30388,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30123,
-      "name": "Waterside Exploration XXIX",
+      "name": {
+        "en": "Waterside Exploration XXIX",
+        "fr": "Exploration en rivage XXIX"
+      },
       "requiredLevel": 91,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -30040,7 +30407,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30124,
-      "name": "Waterside Exploration XXX",
+      "name": {
+        "en": "Waterside Exploration XXX",
+        "fr": "Exploration en rivage XXX"
+      },
       "requiredLevel": 95,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -30056,7 +30426,10 @@
       "retainerType": "fisher",
       "category": "waterside-exploration",
       "retainerTaskRandomId": 30125,
-      "name": "Waterside Exploration XXXI",
+      "name": {
+        "en": "Waterside Exploration XXXI",
+        "fr": "Exploration en rivage XXXI"
+      },
       "requiredLevel": 100,
       "durationMinutes": 1080,
       "ventureCost": 2,
@@ -30071,7 +30444,10 @@
     "id": 395,
     "kind": "quick",
     "retainerTaskRandomId": 30053,
-    "name": "Quick Exploration",
+    "name": {
+      "en": "Quick Exploration",
+      "fr": "Tâche improvisée"
+    },
     "durationMinutes": 60,
     "ventureCost": 2
   }

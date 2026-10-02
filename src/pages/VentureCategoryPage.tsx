@@ -1,5 +1,11 @@
 import { useParams } from "react-router-dom";
-import type { TargetedCategory, TargetedVenture } from "../types/ventures";
+import type {
+  ExplorationCategory,
+  ExplorationVenture,
+  TargetedCategory,
+  TargetedVenture,
+} from "../types/ventures";
+import type { VentureRewardsData } from "../types/ventureRewards";
 import {
   categoriesByRetainerType,
   isRetainerType,
@@ -9,6 +15,7 @@ import { TargetedVentureList } from "../components/TargetedVentureList";
 import { Breadcrumb } from "../components/Breadcrumb";
 import { useTranslation } from "react-i18next";
 import { NotFoundPage } from "./NotFoundPage";
+import { ExplorationVentureList } from "../components/ExplorationVentureList";
 
 function isTargetedCategory(
   value: string | undefined,
@@ -21,13 +28,28 @@ function isTargetedCategory(
   );
 }
 
+function isExplorationCategory(
+  value: string | undefined,
+): value is ExplorationCategory {
+  return (
+    value === "field-exploration" ||
+    value === "highland-exploration" ||
+    value === "woodland-exploration" ||
+    value === "waterside-exploration"
+  );
+}
+
 type VentureCategoryPageProps = {
   ventures: TargetedVenture[];
+  explorationVentures: ExplorationVenture[];
+  ventureRewards: VentureRewardsData;
   itemsById: Map<number, ItemSearchEntry>;
 };
 
 export function VentureCategoryPage({
   ventures,
+  explorationVentures,
+  ventureRewards,
   itemsById,
 }: VentureCategoryPageProps) {
   const { t } = useTranslation();
@@ -70,9 +92,14 @@ export function VentureCategoryPage({
           ventures={ventures}
           itemsById={itemsById}
         />
-      ) : (
-        <p>{t("explorationVenture.unavailable")}</p>
-      )}
+      ) : isExplorationCategory(category) ? (
+        <ExplorationVentureList
+          category={category}
+          ventures={explorationVentures}
+          ventureRewards={ventureRewards}
+          itemsById={itemsById}
+        />
+      ) : null}
     </>
   );
 }

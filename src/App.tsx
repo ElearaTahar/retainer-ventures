@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import type { TargetedVenture } from "./types/ventures";
+import type { ExplorationVenture, TargetedVenture } from "./types/ventures";
 import type { ItemSearchEntry } from "./types/items";
+import type { VentureRewardsData } from "./types/ventureRewards";
 import { fetchVentures } from "./data/ventures";
 import { fetchItems } from "./data/items";
+import { fetchVentureRewards } from "./data/ventureRewards";
 import { AppHeader } from "./components/AppHeader";
 import { VenturesPage } from "./pages/VenturesPage";
 import { RetainerTypePage } from "./pages/RetainerTypePage";
@@ -12,22 +14,35 @@ import { RetainersPage } from "./pages/RetainersPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 
 export function App() {
-  const [ventures, setVentures] = useState<TargetedVenture[] | null>(null);
+  const [targetedVentures, setTargetedVentures] = useState<
+    TargetedVenture[] | null
+  >(null);
+
+  const [explorationVentures, setExplorationVentures] = useState<
+    ExplorationVenture[] | null
+  >(null);
+
   const [itemsById, setItemsById] = useState<Map<
     number,
     ItemSearchEntry
   > | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [ventureRewards, setVentureRewards] =
+    useState<VentureRewardsData | null>(null);
 
   useEffect(() => {
     async function loadData() {
       try {
-        const [venturesData, itemsData] = await Promise.all([
+        const [venturesData, itemsData, rewardsData] = await Promise.all([
           fetchVentures(),
           fetchItems(),
+          fetchVentureRewards(),
         ]);
 
-        setVentures(venturesData.targeted);
+        setTargetedVentures(venturesData.targeted);
+        setExplorationVentures(venturesData.exploration);
+
+        setVentureRewards(rewardsData);
 
         const index = new Map<number, ItemSearchEntry>();
 
@@ -52,7 +67,12 @@ export function App() {
     return <div>{error}</div>;
   }
 
-  if (ventures === null || itemsById === null) {
+  if (
+    targetedVentures === null ||
+    explorationVentures === null ||
+    itemsById === null ||
+    ventureRewards === null
+  ) {
     return <div>Loading...</div>;
   }
 
@@ -72,7 +92,12 @@ export function App() {
           <Route
             path="/ventures/:retainerType/:category"
             element={
-              <VentureCategoryPage ventures={ventures} itemsById={itemsById} />
+              <VentureCategoryPage
+                ventures={targetedVentures}
+                explorationVentures={explorationVentures}
+                ventureRewards={ventureRewards}
+                itemsById={itemsById}
+              />
             }
           />
           <Route path="*" element={<NotFoundPage />} />
