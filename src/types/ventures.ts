@@ -47,6 +47,18 @@ export type ExplorationVenture = {
   requirement: Requirement;
 };
 
+export type QuickVenture = {
+  id: number;
+  kind: "quick";
+  retainerTaskRandomId: number;
+  name: {
+    en: string;
+    fr: string;
+  };
+  durationMinutes: number;
+  ventureCost: number;
+};
+
 export type VenturesResponse = {
   metadata: {
     counts: {
@@ -57,4 +69,5 @@ export type VenturesResponse = {
   };
   targeted: TargetedVenture[];
   exploration: ExplorationVenture[];
+  quick: QuickVenture;
 };

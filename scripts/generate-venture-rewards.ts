@@ -45,8 +45,14 @@ type ExplorationVenture = {
   retainerTaskRandomId: number;
 };
 
+type QuickVenture = {
+  kind: "quick";
+  retainerTaskRandomId: number;
+};
+
 type VenturesFile = {
   exploration: ExplorationVenture[];
+  quick: QuickVenture;
 };
 
 type RewardSupplementFile = {
@@ -594,12 +600,22 @@ async function main() {
    * Exploration rewards. Do not silently classify
    * those using an unrelated retainer job.
    */
+  const quickTaskId = venturesFile.quick.retainerTaskRandomId;
+
+  const quickRewards = {
+    knownItems: rawRewards.get(quickTaskId) ?? [],
+  };
+
   const classifiedRewards = new Map<number, VentureRewards>();
 
   let skippedVentureCount = 0;
   let skippedRewardCount = 0;
 
   for (const [taskId, itemIds] of rawRewards) {
+    if (taskId === quickTaskId) {
+      continue;
+    }
+
     const retainerType = retainerTypeByTaskId.get(taskId);
 
     if (retainerType === undefined) {
@@ -647,6 +663,11 @@ async function main() {
     },
 
     rewardsByRetainerTaskRandomId: Object.fromEntries(classifiedRewards),
+
+    quick: {
+      retainerTaskRandomId: quickTaskId,
+      rewards: quickRewards,
+    },
   };
 
   const json = JSON.stringify(output, null, 2);

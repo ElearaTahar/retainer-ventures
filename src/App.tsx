@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import type { ExplorationVenture, TargetedVenture } from "./types/ventures";
+import {
+  type QuickVenture,
+  type ExplorationVenture,
+  type TargetedVenture,
+} from "./types/ventures";
 import type { ItemSearchEntry } from "./types/items";
 import type { VentureRewardsData } from "./types/ventureRewards";
 import { fetchVentures } from "./data/ventures";
@@ -12,6 +16,7 @@ import { RetainerTypePage } from "./pages/RetainerTypePage";
 import { VentureCategoryPage } from "./pages/VentureCategoryPage";
 import { RetainersPage } from "./pages/RetainersPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import { QuickExplorationPage } from "./pages/QuickExplorationPage";
 
 export function App() {
   const [targetedVentures, setTargetedVentures] = useState<
@@ -21,6 +26,8 @@ export function App() {
   const [explorationVentures, setExplorationVentures] = useState<
     ExplorationVenture[] | null
   >(null);
+
+  const [quickVenture, setQuickVenture] = useState<QuickVenture | null>(null);
 
   const [itemsById, setItemsById] = useState<Map<
     number,
@@ -41,6 +48,7 @@ export function App() {
 
         setTargetedVentures(venturesData.targeted);
         setExplorationVentures(venturesData.exploration);
+        setQuickVenture(venturesData.quick);
 
         setVentureRewards(rewardsData);
 
@@ -70,6 +78,7 @@ export function App() {
   if (
     targetedVentures === null ||
     explorationVentures === null ||
+    quickVenture === null ||
     itemsById === null ||
     ventureRewards === null
   ) {
@@ -85,6 +94,16 @@ export function App() {
           <Route path="/" element={<Navigate to="/ventures" replace />} />
           <Route path="/ventures" element={<VenturesPage />} />
           <Route path="/retainers" element={<RetainersPage />} />
+          <Route
+            path="/ventures/quick-exploration"
+            element={
+              <QuickExplorationPage
+                venture={quickVenture}
+                rewards={ventureRewards.quick}
+                itemsById={itemsById}
+              />
+            }
+          />
           <Route
             path="/ventures/:retainerType"
             element={<RetainerTypePage />}
