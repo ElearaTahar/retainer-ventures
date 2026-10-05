@@ -2,13 +2,13 @@
   "metadata": {
     "rewardSource": "LuminaSupplemental + FFXIV Community Wiki supplement",
     "classificationSource": "FFXIV game data",
-    "generatedAt": "2026-10-02T03:26:45.631Z",
+    "generatedAt": "2026-10-05T07:55:32.844Z",
     "sourceRewardCount": 802,
     "sourceVentureCount": 124,
     "classifiedRewardCount": 842,
     "classifiedVentureCount": 123,
-    "skippedRewardCount": 42,
-    "skippedVentureCount": 1
+    "skippedRewardCount": 0,
+    "skippedVentureCount": 0
   },
   "rewardsByRetainerTaskRandomId": {
     "30001": {
@@ -1942,6 +1942,55 @@
         43769
       ],
       "otherItems": []
+    }
+  },
+  "quick": {
+    "retainerTaskRandomId": 30053,
+    "rewards": {
+      "knownItems": [
+        1662,
+        1731,
+        1799,
+        1870,
+        1940,
+        2043,
+        2132,
+        2271,
+        2290,
+        2752,
+        2820,
+        2821,
+        2822,
+        2823,
+        2962,
+        3167,
+        3168,
+        3170,
+        3171,
+        3279,
+        3418,
+        3419,
+        3420,
+        3644,
+        3676,
+        3743,
+        3863,
+        3864,
+        3865,
+        4249,
+        4250,
+        4256,
+        4257,
+        4357,
+        4358,
+        4359,
+        4483,
+        4484,
+        4498,
+        4499,
+        32161,
+        35570
+      ]
     }
   }
 }
