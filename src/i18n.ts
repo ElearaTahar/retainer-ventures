@@ -26,8 +26,8 @@ const resources = {
         backToVentures: "Back to Ventures",
       },
       ventures: {
-        chooseRetainerType: "Choose a retainer type",
-        retainerTypes: "Retainer types",
+        browseVentures: "Browse ventures",
+        types: "Venture types",
       },
       retainerTypes: {
         combat: "Combat",
@@ -39,6 +39,8 @@ const resources = {
       abbreviatedLevel: "Lv. {{level}}",
       ventureCost_one: "{{count}} venture",
       ventureCost_other: "{{count}} ventures",
+      durationHours_one: "{{count}} hour",
+      durationHours_other: "{{count}} hours",
       targetedVenture: {
         categories: {
           hunting: "Hunting",
@@ -94,6 +96,15 @@ const resources = {
         unknownItem: "Unknown item ({{id}})",
         noKnownRewards: "No known rewards",
       },
+      quickExplorationVenture: {
+        title: "Quick exploration",
+        description: "A short venture with unpredictable rewards",
+        knownRewards: "Known rewards",
+        noKnownRewards: "No known rewards",
+        unknownItem: "Unknown item ({{id}})",
+        communityRewardsNotice:
+          "Community-sourced rewards known to be obtainable from Quick Exploration. This list may be incomplete.",
+      },
     },
   },
   fr: {
@@ -120,8 +131,8 @@ const resources = {
         backToVentures: "Retour aux tâches",
       },
       ventures: {
-        chooseRetainerType: "Choisissez un type de servant",
-        retainerTypes: "Types de servants",
+        browseVentures: "Parcourez les tâches de servant",
+        types: "Types de tâches",
       },
       retainerTypes: {
         combat: "Combat",
@@ -133,6 +144,8 @@ const resources = {
       abbreviatedLevel: "Niv. {{level}}",
       ventureCost_one: "{{count}} jeton de tâche",
       ventureCost_other: "{{count}} jetons de tâche",
+      durationHours_one: "{{count}} heure",
+      durationHours_other: "{{count}} heures",
       targetedVenture: {
         categories: {
           hunting: "Travail d'incursion",
@@ -187,6 +200,15 @@ const resources = {
         },
         unknownItem: "Objet inconnu ({{id}})",
         noKnownRewards: "Aucune récompense connue",
+      },
+      quickExplorationVenture: {
+        title: "Tâche improvisée",
+        description: "Une expédition courte aux récompenses imprévisibles",
+        knownRewards: "Récompenses connues",
+        noKnownRewards: "Aucune récompense connue",
+        unknownItem: "Objet inconnu ({{id}})",
+        communityRewardsNotice:
+          "Récompenses issues de données communautaires et connues comme pouvant être obtenues avec une tâche improvisée. Cette liste peut être incomplète.",
       },
     },
   },

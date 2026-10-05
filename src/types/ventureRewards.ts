@@ -5,6 +5,13 @@ export type VentureRewards = {
   otherItems: number[];
 };
 
+export type QuickRewards = {
+  retainerTaskRandomId: number;
+  rewards: {
+    knownItems: number[];
+  };
+};
+
 export type VentureRewardsData = {
   metadata: {
     rewardSource: string;
@@ -18,4 +25,5 @@ export type VentureRewardsData = {
     skippedVentureCount: number;
   };
   rewardsByRetainerTaskRandomId: Record<string, VentureRewards>;
+  quick: QuickRewards;
 };

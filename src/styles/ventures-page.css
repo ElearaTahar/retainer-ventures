@@ -15,6 +15,17 @@
   background: var(--color-surface-hover);
 }
 
+.quick-venture-type-navigation {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.quick-venture-type-navigation-subtitle {
+  font-size: small;
+}
+
 @media (max-width: 700px) {
   .venture-type-navigation {
     grid-template-columns: 1fr;
