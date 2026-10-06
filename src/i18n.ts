@@ -28,6 +28,9 @@ const resources = {
       ventures: {
         browseVentures: "Browse ventures",
         types: "Venture types",
+        search: {
+          label: "Search ventures",
+        },
       },
       retainerTypes: {
         combat: "Combat",
@@ -133,6 +136,9 @@ const resources = {
       ventures: {
         browseVentures: "Parcourez les tâches de servant",
         types: "Types de tâches",
+        search: {
+          label: "Rechercher des tâches",
+        },
       },
       retainerTypes: {
         combat: "Combat",

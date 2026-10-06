@@ -92,7 +92,18 @@ export function App() {
       <main className="app-content">
         <Routes>
           <Route path="/" element={<Navigate to="/ventures" replace />} />
-          <Route path="/ventures" element={<VenturesPage />} />
+          <Route
+            path="/ventures"
+            element={
+              <VenturesPage
+                targetedVentures={targetedVentures}
+                explorationVentures={explorationVentures}
+                quickVenture={quickVenture}
+                itemsById={itemsById}
+                ventureRewards={ventureRewards}
+              />
+            }
+          />
           <Route path="/retainers" element={<RetainersPage />} />
           <Route
             path="/ventures/quick-exploration"
