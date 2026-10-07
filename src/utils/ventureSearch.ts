@@ -295,7 +295,7 @@ export function searchVentures(
         {
           kind: "venture",
           venture,
-          link: `/ventures/${venture.retainerType}/${venture.category}`,
+          link: `/ventures/${venture.retainerType}/${venture.category}#venture=${venture.id}`,
           matchingItems,
         },
       ];
@@ -320,7 +320,7 @@ export function searchVentures(
         {
           kind: "venture",
           venture,
-          link: `/ventures/${venture.retainerType}/${venture.category}`,
+          link: `/ventures/${venture.retainerType}/${venture.category}#venture=${venture.id}`,
           matchingItems: [targetItem],
         },
       ];
