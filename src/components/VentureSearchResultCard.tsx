@@ -74,30 +74,38 @@ export function VentureSearchResultCard({
 
   return (
     <Link className="venture-search-result" to={result.link}>
-      <span className="venture-search-result-title">{title}</span>
+      <div className="venture-search-result-main">
+        <span className="venture-search-result-title">{title}</span>
 
-      {retainerTypeName !== null && categoryName !== null && (
-        <div className="venture-search-result-context">
-          <span>{retainerTypeName}</span>
-          {" · "}
-          <span>{categoryName}</span>
-        </div>
-      )}
+        {retainerTypeName !== null && categoryName !== null && (
+          <div className="venture-search-result-context">
+            <span>{categoryName}</span>
+            {" · "}
+            <span>{retainerTypeName}</span>
+          </div>
+        )}
 
-      <div className="venture-search-result-details">
-        <span>{durationLabel}</span>
-        {" · "}
-        <span>{t("ventureCost", { count: result.venture.ventureCost })}</span>
+        {result.matchingItems.length > 0 &&
+          result.venture.kind !== "targeted" && (
+            <div className="venture-search-result-matches">
+              {t("ventures.search.matchingRewards", {
+                count: result.matchingItems.length,
+              })}{" "}
+              {result.matchingItems
+                .map((item) => item.name[language])
+                .join(", ")}
+            </div>
+          )}
       </div>
 
-      {result.matchingItems.length > 0 &&
-        result.venture.kind !== "targeted" && (
-          <ul className="venture-search-result-matches">
-            {result.matchingItems.map((item) => (
-              <li key={item.id}>{item.name[language]}</li>
-            ))}
-          </ul>
-        )}
+      <span className="venture-search-result-duration">{durationLabel}</span>
+      <span className="venture-search-result-cost">
+        {t("ventureCost", { count: result.venture.ventureCost })}
+      </span>
+
+      <span className="venture-search-result-arrow" aria-hidden="true">
+        →
+      </span>
     </Link>
   );
 }

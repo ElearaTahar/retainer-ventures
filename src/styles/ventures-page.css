@@ -1,3 +1,23 @@
+.ventures-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.ventures-page > h1 {
+  margin: 0;
+}
+
+.ventures-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.ventures-section > h2 {
+  margin: 0;
+}
+
 .venture-type-navigation {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -9,6 +29,9 @@
   color: var(--color-text);
   text-decoration: none;
   border: 1px solid var(--color-border);
+
+  display: flex;
+  justify-content: space-between;
 }
 
 .venture-type-navigation a:hover {
@@ -22,8 +45,29 @@
   gap: 1rem;
 }
 
+.quick-venture-type-navigation-content {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 .quick-venture-type-navigation-subtitle {
   font-size: small;
+}
+
+.venture-search-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.venture-search-field input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font: inherit;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
 }
 
 .venture-search-results {
@@ -32,19 +76,49 @@
   gap: 1rem;
 }
 
+.venture-search-columns {
+  display: grid;
+  gap: 1.5rem;
+}
+
 .venture-search-result {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  align-items: center;
+
   padding: 1rem;
-  gap: 0.5rem;
+  gap: 0.5rem 1.5rem;
 
   color: var(--color-text);
   text-decoration: none;
   border: 1px solid var(--color-border);
 }
 
+.venture-search-columns,
+.venture-search-result {
+  grid-template-columns: 1fr 7rem 10rem 1rem;
+}
+
 .venture-search-result:hover {
   background: var(--color-surface-hover);
+}
+
+.venture-search-navigation-result {
+  grid-template-columns: 1fr auto;
+}
+
+.venture-search-result-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.venture-search-result-title {
+  font-weight: 600;
+}
+
+.venture-search-result-context,
+.venture-search-result-matches {
+  color: var(--color-text-muted);
 }
 
 @media (max-width: 700px) {
