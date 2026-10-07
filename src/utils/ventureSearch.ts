@@ -1,5 +1,5 @@
-import { ItemSearchEntry } from "../types/items";
-import { VentureRewardsData } from "../types/ventureRewards";
+import type { ItemSearchEntry } from "../types/items";
+import type { VentureRewardsData } from "../types/ventureRewards";
 import type {
   ExplorationCategory,
   ExplorationVenture,
@@ -12,7 +12,7 @@ import type {
   SearchResult,
   VentureSearchResult,
 } from "../types/ventureSearch";
-import { Language } from "../types/i18n";
+import type { Language } from "../types/i18n";
 import {
   explorationCategoryI18nKey,
   explorationCategoryToRetainerType,
