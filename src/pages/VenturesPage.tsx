@@ -158,7 +158,6 @@ export function VenturesPage({
                         <VentureSearchResultCard
                           key={`venture:${result.venture.id}`}
                           result={result}
-                          itemsById={itemsById}
                           language={language}
                         />
                       );

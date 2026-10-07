@@ -13,6 +13,7 @@ export type VentureSearchResult = {
   venture: TargetedVenture | ExplorationVenture | QuickVenture;
   link: string;
   matchingItems: ItemSearchEntry[];
+  displayItems: ItemSearchEntry[];
 };
 
 export type RetainerTypeNavigationDetails = {

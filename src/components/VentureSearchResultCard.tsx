@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import type { Language } from "../types/i18n";
-import type { ItemSearchEntry } from "../types/items";
 import type { VentureSearchResult } from "../types/ventureSearch";
 import {
   explorationCategoryI18nKey,
@@ -8,16 +7,15 @@ import {
   TARGETED_MIN_DURATION_MINUTES,
 } from "../utils/ventures";
 import { useTranslation } from "react-i18next";
+import { buildItemIconUrl } from "../utils/itemIcon";
 
 type VentureSearchResultCardProps = {
   result: VentureSearchResult;
-  itemsById: Map<number, ItemSearchEntry>;
   language: Language;
 };
 
 export function VentureSearchResultCard({
   result,
-  itemsById,
   language,
 }: VentureSearchResultCardProps) {
   const { t } = useTranslation();
@@ -25,7 +23,7 @@ export function VentureSearchResultCard({
   let title = "";
 
   if (result.venture.kind === "targeted") {
-    const item = itemsById.get(result.venture.targetItemId);
+    const item = result.displayItems[0];
 
     if (item) {
       title = item.name[language];
@@ -75,7 +73,30 @@ export function VentureSearchResultCard({
   return (
     <Link className="venture-search-result" to={result.link}>
       <div className="venture-search-result-main">
-        <span className="venture-search-result-title">{title}</span>
+        <div className="venture-search-result-identity">
+          {result.displayItems.length === 1 && (
+            <img
+              className="venture-search-result-icon"
+              src={buildItemIconUrl(result.displayItems[0].iconId)}
+              alt=""
+            />
+          )}
+          {result.displayItems.length === 2 && (
+            <span className="venture-search-result-icon-stack">
+              {result.displayItems.map((item) => {
+                return (
+                  <img
+                    className="venture-search-result-icon"
+                    key={item.id}
+                    src={buildItemIconUrl(item.iconId)}
+                    alt=""
+                  />
+                );
+              })}
+            </span>
+          )}
+          <span className="venture-search-result-title">{title}</span>
+        </div>
 
         {retainerTypeName !== null && categoryName !== null && (
           <div className="venture-search-result-context">

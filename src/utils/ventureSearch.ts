@@ -272,6 +272,7 @@ export function searchVentures(
         rewards.rewardsByRetainerTaskRandomId[venture.retainerTaskRandomId];
 
       let matchingItems: ItemSearchEntry[] = [];
+      let displayItems: ItemSearchEntry[] = [];
 
       if (ventureRewards) {
         const rewardItemIds = [
@@ -288,6 +289,8 @@ export function searchVentures(
         matchingItems = rewardItems.filter((item) =>
           normalizeSearchText(item.name[language]).includes(normalizedQuery),
         );
+
+        displayItems = rewardItems.slice(0, 2);
       }
 
       if (matchingItems.length === 0 && !nameMatches) return [];
@@ -297,6 +300,7 @@ export function searchVentures(
           venture,
           link: `/ventures/${venture.retainerType}/${venture.category}#venture=${venture.id}`,
           matchingItems,
+          displayItems,
         },
       ];
     },
@@ -322,17 +326,21 @@ export function searchVentures(
           venture,
           link: `/ventures/${venture.retainerType}/${venture.category}#venture=${venture.id}`,
           matchingItems: [targetItem],
+          displayItems: [targetItem],
         },
       ];
     },
   );
 
-  const matchingQuickItems = rewards.quick.rewards.knownItems
+  const quickItems = rewards.quick.rewards.knownItems
     .map((itemId) => itemsById.get(itemId))
-    .filter((item) => item !== undefined)
-    .filter((item) =>
-      normalizeSearchText(item.name[language]).includes(normalizedQuery),
-    );
+    .filter((item) => item !== undefined);
+
+  const matchingQuickItems = quickItems.filter((item) =>
+    normalizeSearchText(item.name[language]).includes(normalizedQuery),
+  );
+
+  const displayQuickItems = quickItems.slice(0, 2);
 
   const quickNameMatches = normalizeSearchText(
     quickVenture.name[language],
@@ -345,6 +353,7 @@ export function searchVentures(
           venture: quickVenture,
           link: "/ventures/quick-exploration",
           matchingItems: matchingQuickItems,
+          displayItems: displayQuickItems,
         }
       : null;
 
