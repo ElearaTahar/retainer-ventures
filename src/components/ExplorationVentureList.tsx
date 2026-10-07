@@ -7,9 +7,10 @@ import type {
 import type { ItemSearchEntry } from "../types/items";
 import type { VentureRewardsData } from "../types/ventureRewards";
 import { ExplorationRewardGroup } from "./ExplorationRewardGroup";
+import { useExpandedItems } from "../hooks/useExpandedItems";
+import { useVentureHashNavigation } from "../hooks/useVentureHashNavigation";
 import "../styles/targeted-venture-list.css";
 import "../styles/exploration-venture-list.css";
-import { useExpandedItems } from "../hooks/useExpandedItems";
 
 const categoryTranslationKeys: Record<ExplorationCategory, string> = {
   "field-exploration": "explorationVenture.categories.field",
@@ -37,7 +38,10 @@ export function ExplorationVentureList({
 
   const numberFormatter = new Intl.NumberFormat(language);
 
-  const { isExpanded, toggleExpanded } = useExpandedItems();
+  const { expandedIds, isExpanded, toggleExpanded, expand } =
+    useExpandedItems();
+
+  useVentureHashNavigation({ expandedIds, expand });
 
   const categoryVentures = ventures
     .filter((venture) => venture.category === category)
@@ -66,7 +70,11 @@ export function ExplorationVentureList({
           ];
 
         return (
-          <div className="venture" key={venture.id}>
+          <div
+            id={`venture-${venture.id}`}
+            className="venture"
+            key={venture.id}
+          >
             <button
               type="button"
               className="venture-summary exploration-venture-summary"

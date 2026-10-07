@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 export function useExpandedItems() {
   const [expandedIds, setExpandedIds] = useState<Set<number>>(() => new Set());
@@ -17,9 +17,22 @@ export function useExpandedItems() {
     });
   }
 
+  const expand = useCallback((id: number) => {
+    setExpandedIds((current) => {
+      if (current.has(id)) {
+        return current;
+      }
+
+      const next = new Set(current);
+      next.add(id);
+
+      return next;
+    });
+  }, []);
+
   function isExpanded(id: number) {
     return expandedIds.has(id);
   }
 
-  return { isExpanded, toggleExpanded };
+  return { expandedIds, isExpanded, toggleExpanded, expand };
 }

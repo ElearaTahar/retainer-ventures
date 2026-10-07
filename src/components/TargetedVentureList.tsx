@@ -3,8 +3,9 @@ import type { Language } from "../types/i18n";
 import type { ItemSearchEntry } from "../types/items";
 import type { TargetedCategory, TargetedVenture } from "../types/ventures";
 import { buildItemIconUrl } from "../utils/itemIcon";
-import "../styles/targeted-venture-list.css";
 import { useExpandedItems } from "../hooks/useExpandedItems";
+import { useVentureHashNavigation } from "../hooks/useVentureHashNavigation";
+import "../styles/targeted-venture-list.css";
 
 type TargetedVentureListProps = {
   category: TargetedCategory;
@@ -29,7 +30,10 @@ export function TargetedVentureList({
 
   const numberFormatter = new Intl.NumberFormat(language);
 
-  const { isExpanded, toggleExpanded } = useExpandedItems();
+  const { expandedIds, isExpanded, toggleExpanded, expand } =
+    useExpandedItems();
+
+  useVentureHashNavigation({ expandedIds, expand });
 
   const categoryVentures = ventures
     .filter((venture) => venture.category === category)
@@ -69,7 +73,11 @@ export function TargetedVentureList({
             ];
 
         return (
-          <div className="venture" key={venture.id}>
+          <div
+            id={`venture-${venture.id}`}
+            className="venture"
+            key={venture.id}
+          >
             <button
               type="button"
               className="venture-summary"
