@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  padding-top: 2rem;
   padding-bottom: 2rem;
 }
 
@@ -247,6 +248,7 @@
 
   .venture-type-navigation {
     grid-template-columns: 1fr;
+    gap: 0.5rem;
   }
 
   .quick-venture-type-navigation-content {
