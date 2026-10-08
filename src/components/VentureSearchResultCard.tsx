@@ -8,6 +8,7 @@ import {
 } from "../utils/ventures";
 import { useTranslation } from "react-i18next";
 import { buildItemIconUrl } from "../utils/itemIcon";
+import { Clock3 } from "lucide-react";
 
 type VentureSearchResultCardProps = {
   result: VentureSearchResult;
@@ -95,31 +96,37 @@ export function VentureSearchResultCard({
               })}
             </span>
           )}
-          <span className="venture-search-result-title">{title}</span>
         </div>
 
-        {retainerTypeName !== null && categoryName !== null && (
-          <div className="venture-search-result-context">
-            <span>{categoryName}</span>
-            {" · "}
-            <span>{retainerTypeName}</span>
-          </div>
-        )}
+        <div className="venture-search-result-details">
+          <span className="venture-search-result-title">{title}</span>
 
-        {result.matchingItems.length > 0 &&
-          result.venture.kind !== "targeted" && (
-            <div className="venture-search-result-matches">
-              {t("ventures.search.matchingRewards", {
-                count: result.matchingItems.length,
-              })}{" "}
-              {result.matchingItems
-                .map((item) => item.name[language])
-                .join(", ")}
+          {retainerTypeName !== null && categoryName !== null && (
+            <div className="venture-search-result-context">
+              <span>{categoryName}</span>
+              {" · "}
+              <span>{retainerTypeName}</span>
             </div>
           )}
+
+          {result.matchingItems.length > 0 &&
+            result.venture.kind !== "targeted" && (
+              <div className="venture-search-result-matches">
+                {t("ventures.search.matchingRewards", {
+                  count: result.matchingItems.length,
+                })}{" "}
+                {result.matchingItems
+                  .map((item) => item.name[language])
+                  .join(", ")}
+              </div>
+            )}
+        </div>
       </div>
 
-      <span className="venture-search-result-duration">{durationLabel}</span>
+      <span className="venture-search-result-duration">
+        <Clock3 aria-hidden="true" size={14} />
+        {durationLabel}
+      </span>
       <span className="venture-search-result-cost">
         {t("ventureCost", { count: result.venture.ventureCost })}
       </span>

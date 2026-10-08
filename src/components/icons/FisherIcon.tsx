@@ -1,9 +1,11 @@
-export function FisherIcon() {
+import type { SVGProps } from "react";
+
+export function FisherIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
-      className="venture-type-navigation-icon"
       viewBox="0 0 1000 1000"
       aria-hidden="true"
+      {...props}
     >
       <path
         fill="currentColor"

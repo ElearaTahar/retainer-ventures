@@ -1,9 +1,11 @@
-export function MinerIcon() {
+import type { SVGProps } from "react";
+
+export function MinerIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
-      className="venture-type-navigation-icon"
       viewBox="0 0 1000 1000"
       aria-hidden="true"
+      {...props}
     >
       <path
         fill="currentColor"

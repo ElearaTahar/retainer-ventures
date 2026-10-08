@@ -62,7 +62,7 @@ export function VenturesPage({
 
   return (
     <div className="ventures-page">
-      <h1>{t("navigation.ventures")}</h1>
+      <h1 className="visually-hidden">{t("navigation.ventures")}</h1>
 
       <section className="ventures-section">
         <h2>{t("ventures.browseVentures")}</h2>
@@ -80,21 +80,21 @@ export function VenturesPage({
           </Link>
           <Link to="/ventures/miner">
             <span className="venture-type-navigation-identity">
-              <MinerIcon />
+              <MinerIcon className="venture-type-navigation-icon" />
               {t("retainerTypes.miner")}
             </span>
             <span aria-hidden="true">→</span>
           </Link>
           <Link to="/ventures/botanist">
             <span className="venture-type-navigation-identity">
-              <BotanistIcon />
+              <BotanistIcon className="venture-type-navigation-icon" />
               {t("retainerTypes.botanist")}
             </span>
             <span aria-hidden="true">→</span>
           </Link>
           <Link to="/ventures/fisher">
             <span className="venture-type-navigation-identity">
-              <FisherIcon />
+              <FisherIcon className="venture-type-navigation-icon" />
               {t("retainerTypes.fisher")}
             </span>
             <span aria-hidden="true">→</span>
@@ -135,56 +135,64 @@ export function VenturesPage({
 
         {hasSearchQuery && (
           <div className="venture-search-results">
-            <h3>{t("ventures.search.resultsTitle")}</h3>
-
-            {searchResults.length > 0 ? (
-              <>
+            <div className="venture-search-results-heading">
+              {searchResults.length > 0 && (
                 <p>
                   {t("ventures.search.resultsFor", {
                     count: searchResults.length,
                     query: trimmedQuery,
                   })}
                 </p>
+              )}
+            </div>
 
+            {searchResults.length > 0 ? (
+              <>
                 {navigationResults.length > 0 && (
-                  <>
-                    <h4>{t("ventures.search.navigation")}</h4>
-                    <div className="venture-search-columns">
-                      <span>{t("ventures.search.destinationColumn")}</span>
-                      <span>{t("ventures.search.durationColumn")}</span>
-                      <span>{t("ventures.search.costColumn")}</span>
-                      <span aria-hidden="true" />
+                  <div className="venture-search-result-group">
+                    <h3>{t("ventures.search.navigation")}</h3>
+
+                    <div className="venture-search-list">
+                      <div className="venture-search-columns">
+                        <span>{t("ventures.search.destinationColumn")}</span>
+                        <span>{t("ventures.search.durationColumn")}</span>
+                        <span>{t("ventures.search.costColumn")}</span>
+                        <span aria-hidden="true" />
+                      </div>
+                      {navigationResults.map((result) => {
+                        return (
+                          <NavigationSearchResultCard
+                            key={`navigation:${result.link}`}
+                            result={result}
+                          />
+                        );
+                      })}
                     </div>
-                    {navigationResults.map((result) => {
-                      return (
-                        <NavigationSearchResultCard
-                          key={`navigation:${result.link}`}
-                          result={result}
-                        />
-                      );
-                    })}
-                  </>
+                  </div>
                 )}
 
                 {ventureResults.length > 0 && (
-                  <>
-                    <h4>{t("ventures.search.ventures")}</h4>
-                    <div className="venture-search-columns">
-                      <span>{t("ventures.search.ventureColumn")}</span>
-                      <span>{t("ventures.search.durationColumn")}</span>
-                      <span>{t("ventures.search.costColumn")}</span>
-                      <span aria-hidden="true" />
+                  <div className="venture-search-result-group">
+                    <h3>{t("ventures.search.ventures")}</h3>
+
+                    <div className="venture-search-list">
+                      <div className="venture-search-columns">
+                        <span>{t("ventures.search.ventureColumn")}</span>
+                        <span>{t("ventures.search.durationColumn")}</span>
+                        <span>{t("ventures.search.costColumn")}</span>
+                        <span aria-hidden="true" />
+                      </div>
+                      {ventureResults.map((result) => {
+                        return (
+                          <VentureSearchResultCard
+                            key={`venture:${result.venture.id}`}
+                            result={result}
+                            language={language}
+                          />
+                        );
+                      })}
                     </div>
-                    {ventureResults.map((result) => {
-                      return (
-                        <VentureSearchResultCard
-                          key={`venture:${result.venture.id}`}
-                          result={result}
-                          language={language}
-                        />
-                      );
-                    })}
-                  </>
+                  </div>
                 )}
               </>
             ) : (

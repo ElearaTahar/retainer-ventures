@@ -15,6 +15,7 @@
   --color-border: #dcd5d0;
   --color-focus: #252126;
   --color-accent: #5d394d;
+  --color-accent-subtle: #5d394d;
   --color-input-border: #dcd5d0;
   --color-text-placeholder: #8a8380;
 
@@ -37,6 +38,7 @@ h3 {
     --color-border: #404040;
     --color-focus: #f1f2f4;
     --color-accent: #bd8ea7;
+    --color-accent-subtle: #a77c93;
     --color-input-border: #6a6a6a;
     --color-text-placeholder: #858585;
   }
@@ -51,6 +53,7 @@ h3 {
   --color-border: #dcd5d0;
   --color-focus: #252126;
   --color-accent: #5d394d;
+  --color-accent-subtle: #5d394d;
   --color-input-border: #dcd5d0;
   --color-text-placeholder: #8a8380;
 }
@@ -64,6 +67,7 @@ h3 {
   --color-border: #404040;
   --color-focus: #f1f2f4;
   --color-accent: #bd8ea7;
+  --color-accent-subtle: #a77c93;
   --color-input-border: #6a6a6a;
   --color-text-placeholder: #858585;
 }
