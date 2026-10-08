@@ -51,3 +51,27 @@ The project distinguishes between reward associations and game data used to clas
 - **FFXIV Community Wiki** — manually verified supplemental reward associations currently missing from LuminaSupplemental.
 
 Generated files under `public/data/` are consumed by the frontend. The local supplement under `data/` is an input to the generation process.
+
+## Third-party assets
+
+### Icons
+
+Some interface icons are derived from third-party projects:
+
+- **FFXIV class/job icons** — Miner, Botanist, and Fisher icons are derived
+  from the `xivapi/classjob-icons` project, licensed under the MIT License.
+- **Lucide** — interface icons are provided by Lucide, licensed under the
+  ISC License.
+
+See the respective projects for their full license terms.
+
+### Fonts
+
+This project uses the following open-source fonts:
+
+- **[Manrope](https://github.com/davelab6/manrope)** — used for headings.
+- **[DM Sans](https://github.com/googlefonts/dm-fonts)** — used for body text and UI elements.
+
+Both fonts are licensed under the [SIL Open Font License 1.1](https://openfontlicense.org/open-font-license-official-text/).
+
+The fonts are self-hosted using [Fontsource](https://fontsource.org/) and are not loaded from an external CDN at runtime.

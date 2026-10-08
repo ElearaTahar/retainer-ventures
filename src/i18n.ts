@@ -31,6 +31,7 @@ const resources = {
         search: {
           title: "Looking for something specific?",
           label: "Search ventures, items or rewards",
+          placeholder: "e.g. Iron Ore, Quick exploration…",
           resultsTitle: "Search results",
           resultsFor_one: '{{count}} result for "{{query}}"',
           resultsFor_other: '{{count}} results for "{{query}}"',
@@ -116,7 +117,8 @@ const resources = {
       },
       quickExplorationVenture: {
         title: "Quick exploration",
-        description: "A short venture with unpredictable rewards",
+        description:
+          "A short venture, available to retainers of all classes, with a random reward.",
         knownRewards: "Known rewards",
         noKnownRewards: "No known rewards",
         unknownItem: "Unknown item ({{id}})",
@@ -154,6 +156,7 @@ const resources = {
         search: {
           title: "Vous cherchez quelque chose de précis ?",
           label: "Rechercher des tâches, objets ou récompenses",
+          placeholder: "Ex. : Minerai de fer, Tâche improvisée…",
           resultsTitle: "Résultats de recherche",
           resultsFor_one: "{{count}} résultat pour « {{query}} »",
           resultsFor_other: "{{count}} résultats pour « {{query}} »",
@@ -172,7 +175,7 @@ const resources = {
         },
       },
       retainerTypes: {
-        combat: "Combat",
+        combat: "Combattant",
         miner: "Mineur",
         botanist: "Botaniste",
         fisher: "Pêcheur",
@@ -240,7 +243,8 @@ const resources = {
       },
       quickExplorationVenture: {
         title: "Tâche improvisée",
-        description: "Une expédition courte aux récompenses imprévisibles",
+        description:
+          "Une expédition courte, accessible à toutes les classes de servants, avec une récompense aléatoire",
         knownRewards: "Récompenses connues",
         noKnownRewards: "Aucune récompense connue",
         unknownItem: "Objet inconnu ({{id}})",

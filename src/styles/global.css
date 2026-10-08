@@ -5,49 +5,67 @@
 }
 
 :root {
-  font-family: system-ui, sans-serif;
+  font-family: "DM Sans Variable", system-ui, sans-serif;
 
-  --color-background: #ffffff;
-  --color-text: #1a1a1a;
-  --color-text-muted: #5f6368;
-  --color-surface: #f2f2f2;
-  --color-surface-hover: #e6e6e6;
-  --color-border: #b0b0b0;
-  --color-focus: #1a1a1a;
+  --color-background: #f6f4f1;
+  --color-text: #252126;
+  --color-text-muted: #716a70;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f0ebe7;
+  --color-border: #dcd5d0;
+  --color-focus: #252126;
+  --color-accent: #5d394d;
+  --color-input-border: #dcd5d0;
+  --color-text-placeholder: #8a8380;
 
   --content-width: 1120px;
 }
 
+h1,
+h2,
+h3 {
+  font-family: "Manrope Variable", "DM Sans Variable", system-ui, sans-serif;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: #121417;
-    --color-text: #f2f2f2;
-    --color-text-muted: #aeb4bc;
-    --color-surface: #1c2127;
-    --color-surface-hover: #252b33;
-    --color-border: #3a4149;
-    --color-focus: #ffffff;
+    --color-background: #171717;
+    --color-text: #f1f2f4;
+    --color-text-muted: #a4aab3;
+    --color-surface: #202020;
+    --color-surface-hover: #2c2c2c;
+    --color-border: #404040;
+    --color-focus: #f1f2f4;
+    --color-accent: #bd8ea7;
+    --color-input-border: #6a6a6a;
+    --color-text-placeholder: #858585;
   }
 }
 
 :root[data-theme="light"] {
-  --color-background: #ffffff;
-  --color-text: #1a1a1a;
-  --color-text-muted: #5f6368;
-  --color-surface: #f2f2f2;
-  --color-surface-hover: #e6e6e6;
-  --color-border: #b0b0b0;
-  --color-focus: #1a1a1a;
+  --color-background: #f6f4f1;
+  --color-text: #252126;
+  --color-text-muted: #716a70;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f0ebe7;
+  --color-border: #dcd5d0;
+  --color-focus: #252126;
+  --color-accent: #5d394d;
+  --color-input-border: #dcd5d0;
+  --color-text-placeholder: #8a8380;
 }
 
 :root[data-theme="dark"] {
-  --color-background: #121417;
-  --color-text: #f2f2f2;
-  --color-text-muted: #aeb4bc;
-  --color-surface: #1c2127;
-  --color-surface-hover: #252b33;
-  --color-border: #3a4149;
-  --color-focus: #ffffff;
+  --color-background: #171717;
+  --color-text: #f1f2f4;
+  --color-text-muted: #a4aab3;
+  --color-surface: #202020;
+  --color-surface-hover: #2c2c2c;
+  --color-border: #404040;
+  --color-focus: #f1f2f4;
+  --color-accent: #bd8ea7;
+  --color-input-border: #6a6a6a;
+  --color-text-placeholder: #858585;
 }
 
 html {

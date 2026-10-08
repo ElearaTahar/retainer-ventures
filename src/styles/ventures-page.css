@@ -1,7 +1,12 @@
 .ventures-page {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.ventures-section + .ventures-section {
+  margin-top: 1rem;
 }
 
 .ventures-page > h1 {
@@ -28,14 +33,45 @@
   padding: 1rem;
   color: var(--color-text);
   text-decoration: none;
+  background-color: var(--color-surface);
   border: 1px solid var(--color-border);
+  border-radius: 10px;
 
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    background-color 150ms ease;
 }
 
 .venture-type-navigation a:hover {
-  background: var(--color-surface-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgb(0 0 0 / 5%);
+}
+
+.venture-type-navigation a:active {
+  background-color: var(--color-surface-hover);
+  transform: scale(0.99);
+}
+
+.venture-type-navigation-identity {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.venture-type-navigation-icon {
+  width: 35px;
+  height: 35px;
+  color: var(--color-accent);
+  padding: 0.3rem;
+  border-radius: 8px;
+  background-color: var(--color-surface-hover);
 }
 
 .quick-venture-type-navigation {
@@ -47,27 +83,58 @@
 
 .quick-venture-type-navigation-content {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   align-items: center;
 }
 
 .quick-venture-type-navigation-subtitle {
   font-size: small;
+  color: var(--color-text-muted);
+}
+
+.quick-venture-type-navigation-heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .venture-search-field {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  position: relative;
+}
+
+.venture-search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.2rem;
+  height: 1.2rem;
+  pointer-events: none;
+}
+
+.venture-search-icon,
+.venture-search-field input::placeholder {
+  color: var(--color-text-placeholder);
+  font-size: 0.9rem;
 }
 
 .venture-search-field input {
   width: 100%;
-  padding: 0.75rem 1rem;
-  font: inherit;
+  padding: 0.875rem 1rem;
+  padding-left: 3rem;
   color: var(--color-text);
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-input-border);
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 5%);
+}
+
+.venture-search-field input:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 .venture-search-results {
@@ -157,9 +224,35 @@
   color: var(--color-text-muted);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .venture-type-navigation a {
+    transition: none;
+  }
+
+  .venture-type-navigation a:hover {
+    transform: none;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 5%);
+    border-color: var(--color-accent);
+  }
+
+  .venture-type-navigation a:active {
+    transform: none;
+  }
+}
+
 @media (max-width: 700px) {
+  .ventures-page:has(#searchInput:focus) {
+    padding-bottom: 40dvh;
+  }
+
   .venture-type-navigation {
     grid-template-columns: 1fr;
+  }
+
+  .quick-venture-type-navigation-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 
   .venture-search-columns {

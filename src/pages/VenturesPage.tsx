@@ -13,6 +13,10 @@ import { toLanguage } from "../utils/i18n";
 import { searchVentures } from "../utils/ventureSearch";
 import { VentureSearchResultCard } from "../components/VentureSearchResultCard";
 import { NavigationSearchResultCard } from "../components/NavigationSearchResultCard";
+import { Clock, Dices, Search, Sword } from "lucide-react";
+import { MinerIcon } from "../components/icons/MinerIcon";
+import { BotanistIcon } from "../components/icons/BotanistIcon";
+import { FisherIcon } from "../components/icons/FisherIcon";
 
 type VenturesPageProps = {
   targetedVentures: TargetedVenture[];
@@ -68,19 +72,31 @@ export function VenturesPage({
           aria-label={t("ventures.types")}
         >
           <Link to="/ventures/combat">
-            <span>{t("retainerTypes.combat")}</span>
+            <span className="venture-type-navigation-identity">
+              <Sword className="venture-type-navigation-icon" />
+              {t("retainerTypes.combat")}
+            </span>
             <span aria-hidden="true">→</span>
           </Link>
           <Link to="/ventures/miner">
-            <span>{t("retainerTypes.miner")}</span>
+            <span className="venture-type-navigation-identity">
+              <MinerIcon />
+              {t("retainerTypes.miner")}
+            </span>
             <span aria-hidden="true">→</span>
           </Link>
           <Link to="/ventures/botanist">
-            <span>{t("retainerTypes.botanist")}</span>
+            <span className="venture-type-navigation-identity">
+              <BotanistIcon />
+              {t("retainerTypes.botanist")}
+            </span>
             <span aria-hidden="true">→</span>
           </Link>
           <Link to="/ventures/fisher">
-            <span>{t("retainerTypes.fisher")}</span>
+            <span className="venture-type-navigation-identity">
+              <FisherIcon />
+              {t("retainerTypes.fisher")}
+            </span>
             <span aria-hidden="true">→</span>
           </Link>
           <Link
@@ -88,7 +104,10 @@ export function VenturesPage({
             className="quick-venture-type-navigation"
           >
             <span className="quick-venture-type-navigation-content">
-              <span>{t("quickExplorationVenture.title")}</span>
+              <span className="quick-venture-type-navigation-heading">
+                <Dices className="venture-type-navigation-icon" />
+                <span>{t("quickExplorationVenture.title")}</span>
+              </span>
               <span className="quick-venture-type-navigation-subtitle">
                 {t("quickExplorationVenture.description")}
               </span>
@@ -100,14 +119,17 @@ export function VenturesPage({
 
       <section className="ventures-section">
         <h2>{t("ventures.search.title")}</h2>
+        <label htmlFor="searchInput">{t("ventures.search.label")}</label>
 
         <div className="venture-search-field">
-          <label htmlFor="searchInput">{t("ventures.search.label")}</label>
+          <Search className="venture-search-icon" aria-hidden="true" />
+
           <input
             type="search"
             id="searchInput"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
+            placeholder={t("ventures.search.placeholder")}
           />
         </div>
 
