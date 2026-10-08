@@ -1,38 +1,64 @@
 import type { RetainerType } from "../types/ventures";
 
-export const categoriesByRetainerType: Record<
-  RetainerType,
-  { slug: string; translationKey: string }[]
-> = {
-  combat: [
-    { slug: "hunting", translationKey: "targetedVenture.categories.hunting" },
-    {
-      slug: "field-exploration",
-      translationKey: "explorationVenture.categories.field",
-    },
-  ],
-  miner: [
-    { slug: "mining", translationKey: "targetedVenture.categories.mining" },
-    {
-      slug: "highland-exploration",
-      translationKey: "explorationVenture.categories.highland",
-    },
-  ],
-  botanist: [
-    { slug: "botany", translationKey: "targetedVenture.categories.botany" },
-    {
-      slug: "woodland-exploration",
-      translationKey: "explorationVenture.categories.woodland",
-    },
-  ],
-  fisher: [
-    { slug: "fishing", translationKey: "targetedVenture.categories.fishing" },
-    {
-      slug: "waterside-exploration",
-      translationKey: "explorationVenture.categories.waterside",
-    },
-  ],
+type VentureCategoryKind = "targeted" | "exploration";
+
+type VentureCategory = {
+  slug: string;
+  translationKey: string;
+  kind: VentureCategoryKind;
 };
+
+export const categoriesByRetainerType: Record<RetainerType, VentureCategory[]> =
+  {
+    combat: [
+      {
+        slug: "hunting",
+        translationKey: "targetedVenture.categories.hunting",
+        kind: "targeted",
+      },
+      {
+        slug: "field-exploration",
+        translationKey: "explorationVenture.categories.field",
+        kind: "exploration",
+      },
+    ],
+    miner: [
+      {
+        slug: "mining",
+        translationKey: "targetedVenture.categories.mining",
+        kind: "targeted",
+      },
+      {
+        slug: "highland-exploration",
+        translationKey: "explorationVenture.categories.highland",
+        kind: "exploration",
+      },
+    ],
+    botanist: [
+      {
+        slug: "botany",
+        translationKey: "targetedVenture.categories.botany",
+        kind: "targeted",
+      },
+      {
+        slug: "woodland-exploration",
+        translationKey: "explorationVenture.categories.woodland",
+        kind: "exploration",
+      },
+    ],
+    fisher: [
+      {
+        slug: "fishing",
+        translationKey: "targetedVenture.categories.fishing",
+        kind: "targeted",
+      },
+      {
+        slug: "waterside-exploration",
+        translationKey: "explorationVenture.categories.waterside",
+        kind: "exploration",
+      },
+    ],
+  };
 
 export function isRetainerType(
   value: string | undefined,

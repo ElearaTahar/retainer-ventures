@@ -54,6 +54,11 @@ const resources = {
         botanist: "Botanist",
         fisher: "Fisher",
       },
+      ventureCategoryDescriptions: {
+        targeted: "Send your retainer to gather specific resources.",
+        exploration:
+          "Send your retainer to explore an area, discover items, and earn more experience.",
+      },
       level: "Level {{level}}",
       abbreviatedLevel: "Lv. {{level}}",
       ventureCost_one: "{{count}} venture",
@@ -180,6 +185,11 @@ const resources = {
         botanist: "Botaniste",
         fisher: "Pêcheur",
       },
+      ventureCategoryDescriptions: {
+        targeted: "Envoyez votre servant récupérer des ressources spécifiques.",
+        exploration:
+          "Envoyez votre servant explorer une zone pour découvrir des objets et gagner davantage d'expérience.",
+      },
       level: "Niveau {{level}}",
       abbreviatedLevel: "Niv. {{level}}",
       ventureCost_one: "{{count}} jeton de tâche",
@@ -244,7 +254,7 @@ const resources = {
       quickExplorationVenture: {
         title: "Tâche improvisée",
         description:
-          "Une expédition courte, accessible à toutes les classes de servants, avec une récompense aléatoire",
+          "Une expédition courte, accessible à toutes les classes de servants, avec une récompense aléatoire.",
         knownRewards: "Récompenses connues",
         noKnownRewards: "Aucune récompense connue",
         unknownItem: "Objet inconnu ({{id}})",

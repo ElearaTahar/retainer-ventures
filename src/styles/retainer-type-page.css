@@ -1,22 +1,155 @@
+.retainer-type-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.retainer-type-page h1 {
+  margin: 0;
+}
+
 .venture-category-navigation {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
 
 .venture-category-navigation a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
   padding: 1rem;
   color: var(--color-text);
   text-decoration: none;
+  background-color: var(--color-surface);
   border: 1px solid var(--color-border);
+  border-radius: 10px;
+
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    background-color 150ms ease;
 }
 
 .venture-category-navigation a:hover {
-  background: var(--color-surface-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgb(0 0 0 / 5%);
+}
+
+.venture-category-navigation a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.venture-category-navigation a:active {
+  background-color: var(--color-surface-hover);
+  transform: scale(0.99);
+}
+
+.venture-category-card-icon {
+  width: 35px;
+  height: 35px;
+  color: var(--color-accent);
+  padding: 0.3rem;
+  border-radius: 8px;
+  background-color: var(--color-surface-hover);
+  flex-shrink: 0;
+}
+
+.venture-category-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.venture-category-card-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.venture-category-card-title {
+  font-weight: 600;
+}
+
+.venture-category-card-description {
+  color: var(--color-text-muted);
+  font-size: small;
+  line-height: 1.5;
+}
+
+.venture-category-card-arrow {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 701px) {
+  .venture-category-card-content {
+    display: grid;
+    grid-template-columns: 35px minmax(0, 1fr);
+    column-gap: 1rem;
+  }
+
+  .venture-category-card-heading {
+    display: contents;
+  }
+
+  .venture-category-card-icon {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    align-self: center;
+  }
+
+  .venture-category-card-title {
+    grid-column: 2;
+    align-self: end;
+  }
+
+  .venture-category-card-description {
+    grid-column: 2;
+  }
 }
 
 @media (max-width: 700px) {
   .venture-category-navigation {
     grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .venture-category-card-content {
+    gap: 0.5rem;
+  }
+
+  .venture-category-card-heading {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .venture-category-card-icon {
+    flex-shrink: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .venture-category-navigation a {
+    transition: none;
+  }
+
+  .venture-category-navigation a:hover {
+    transform: none;
+    border-color: var(--color-accent);
+  }
+
+  .venture-category-navigation a:active {
+    transform: none;
   }
 }

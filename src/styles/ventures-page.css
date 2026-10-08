@@ -87,6 +87,11 @@
   background-color: var(--color-surface-hover);
 }
 
+.venture-type-navigation-arrow {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+}
+
 .quick-venture-type-navigation {
   grid-column: 1 / -1;
   display: flex;

@@ -13,7 +13,7 @@ import { toLanguage } from "../utils/i18n";
 import { searchVentures } from "../utils/ventureSearch";
 import { VentureSearchResultCard } from "../components/VentureSearchResultCard";
 import { NavigationSearchResultCard } from "../components/NavigationSearchResultCard";
-import { Clock, Dices, Search, Sword } from "lucide-react";
+import { ArrowRight, Clock, Dices, Search, Sword } from "lucide-react";
 import { MinerIcon } from "../components/icons/MinerIcon";
 import { BotanistIcon } from "../components/icons/BotanistIcon";
 import { FisherIcon } from "../components/icons/FisherIcon";
@@ -76,28 +76,44 @@ export function VenturesPage({
               <Sword className="venture-type-navigation-icon" />
               {t("retainerTypes.combat")}
             </span>
-            <span aria-hidden="true">→</span>
+            <ArrowRight
+              className="venture-type-navigation-arrow"
+              size={18}
+              aria-hidden="true"
+            />
           </Link>
           <Link to="/ventures/miner">
             <span className="venture-type-navigation-identity">
               <MinerIcon className="venture-type-navigation-icon" />
               {t("retainerTypes.miner")}
             </span>
-            <span aria-hidden="true">→</span>
+            <ArrowRight
+              className="venture-type-navigation-arrow"
+              size={18}
+              aria-hidden="true"
+            />
           </Link>
           <Link to="/ventures/botanist">
             <span className="venture-type-navigation-identity">
               <BotanistIcon className="venture-type-navigation-icon" />
               {t("retainerTypes.botanist")}
             </span>
-            <span aria-hidden="true">→</span>
+            <ArrowRight
+              className="venture-type-navigation-arrow"
+              size={18}
+              aria-hidden="true"
+            />
           </Link>
           <Link to="/ventures/fisher">
             <span className="venture-type-navigation-identity">
               <FisherIcon className="venture-type-navigation-icon" />
               {t("retainerTypes.fisher")}
             </span>
-            <span aria-hidden="true">→</span>
+            <ArrowRight
+              className="venture-type-navigation-arrow"
+              size={18}
+              aria-hidden="true"
+            />
           </Link>
           <Link
             to="/ventures/quick-exploration"
@@ -112,7 +128,11 @@ export function VenturesPage({
                 {t("quickExplorationVenture.description")}
               </span>
             </span>
-            <span aria-hidden="true">→</span>
+            <ArrowRight
+              className="venture-type-navigation-arrow"
+              size={18}
+              aria-hidden="true"
+            />
           </Link>
         </nav>
       </section>
