@@ -97,7 +97,8 @@ const resources = {
           woodland: "Woodland Exploration",
           waterside: "Waterside Exploration",
         },
-        description: "Exploration ventures for this retainer type.",
+        description:
+          "Send your retainer on an exploration venture to earn experience and various rewards.",
         durationSummary: "18 hours",
         communityRewardsNotice:
           "Possible rewards are based on community data and may be incomplete.",
@@ -229,7 +230,8 @@ const resources = {
           woodland: "Exploration en forêt",
           waterside: "Exploration en rivage",
         },
-        description: "Tâches d'exploration pour ce type de servant.",
+        description:
+          "Envoyez votre servant en exploration pour obtenir de l'expérience et diverses récompenses.",
         durationSummary: "18 heures",
         communityRewardsNotice:
           "Les récompenses possibles reposent sur des données communautaires et peuvent être incomplètes.",
