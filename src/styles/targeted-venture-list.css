@@ -1,3 +1,7 @@
+.venture {
+  scroll-margin-top: 6rem;
+}
+
 .venture + .venture {
   border-top: 1px solid var(--color-border);
 }

@@ -17,6 +17,7 @@ import { VentureCategoryPage } from "./pages/VentureCategoryPage";
 import { RetainersPage } from "./pages/RetainersPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { QuickExplorationPage } from "./pages/QuickExplorationPage";
+import { BackToTopButton } from "./components/BackToTopButton";
 
 export function App() {
   const [targetedVentures, setTargetedVentures] = useState<
@@ -132,6 +133,8 @@ export function App() {
           />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+
+        <BackToTopButton />
       </main>
     </>
   );

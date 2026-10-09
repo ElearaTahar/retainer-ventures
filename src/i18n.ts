@@ -19,6 +19,7 @@ const resources = {
         ventures: "Ventures",
         ventureCategories: "Venture categories",
         retainers: "My Retainers",
+        backToTop: "Top",
       },
       notFound: {
         title: "Page not found",
@@ -149,6 +150,7 @@ const resources = {
         ventures: "Tâches",
         ventureCategories: "Catégories de tâches",
         retainers: "Mes servants",
+        backToTop: "En haut",
       },
       notFound: {
         title: "Page introuvable",
