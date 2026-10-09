@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import "../styles/ventures-page.css";
@@ -13,7 +13,7 @@ import { toLanguage } from "../utils/i18n";
 import { searchVentures } from "../utils/ventureSearch";
 import { VentureSearchResultCard } from "../components/VentureSearchResultCard";
 import { NavigationSearchResultCard } from "../components/NavigationSearchResultCard";
-import { ArrowRight, Clock, Dices, Search, Sword } from "lucide-react";
+import { ArrowRight, Clock, Dices, Search, SearchX, Sword } from "lucide-react";
 import { MinerIcon } from "../components/icons/MinerIcon";
 import { BotanistIcon } from "../components/icons/BotanistIcon";
 import { FisherIcon } from "../components/icons/FisherIcon";
@@ -38,6 +38,7 @@ export function VenturesPage({
   const language = toLanguage(i18n.language);
 
   const [query, setQuery] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const searchResults = searchVentures(
     query,
@@ -145,6 +146,7 @@ export function VenturesPage({
           <Search className="venture-search-icon" aria-hidden="true" />
 
           <input
+            ref={searchInputRef}
             type="search"
             id="searchInput"
             value={query}
@@ -216,14 +218,26 @@ export function VenturesPage({
                 )}
               </>
             ) : (
-              <>
-                <p>{t("ventures.search.noResults", { query: trimmedQuery })}</p>
-                <p>{t("ventures.search.noResultsHint")}</p>
+              <div className="venture-search-empty" role="status">
+                <SearchX size={32} aria-hidden="true" />
 
-                <button type="button" onClick={() => setQuery("")}>
+                <div className="venture-search-empty-text">
+                  <p className="venture-search-empty-title">
+                    {t("ventures.search.noResults", { query: trimmedQuery })}
+                  </p>
+                  <p>{t("ventures.search.noResultsHint")}</p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setQuery("");
+                    searchInputRef.current?.focus();
+                  }}
+                >
                   {t("ventures.search.clear")}
                 </button>
-              </>
+              </div>
             )}
           </div>
         )}
