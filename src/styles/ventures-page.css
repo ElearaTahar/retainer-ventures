@@ -1,11 +1,3 @@
-.ventures-page {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-
 .visually-hidden {
   position: absolute;
   width: 1px;

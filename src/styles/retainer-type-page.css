@@ -1,12 +1,4 @@
-.retainer-type-page {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-
-.retainer-type-page h1 {
+.retainer-type-page > h1 {
   margin: 0;
 }
 

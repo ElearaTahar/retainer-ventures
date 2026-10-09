@@ -1,9 +1,11 @@
+.venture-header .exploration-community-notice {
+  margin: 1rem 0 0;
+}
+
 .exploration-community-notice {
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
-
-  margin: 1rem 0 0;
 
   color: var(--color-text-muted);
 

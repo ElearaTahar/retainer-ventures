@@ -62,7 +62,7 @@ export function VenturesPage({
   );
 
   return (
-    <div className="ventures-page">
+    <div className="page-layout ventures-page">
       <h1 className="visually-hidden">{t("navigation.ventures")}</h1>
 
       <section className="ventures-section">

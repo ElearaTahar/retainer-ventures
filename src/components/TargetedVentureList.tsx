@@ -90,7 +90,7 @@ export function TargetedVentureList({
           return (
             <div
               id={`venture-${venture.id}`}
-              className={`venture ${expanded ? "venture--expanded" : ""}`}
+              className="venture"
               key={venture.id}
             >
               <button

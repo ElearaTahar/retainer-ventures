@@ -21,7 +21,7 @@ export function RetainerTypePage() {
   const categories = categoriesByRetainerType[retainerType];
 
   return (
-    <div className="retainer-type-page">
+    <div className="page-layout retainer-type-page">
       <Breadcrumb
         items={[
           { label: t("navigation.ventures"), to: "/ventures" },
@@ -42,7 +42,6 @@ export function RetainerTypePage() {
             <Link
               key={category.slug}
               to={`/ventures/${retainerType}/${category.slug}`}
-              className="venture-category-card"
             >
               <span className="venture-category-card-content">
                 <span className="venture-category-card-heading">

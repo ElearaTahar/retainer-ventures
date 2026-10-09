@@ -12,18 +12,18 @@
   gap: 1.5rem;
 }
 
-.targeted-venture-header {
+.venture-header {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-.targeted-venture-header h1,
-.targeted-venture-header p {
+.venture-header h1,
+.venture-header p {
   margin: 0;
 }
 
-.targeted-venture-header > p {
+.venture-header > p {
   color: var(--color-text-muted);
   font-size: 0.875rem;
 }

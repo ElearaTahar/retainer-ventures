@@ -16,7 +16,6 @@ import { TargetedVentureList } from "../components/TargetedVentureList";
 import { Breadcrumb } from "../components/Breadcrumb";
 import { NotFoundPage } from "./NotFoundPage";
 import { ExplorationVentureList } from "../components/ExplorationVentureList";
-import "../styles/venture-category-page.css";
 
 function isTargetedCategory(
   value: string | undefined,
@@ -70,7 +69,7 @@ export function VentureCategoryPage({
   }
 
   return (
-    <div className="venture-category-page">
+    <div className="page-layout">
       <Breadcrumb
         items={[
           { label: t("navigation.ventures"), to: "/ventures" },
