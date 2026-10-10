@@ -1,5 +1,7 @@
+import { ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import "../styles/breadcrumb.css";
 
 type BreadcrumbItem = {
   label: string;
@@ -25,7 +27,11 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
               ) : (
                 <span aria-current="page">{item.label}</span>
               )}
-              {!isLast && <span aria-hidden="true">/</span>}
+              {!isLast && (
+                <span aria-hidden="true">
+                  <ChevronRight size={14} />
+                </span>
+              )}
             </li>
           );
         })}

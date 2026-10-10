@@ -1,3 +1,4 @@
+import { ArrowRight, Compass, Crosshair } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -20,16 +21,11 @@ export function RetainerTypePage() {
   const categories = categoriesByRetainerType[retainerType];
 
   return (
-    <>
+    <div className="page-layout retainer-type-page">
       <Breadcrumb
         items={[
-          {
-            label: t("navigation.ventures"),
-            to: "/ventures",
-          },
-          {
-            label: t(`retainerTypes.${retainerType}`),
-          },
+          { label: t("navigation.ventures"), to: "/ventures" },
+          { label: t(`retainerTypes.${retainerType}`) },
         ]}
       />
 
@@ -39,15 +35,39 @@ export function RetainerTypePage() {
         className="venture-category-navigation"
         aria-label={t("navigation.ventureCategories")}
       >
-        {categories.map((category) => (
-          <Link
-            key={category.slug}
-            to={`/ventures/${retainerType}/${category.slug}`}
-          >
-            {t(category.translationKey)}
-          </Link>
-        ))}
+        {categories.map((category) => {
+          const Icon = category.kind === "targeted" ? Crosshair : Compass;
+
+          return (
+            <Link
+              key={category.slug}
+              to={`/ventures/${retainerType}/${category.slug}`}
+            >
+              <span className="venture-category-card-content">
+                <span className="venture-category-card-heading">
+                  <Icon
+                    className="venture-category-card-icon"
+                    aria-hidden="true"
+                  />
+
+                  <span className="venture-category-card-title">
+                    {t(category.translationKey)}
+                  </span>
+                </span>
+
+                <span className="venture-category-card-description">
+                  {t(`ventureCategoryDescriptions.${category.kind}`)}
+                </span>
+              </span>
+              <ArrowRight
+                className="venture-category-card-arrow"
+                size={18}
+                aria-hidden="true"
+              />
+            </Link>
+          );
+        })}
       </nav>
-    </>
+    </div>
   );
 }

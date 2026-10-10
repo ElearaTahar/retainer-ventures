@@ -7,7 +7,8 @@ import {
   TARGETED_MIN_DURATION_MINUTES,
 } from "../utils/ventures";
 import { useTranslation } from "react-i18next";
-import { buildItemIconUrl } from "../utils/itemIcon";
+import { Clock3 } from "lucide-react";
+import { ItemIconStack } from "./ItemIconStack";
 
 type VentureSearchResultCardProps = {
   result: VentureSearchResult;
@@ -74,52 +75,40 @@ export function VentureSearchResultCard({
     <Link className="venture-search-result" to={result.link}>
       <div className="venture-search-result-main">
         <div className="venture-search-result-identity">
-          {result.displayItems.length === 1 && (
-            <img
-              className="venture-search-result-icon"
-              src={buildItemIconUrl(result.displayItems[0].iconId)}
-              alt=""
-            />
-          )}
-          {result.displayItems.length === 2 && (
-            <span className="venture-search-result-icon-stack">
-              {result.displayItems.map((item) => {
-                return (
-                  <img
-                    className="venture-search-result-icon"
-                    key={item.id}
-                    src={buildItemIconUrl(item.iconId)}
-                    alt=""
-                  />
-                );
-              })}
-            </span>
-          )}
-          <span className="venture-search-result-title">{title}</span>
+          <ItemIconStack
+            iconIds={result.displayItems.map((item) => item.iconId)}
+          />
         </div>
 
-        {retainerTypeName !== null && categoryName !== null && (
-          <div className="venture-search-result-context">
-            <span>{categoryName}</span>
-            {" · "}
-            <span>{retainerTypeName}</span>
-          </div>
-        )}
+        <div className="venture-search-result-details">
+          <span className="venture-search-result-title">{title}</span>
 
-        {result.matchingItems.length > 0 &&
-          result.venture.kind !== "targeted" && (
-            <div className="venture-search-result-matches">
-              {t("ventures.search.matchingRewards", {
-                count: result.matchingItems.length,
-              })}{" "}
-              {result.matchingItems
-                .map((item) => item.name[language])
-                .join(", ")}
+          {retainerTypeName !== null && categoryName !== null && (
+            <div className="venture-search-result-context">
+              <span>{categoryName}</span>
+              {" · "}
+              <span>{retainerTypeName}</span>
             </div>
           )}
+
+          {result.matchingItems.length > 0 &&
+            result.venture.kind !== "targeted" && (
+              <div className="venture-search-result-matches">
+                {t("ventures.search.matchingRewards", {
+                  count: result.matchingItems.length,
+                })}{" "}
+                {result.matchingItems
+                  .map((item) => item.name[language])
+                  .join(", ")}
+              </div>
+            )}
+        </div>
       </div>
 
-      <span className="venture-search-result-duration">{durationLabel}</span>
+      <span className="venture-search-result-duration">
+        <Clock3 aria-hidden="true" size={14} />
+        {durationLabel}
+      </span>
       <span className="venture-search-result-cost">
         {t("ventureCost", { count: result.venture.ventureCost })}
       </span>

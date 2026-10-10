@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
+import { RetainerBellIcon } from "./icons/RetainerBellIcon";
 
 type Theme = "light" | "dark";
 
@@ -19,6 +20,8 @@ export function AppHeader() {
       ? storedTheme
       : null;
   });
+
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const effectiveTheme = themeOverrride !== null ? themeOverrride : systemTheme;
 
@@ -59,10 +62,44 @@ export function AppHeader() {
     }
   }, [themeOverrride]);
 
+  useEffect(() => {
+    const sentinel = document.createElement("div");
+    sentinel.style.position = "absolute";
+    sentinel.style.top = "0";
+    sentinel.style.height = "1px";
+    sentinel.style.pointerEvents = "none";
+
+    document.body.prepend(sentinel);
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsScrolled(!entry.isIntersecting);
+    });
+
+    observer.observe(sentinel);
+
+    return () => {
+      observer.disconnect();
+      sentinel.remove();
+    };
+  }, []);
+
   return (
-    <header className="app-header">
+    <header
+      className={`app-header${isScrolled ? " app-header--scrolled" : ""}`}
+    >
       <div className="app-header-content">
-        <span className="app-title">{t("appTitle")}</span>
+        <NavLink
+          to="/ventures"
+          className="app-title"
+          aria-label={t("appTitle")}
+        >
+          <RetainerBellIcon className="app-logo" aria-hidden="true" />
+
+          <span className="app-title-text">
+            <span className="app-title-prefix">FFXIV</span>
+            <span className="app-title-name">Retainer Ventures</span>
+          </span>
+        </NavLink>
 
         <nav className="app-navigation" aria-label={t("navigation.main")}>
           <NavLink to="/ventures">{t("navigation.ventures")}</NavLink>

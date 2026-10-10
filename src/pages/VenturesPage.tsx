@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import "../styles/ventures-page.css";
@@ -13,6 +13,10 @@ import { toLanguage } from "../utils/i18n";
 import { searchVentures } from "../utils/ventureSearch";
 import { VentureSearchResultCard } from "../components/VentureSearchResultCard";
 import { NavigationSearchResultCard } from "../components/NavigationSearchResultCard";
+import { ArrowRight, Clock, Dices, Search, SearchX, Sword } from "lucide-react";
+import { MinerIcon } from "../components/icons/MinerIcon";
+import { BotanistIcon } from "../components/icons/BotanistIcon";
+import { FisherIcon } from "../components/icons/FisherIcon";
 
 type VenturesPageProps = {
   targetedVentures: TargetedVenture[];
@@ -34,6 +38,7 @@ export function VenturesPage({
   const language = toLanguage(i18n.language);
 
   const [query, setQuery] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const searchResults = searchVentures(
     query,
@@ -57,8 +62,8 @@ export function VenturesPage({
   );
 
   return (
-    <div className="ventures-page">
-      <h1>{t("navigation.ventures")}</h1>
+    <div className="page-layout ventures-page">
+      <h1 className="visually-hidden">{t("navigation.ventures")}</h1>
 
       <section className="ventures-section">
         <h2>{t("ventures.browseVentures")}</h2>
@@ -68,112 +73,171 @@ export function VenturesPage({
           aria-label={t("ventures.types")}
         >
           <Link to="/ventures/combat">
-            <span>{t("retainerTypes.combat")}</span>
-            <span aria-hidden="true">→</span>
+            <span className="venture-type-navigation-identity">
+              <Sword className="venture-type-navigation-icon" />
+              {t("retainerTypes.combat")}
+            </span>
+            <ArrowRight
+              className="venture-type-navigation-arrow"
+              size={18}
+              aria-hidden="true"
+            />
           </Link>
           <Link to="/ventures/miner">
-            <span>{t("retainerTypes.miner")}</span>
-            <span aria-hidden="true">→</span>
+            <span className="venture-type-navigation-identity">
+              <MinerIcon className="venture-type-navigation-icon" />
+              {t("retainerTypes.miner")}
+            </span>
+            <ArrowRight
+              className="venture-type-navigation-arrow"
+              size={18}
+              aria-hidden="true"
+            />
           </Link>
           <Link to="/ventures/botanist">
-            <span>{t("retainerTypes.botanist")}</span>
-            <span aria-hidden="true">→</span>
+            <span className="venture-type-navigation-identity">
+              <BotanistIcon className="venture-type-navigation-icon" />
+              {t("retainerTypes.botanist")}
+            </span>
+            <ArrowRight
+              className="venture-type-navigation-arrow"
+              size={18}
+              aria-hidden="true"
+            />
           </Link>
           <Link to="/ventures/fisher">
-            <span>{t("retainerTypes.fisher")}</span>
-            <span aria-hidden="true">→</span>
+            <span className="venture-type-navigation-identity">
+              <FisherIcon className="venture-type-navigation-icon" />
+              {t("retainerTypes.fisher")}
+            </span>
+            <ArrowRight
+              className="venture-type-navigation-arrow"
+              size={18}
+              aria-hidden="true"
+            />
           </Link>
           <Link
             to="/ventures/quick-exploration"
             className="quick-venture-type-navigation"
           >
             <span className="quick-venture-type-navigation-content">
-              <span>{t("quickExplorationVenture.title")}</span>
+              <span className="quick-venture-type-navigation-heading">
+                <Dices className="venture-type-navigation-icon" />
+                <span>{t("quickExplorationVenture.title")}</span>
+              </span>
               <span className="quick-venture-type-navigation-subtitle">
                 {t("quickExplorationVenture.description")}
               </span>
             </span>
-            <span aria-hidden="true">→</span>
+            <ArrowRight
+              className="venture-type-navigation-arrow"
+              size={18}
+              aria-hidden="true"
+            />
           </Link>
         </nav>
       </section>
 
       <section className="ventures-section">
         <h2>{t("ventures.search.title")}</h2>
+        <label htmlFor="searchInput">{t("ventures.search.label")}</label>
 
         <div className="venture-search-field">
-          <label htmlFor="searchInput">{t("ventures.search.label")}</label>
+          <Search className="venture-search-icon" aria-hidden="true" />
+
           <input
+            ref={searchInputRef}
             type="search"
             id="searchInput"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
+            placeholder={t("ventures.search.placeholder")}
           />
         </div>
 
         {hasSearchQuery && (
           <div className="venture-search-results">
-            <h3>{t("ventures.search.resultsTitle")}</h3>
-
-            {searchResults.length > 0 ? (
-              <>
+            <div className="venture-search-results-heading">
+              {searchResults.length > 0 && (
                 <p>
                   {t("ventures.search.resultsFor", {
                     count: searchResults.length,
                     query: trimmedQuery,
                   })}
                 </p>
+              )}
+            </div>
 
+            {searchResults.length > 0 ? (
+              <>
                 {navigationResults.length > 0 && (
-                  <>
-                    <h4>{t("ventures.search.navigation")}</h4>
-                    <div className="venture-search-columns">
-                      <span>{t("ventures.search.destinationColumn")}</span>
-                      <span>{t("ventures.search.durationColumn")}</span>
-                      <span>{t("ventures.search.costColumn")}</span>
-                      <span aria-hidden="true" />
+                  <div className="venture-search-result-group">
+                    <h3>{t("ventures.search.navigation")}</h3>
+
+                    <div className="venture-search-list">
+                      <div className="venture-search-columns">
+                        <span>{t("ventures.search.destinationColumn")}</span>
+                        <span>{t("ventures.search.durationColumn")}</span>
+                        <span>{t("ventures.search.costColumn")}</span>
+                        <span aria-hidden="true" />
+                      </div>
+                      {navigationResults.map((result) => {
+                        return (
+                          <NavigationSearchResultCard
+                            key={`navigation:${result.link}`}
+                            result={result}
+                          />
+                        );
+                      })}
                     </div>
-                    {navigationResults.map((result) => {
-                      return (
-                        <NavigationSearchResultCard
-                          key={`navigation:${result.link}`}
-                          result={result}
-                        />
-                      );
-                    })}
-                  </>
+                  </div>
                 )}
 
                 {ventureResults.length > 0 && (
-                  <>
-                    <h4>{t("ventures.search.ventures")}</h4>
-                    <div className="venture-search-columns">
-                      <span>{t("ventures.search.ventureColumn")}</span>
-                      <span>{t("ventures.search.durationColumn")}</span>
-                      <span>{t("ventures.search.costColumn")}</span>
-                      <span aria-hidden="true" />
+                  <div className="venture-search-result-group">
+                    <h3>{t("ventures.search.ventures")}</h3>
+
+                    <div className="venture-search-list">
+                      <div className="venture-search-columns">
+                        <span>{t("ventures.search.ventureColumn")}</span>
+                        <span>{t("ventures.search.durationColumn")}</span>
+                        <span>{t("ventures.search.costColumn")}</span>
+                        <span aria-hidden="true" />
+                      </div>
+                      {ventureResults.map((result) => {
+                        return (
+                          <VentureSearchResultCard
+                            key={`venture:${result.venture.id}`}
+                            result={result}
+                            language={language}
+                          />
+                        );
+                      })}
                     </div>
-                    {ventureResults.map((result) => {
-                      return (
-                        <VentureSearchResultCard
-                          key={`venture:${result.venture.id}`}
-                          result={result}
-                          language={language}
-                        />
-                      );
-                    })}
-                  </>
+                  </div>
                 )}
               </>
             ) : (
-              <>
-                <p>{t("ventures.search.noResults", { query: trimmedQuery })}</p>
-                <p>{t("ventures.search.noResultsHint")}</p>
+              <div className="venture-search-empty" role="status">
+                <SearchX size={32} aria-hidden="true" />
 
-                <button type="button" onClick={() => setQuery("")}>
+                <div className="venture-search-empty-text">
+                  <p className="venture-search-empty-title">
+                    {t("ventures.search.noResults", { query: trimmedQuery })}
+                  </p>
+                  <p>{t("ventures.search.noResultsHint")}</p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setQuery("");
+                    searchInputRef.current?.focus();
+                  }}
+                >
                   {t("ventures.search.clear")}
                 </button>
-              </>
+              </div>
             )}
           </div>
         )}

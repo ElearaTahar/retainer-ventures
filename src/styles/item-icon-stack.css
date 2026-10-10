@@ -1,0 +1,32 @@
+.item-icon-stack {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.item-icon-stack img {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.item-icon-stack img:first-child {
+  top: 8px;
+  left: 8px;
+}
+
+.item-icon-stack img:last-child {
+  top: 0;
+  left: 0;
+}
+
+.item-icon-stack--single img {
+  width: 32px;
+  height: 32px;
+  top: 0;
+  left: 0;
+}

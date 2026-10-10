@@ -5,49 +5,71 @@
 }
 
 :root {
-  font-family: system-ui, sans-serif;
+  font-family: "DM Sans Variable", system-ui, sans-serif;
 
-  --color-background: #ffffff;
-  --color-text: #1a1a1a;
-  --color-text-muted: #5f6368;
-  --color-surface: #f2f2f2;
-  --color-surface-hover: #e6e6e6;
-  --color-border: #b0b0b0;
-  --color-focus: #1a1a1a;
+  --color-background: #f6f4f1;
+  --color-text: #252126;
+  --color-text-muted: #716a70;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f0ebe7;
+  --color-border: #dcd5d0;
+  --color-focus: #252126;
+  --color-accent: #5d394d;
+  --color-accent-subtle: #5d394d;
+  --color-input-border: #dcd5d0;
+  --color-text-placeholder: #8a8380;
 
   --content-width: 1120px;
 }
 
+h1,
+h2,
+h3 {
+  font-family: "Manrope Variable", "DM Sans Variable", system-ui, sans-serif;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: #121417;
-    --color-text: #f2f2f2;
-    --color-text-muted: #aeb4bc;
-    --color-surface: #1c2127;
-    --color-surface-hover: #252b33;
-    --color-border: #3a4149;
-    --color-focus: #ffffff;
+    --color-background: #171717;
+    --color-text: #f1f2f4;
+    --color-text-muted: #a4aab3;
+    --color-surface: #202020;
+    --color-surface-hover: #2c2c2c;
+    --color-border: #404040;
+    --color-focus: #f1f2f4;
+    --color-accent: #bd8ea7;
+    --color-accent-subtle: #a77c93;
+    --color-input-border: #6a6a6a;
+    --color-text-placeholder: #858585;
   }
 }
 
 :root[data-theme="light"] {
-  --color-background: #ffffff;
-  --color-text: #1a1a1a;
-  --color-text-muted: #5f6368;
-  --color-surface: #f2f2f2;
-  --color-surface-hover: #e6e6e6;
-  --color-border: #b0b0b0;
-  --color-focus: #1a1a1a;
+  --color-background: #f6f4f1;
+  --color-text: #252126;
+  --color-text-muted: #716a70;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f0ebe7;
+  --color-border: #dcd5d0;
+  --color-focus: #252126;
+  --color-accent: #5d394d;
+  --color-accent-subtle: #5d394d;
+  --color-input-border: #dcd5d0;
+  --color-text-placeholder: #8a8380;
 }
 
 :root[data-theme="dark"] {
-  --color-background: #121417;
-  --color-text: #f2f2f2;
-  --color-text-muted: #aeb4bc;
-  --color-surface: #1c2127;
-  --color-surface-hover: #252b33;
-  --color-border: #3a4149;
-  --color-focus: #ffffff;
+  --color-background: #171717;
+  --color-text: #f1f2f4;
+  --color-text-muted: #a4aab3;
+  --color-surface: #202020;
+  --color-surface-hover: #2c2c2c;
+  --color-border: #404040;
+  --color-focus: #f1f2f4;
+  --color-accent: #bd8ea7;
+  --color-accent-subtle: #a77c93;
+  --color-input-border: #6a6a6a;
+  --color-text-placeholder: #858585;
 }
 
 html {
@@ -72,42 +94,98 @@ textarea {
   margin-inline: auto;
 }
 
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--color-background);
+  border-bottom: 1px solid transparent;
+}
+
+.app-header--scrolled {
+  border-bottom-color: var(--color-border);
+}
+
 .app-header-content {
   width: min(100% - 2rem, var(--content-width));
   margin-inline: auto;
-
+  min-height: 4.5rem;
   display: flex;
   align-items: center;
-  gap: 2rem;
-}
-
-.app-header {
-  padding-block: 1rem;
+  gap: 3rem;
 }
 
 .app-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.app-logo {
+  width: 3rem;
+  height: auto;
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+
+.app-title-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  line-height: 1.2;
+}
+
+.app-title-prefix {
+  font-size: 0.7rem;
   font-weight: 600;
+  color: var(--color-accent);
+  letter-spacing: 0.06em;
+}
+
+.app-title-name {
+  font-family: "Manrope Variable", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
 }
 
 .app-navigation {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  align-self: stretch;
+  align-items: stretch;
+  gap: 2rem;
 }
 
 .app-navigation a {
+  position: relative;
+  display: flex;
+  align-items: center;
   color: var(--color-text);
   text-decoration: none;
 }
 
-.app-navigation a:hover {
-  color: var(--color-text);
+.app-navigation a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: transparent;
 }
 
-.app-navigation a.active {
-  color: var(--color-text);
-  text-decoration: underline;
-  text-underline-offset: 0.25rem;
+.app-navigation a.active::after {
+  background-color: var(--color-accent);
+}
+
+.app-navigation a:hover {
+  color: var(--color-accent);
+}
+
+.app-navigation a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
 }
 
 .app-header-actions {
@@ -194,35 +272,43 @@ textarea {
   background: var(--color-surface);
 }
 
-.breadcrumb {
-  margin-block: 1rem;
-}
-
-.breadcrumb ol {
+.page-layout {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
-.breadcrumb li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
+@media (max-width: 700px) {
+  .app-header-content {
+    display: flex;
+    align-items: center;
+    min-height: 4rem;
+    gap: 0.75rem;
+  }
 
-.breadcrumb a {
-  color: var(--color-text);
-  text-decoration: none;
-}
+  .app-title-text {
+    display: none;
+  }
 
-.breadcrumb a:hover {
-  text-decoration: underline;
-}
+  .app-logo {
+    width: 2.5rem;
+  }
 
-.breadcrumb [aria-current="page"] {
-  font-weight: 600;
+  .app-navigation {
+    flex: 1;
+    min-width: 0;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .app-navigation a {
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  .app-header-actions {
+    flex-shrink: 0;
+  }
 }

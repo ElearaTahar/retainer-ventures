@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import type {
   ExplorationCategory,
   ExplorationVenture,
@@ -13,7 +14,6 @@ import {
 import type { ItemSearchEntry } from "../types/items";
 import { TargetedVentureList } from "../components/TargetedVentureList";
 import { Breadcrumb } from "../components/Breadcrumb";
-import { useTranslation } from "react-i18next";
 import { NotFoundPage } from "./NotFoundPage";
 import { ExplorationVentureList } from "../components/ExplorationVentureList";
 
@@ -69,20 +69,15 @@ export function VentureCategoryPage({
   }
 
   return (
-    <>
+    <div className="page-layout">
       <Breadcrumb
         items={[
-          {
-            label: t("navigation.ventures"),
-            to: "/ventures",
-          },
+          { label: t("navigation.ventures"), to: "/ventures" },
           {
             label: t(`retainerTypes.${retainerType}`),
             to: `/ventures/${retainerType}`,
           },
-          {
-            label: t(ventureCategory.translationKey),
-          },
+          { label: t(ventureCategory.translationKey) },
         ]}
       />
 
@@ -100,6 +95,6 @@ export function VentureCategoryPage({
           itemsById={itemsById}
         />
       ) : null}
-    </>
+    </div>
   );
 }

@@ -19,6 +19,7 @@ const resources = {
         ventures: "Ventures",
         ventureCategories: "Venture categories",
         retainers: "My Retainers",
+        backToTop: "Top",
       },
       notFound: {
         title: "Page not found",
@@ -31,6 +32,7 @@ const resources = {
         search: {
           title: "Looking for something specific?",
           label: "Search ventures, items or rewards",
+          placeholder: "e.g. Iron Ore, Quick exploration…",
           resultsTitle: "Search results",
           resultsFor_one: '{{count}} result for "{{query}}"',
           resultsFor_other: '{{count}} results for "{{query}}"',
@@ -52,6 +54,11 @@ const resources = {
         miner: "Miner",
         botanist: "Botanist",
         fisher: "Fisher",
+      },
+      ventureCategoryDescriptions: {
+        targeted: "Send your retainer to gather specific resources.",
+        exploration:
+          "Send your retainer to explore an area, discover items, and earn more experience.",
       },
       level: "Level {{level}}",
       abbreviatedLevel: "Lv. {{level}}",
@@ -90,7 +97,8 @@ const resources = {
           woodland: "Woodland Exploration",
           waterside: "Waterside Exploration",
         },
-        description: "Exploration ventures for this retainer type.",
+        description:
+          "Send your retainer on an exploration venture to earn experience and various rewards.",
         durationSummary: "18 hours",
         communityRewardsNotice:
           "Possible rewards are based on community data and may be incomplete.",
@@ -116,7 +124,8 @@ const resources = {
       },
       quickExplorationVenture: {
         title: "Quick exploration",
-        description: "A short venture with unpredictable rewards",
+        description:
+          "A short venture, available to retainers of all classes, with a random reward.",
         knownRewards: "Known rewards",
         noKnownRewards: "No known rewards",
         unknownItem: "Unknown item ({{id}})",
@@ -142,6 +151,7 @@ const resources = {
         ventures: "Tâches",
         ventureCategories: "Catégories de tâches",
         retainers: "Mes servants",
+        backToTop: "En haut",
       },
       notFound: {
         title: "Page introuvable",
@@ -154,6 +164,7 @@ const resources = {
         search: {
           title: "Vous cherchez quelque chose de précis ?",
           label: "Rechercher des tâches, objets ou récompenses",
+          placeholder: "Ex. : Minerai de fer, Tâche improvisée…",
           resultsTitle: "Résultats de recherche",
           resultsFor_one: "{{count}} résultat pour « {{query}} »",
           resultsFor_other: "{{count}} résultats pour « {{query}} »",
@@ -172,10 +183,15 @@ const resources = {
         },
       },
       retainerTypes: {
-        combat: "Combat",
+        combat: "Combattant",
         miner: "Mineur",
         botanist: "Botaniste",
         fisher: "Pêcheur",
+      },
+      ventureCategoryDescriptions: {
+        targeted: "Envoyez votre servant récupérer des ressources spécifiques.",
+        exploration:
+          "Envoyez votre servant explorer une zone pour découvrir des objets et gagner davantage d'expérience.",
       },
       level: "Niveau {{level}}",
       abbreviatedLevel: "Niv. {{level}}",
@@ -214,7 +230,8 @@ const resources = {
           woodland: "Exploration en forêt",
           waterside: "Exploration en rivage",
         },
-        description: "Tâches d'exploration pour ce type de servant.",
+        description:
+          "Envoyez votre servant en exploration pour obtenir de l'expérience et diverses récompenses.",
         durationSummary: "18 heures",
         communityRewardsNotice:
           "Les récompenses possibles reposent sur des données communautaires et peuvent être incomplètes.",
@@ -240,7 +257,8 @@ const resources = {
       },
       quickExplorationVenture: {
         title: "Tâche improvisée",
-        description: "Une expédition courte aux récompenses imprévisibles",
+        description:
+          "Une expédition courte, accessible à toutes les classes de servants, avec une récompense aléatoire.",
         knownRewards: "Récompenses connues",
         noKnownRewards: "Aucune récompense connue",
         unknownItem: "Objet inconnu ({{id}})",
