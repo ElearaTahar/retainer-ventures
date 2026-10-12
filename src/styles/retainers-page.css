@@ -178,6 +178,35 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  position: relative;
+}
+
+.retainer-card-edit-button {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+}
+
+.retainer-card-edit-button:hover {
+  background: var(--color-surface-hover);
+}
+
+.retainer-card-edit-button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 .retainer-card-identity {
@@ -190,6 +219,7 @@
 .retainer-card-name {
   font-weight: 700;
   overflow-wrap: anywhere;
+  padding-right: 2rem;
 }
 
 .retainer-card-subtitle {

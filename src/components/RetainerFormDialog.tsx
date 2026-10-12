@@ -3,31 +3,51 @@ import { useEffect, useRef, useState } from "react";
 import type { SubmitEvent } from "react";
 import { useTranslation } from "react-i18next";
 import type { RetainerType } from "../types/ventures";
-import type { NewRetainer } from "../types/retainers";
-import { createRetainer } from "../db/retainers";
+import type { NewRetainer, Retainer } from "../types/retainers";
+import { createRetainer, updateRetainer } from "../db/retainers";
 
 type RetainerFormDialogProps = {
   isOpen: boolean;
   onClose: () => void;
+  retainer?: Retainer;
 };
 
 export function RetainerFormDialog({
   isOpen,
   onClose,
+  retainer,
 }: RetainerFormDialogProps) {
   const { t } = useTranslation();
 
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-  const [name, setName] = useState("");
-  const [retainerType, setRetainerType] = useState<RetainerType>("combat");
-  const [level, setLevel] = useState("");
-  const [itemLevel, setItemLevel] = useState("");
-  const [gathering, setGathering] = useState("");
-  const [perception, setPerception] = useState("");
+  const [name, setName] = useState(retainer?.name ?? "");
+  const [retainerType, setRetainerType] = useState<RetainerType>(
+    retainer?.retainerType ?? "combat",
+  );
+  const [level, setLevel] = useState(
+    retainer?.level === undefined ? "" : String(retainer.level),
+  );
+  const [itemLevel, setItemLevel] = useState(
+    retainer?.retainerType === "combat" && retainer.itemLevel !== undefined
+      ? String(retainer.itemLevel)
+      : "",
+  );
+  const [gathering, setGathering] = useState(
+    retainer?.retainerType !== "combat" && retainer?.gathering !== undefined
+      ? String(retainer.gathering)
+      : "",
+  );
+  const [perception, setPerception] = useState(
+    retainer?.retainerType !== "combat" && retainer?.perception !== undefined
+      ? String(retainer.perception)
+      : "",
+  );
 
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState(false);
+
+  const isEditing = retainer !== undefined;
 
   function handleClose() {
     setName("");
@@ -47,7 +67,7 @@ export function RetainerFormDialog({
       return;
     }
 
-    let retainer: NewRetainer;
+    let retainerData: NewRetainer;
 
     const trimmedName = name.trim();
 
@@ -56,14 +76,14 @@ export function RetainerFormDialog({
     }
 
     if (retainerType === "combat") {
-      retainer = {
+      retainerData = {
         name: trimmedName,
         retainerType: "combat",
         level: level === "" ? undefined : Number(level),
         itemLevel: itemLevel === "" ? undefined : Number(itemLevel),
       };
     } else {
-      retainer = {
+      retainerData = {
         name: trimmedName,
         retainerType,
         level: level === "" ? undefined : Number(level),
@@ -76,7 +96,11 @@ export function RetainerFormDialog({
     setSaveError(false);
 
     try {
-      await createRetainer(retainer);
+      if (retainer) {
+        await updateRetainer(retainer.id, retainerData);
+      } else {
+        await createRetainer(retainerData);
+      }
       handleClose();
     } catch {
       setSaveError(true);
@@ -107,7 +131,11 @@ export function RetainerFormDialog({
       aria-labelledby="retainer-form-title"
     >
       <div className="retainer-form-dialog-header">
-        <h2 id="retainer-form-title">{t("myRetainers.addRetainerTitle")}</h2>
+        <h2 id="retainer-form-title">
+          {isEditing
+            ? t("myRetainers.editRetainerTitle")
+            : t("myRetainers.addRetainerTitle")}
+        </h2>
         <button
           type="button"
           onClick={handleClose}
@@ -261,7 +289,9 @@ export function RetainerFormDialog({
         >
           {isSaving
             ? t("myRetainers.saving")
-            : t("myRetainers.addRetainerButton")}
+            : isEditing
+              ? t("myRetainers.editRetainerSubmitButton")
+              : t("myRetainers.addRetainerSubmitButton")}
         </button>
       </div>
     </dialog>

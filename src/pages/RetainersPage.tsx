@@ -1,10 +1,11 @@
-import { Plus } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../db/database";
 import { RetainersEmptyState } from "../components/RetainersEmptyState";
 import { RetainerFormDialog } from "../components/RetainerFormDialog";
+import type { Retainer } from "../types/retainers";
 import {
   getRetainerAvatarColors,
   getRetainerInitials,
@@ -15,15 +16,28 @@ export function RetainersPage() {
   const { t } = useTranslation();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [selectedRetainer, setSelectedRetainer] = useState<Retainer | null>(
+    null,
+  );
 
   const retainers = useLiveQuery(() => db.retainers.toArray());
+
+  function handleAddRetainer() {
+    setSelectedRetainer(null);
+    setIsFormOpen(true);
+  }
+
+  function handleEditRetainer(retainer: Retainer) {
+    setSelectedRetainer(retainer);
+    setIsFormOpen(true);
+  }
 
   let content;
 
   if (retainers === undefined) {
     content = <p>{t("myRetainers.loading")}</p>;
   } else if (retainers.length === 0) {
-    content = <RetainersEmptyState onAddRetainer={() => setIsFormOpen(true)} />;
+    content = <RetainersEmptyState onAddRetainer={handleAddRetainer} />;
   } else {
     const avatarColors = getRetainerAvatarColors(retainers);
     content = (
@@ -32,10 +46,11 @@ export function RetainersPage() {
           <span>
             {t("myRetainers.retainersNumber", { count: retainers.length })}
           </span>
+
           <button
             type="button"
             className="btn btn-secondary"
-            onClick={() => setIsFormOpen(true)}
+            onClick={handleAddRetainer}
           >
             <Plus size={16} aria-hidden="true" />
             {t("myRetainers.addRetainerButton")}
@@ -70,6 +85,17 @@ export function RetainersPage() {
                       )}
                     </span>
                   </div>
+
+                  <button
+                    type="button"
+                    className="retainer-card-edit-button"
+                    aria-label={t("myRetainers.editRetainerButton", {
+                      name: retainer.name,
+                    })}
+                    onClick={() => handleEditRetainer(retainer)}
+                  >
+                    <Pencil size={16} aria-hidden="true" />
+                  </button>
                 </div>
 
                 <div className="retainer-card-stats">
@@ -109,10 +135,13 @@ export function RetainersPage() {
 
       {content}
 
-      <RetainerFormDialog
-        isOpen={isFormOpen}
-        onClose={() => setIsFormOpen(false)}
-      />
+      {isFormOpen && (
+        <RetainerFormDialog
+          isOpen={isFormOpen}
+          onClose={() => setIsFormOpen(false)}
+          retainer={selectedRetainer ?? undefined}
+        />
+      )}
     </div>
   );
 }
