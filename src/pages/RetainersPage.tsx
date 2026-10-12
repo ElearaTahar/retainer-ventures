@@ -74,7 +74,9 @@ export function RetainersPage() {
                   </div>
 
                   <div className="retainer-card-identity">
-                    <span className="retainer-card-name">{retainer.name}</span>
+                    <span className="retainer-card-name" title={retainer.name}>
+                      {retainer.name}
+                    </span>
                     <span className="retainer-card-subtitle">
                       {t(`retainerTypes.${retainer.retainerType}`)}
                       {retainer.level !== undefined && (

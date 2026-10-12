@@ -161,6 +161,7 @@ export function RetainerFormDialog({
             id="retainer-name"
             type="text"
             value={name}
+            maxLength={30}
             onChange={(event) => {
               setName(event.target.value);
               setSaveError(false);

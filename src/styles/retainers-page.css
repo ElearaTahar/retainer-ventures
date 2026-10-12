@@ -218,7 +218,10 @@
 
 .retainer-card-name {
   font-weight: 700;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   padding-right: 2rem;
 }
 
