@@ -132,6 +132,13 @@ const resources = {
         communityRewardsNotice:
           "Community-sourced rewards known to be obtainable from Quick Exploration. This list may be incomplete.",
       },
+      myRetainers: {
+        loading: "Loading retainers...",
+        noRetainerTitle: "No registered retainer",
+        noRetainerDescription:
+          "Add your first retainer to start tracking its activities.",
+        addRetainerButton: "Add a retainer",
+      },
     },
   },
   fr: {
@@ -264,6 +271,13 @@ const resources = {
         unknownItem: "Objet inconnu ({{id}})",
         communityRewardsNotice:
           "Récompenses issues de données communautaires et connues comme pouvant être obtenues avec une tâche improvisée. Cette liste peut être incomplète.",
+      },
+      myRetainers: {
+        loading: "Chargement des servants...",
+        noRetainerTitle: "Aucun servant enregistré",
+        noRetainerDescription:
+          "Ajoutez votre premier servant pour commencer à suivre ses activités.",
+        addRetainerButton: "Ajouter un servant",
       },
     },
   },

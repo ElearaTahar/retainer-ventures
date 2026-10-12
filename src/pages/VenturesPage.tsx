@@ -218,11 +218,11 @@ export function VenturesPage({
                 )}
               </>
             ) : (
-              <div className="venture-search-empty" role="status">
+              <div className="empty-state" role="status">
                 <SearchX size={32} aria-hidden="true" />
 
-                <div className="venture-search-empty-text">
-                  <p className="venture-search-empty-title">
+                <div className="empty-state-text">
+                  <p className="empty-state-title">
                     {t("ventures.search.noResults", { query: trimmedQuery })}
                   </p>
                   <p>{t("ventures.search.noResultsHint")}</p>
