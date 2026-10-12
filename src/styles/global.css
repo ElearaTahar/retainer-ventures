@@ -21,6 +21,19 @@
   --color-text-placeholder: #8a8380;
   --color-error: #a33a3a;
 
+  --avatar-1-bg: #f1e3e9;
+  --avatar-1-text: #874b68;
+  --avatar-2-bg: #e4eee7;
+  --avatar-2-text: #476c56;
+  --avatar-3-bg: #e5ebf4;
+  --avatar-3-text: #4c6588;
+  --avatar-4-bg: #f3ead9;
+  --avatar-4-text: #866333;
+  --avatar-5-bg: #ece6f3;
+  --avatar-5-text: #70578b;
+  --avatar-6-bg: #f3e6df;
+  --avatar-6-text: #925b46;
+
   --content-width: 1120px;
 }
 
@@ -45,6 +58,19 @@ h3 {
     --color-input-border: #6a6a6a;
     --color-text-placeholder: #858585;
     --color-error: #e58b8b;
+
+    --avatar-1-bg: #40303a;
+    --avatar-1-text: #dfa2be;
+    --avatar-2-bg: #2c3d33;
+    --avatar-2-text: #a2c9ad;
+    --avatar-3-bg: #2e394a;
+    --avatar-3-text: #a7bfe0;
+    --avatar-4-bg: #443a2d;
+    --avatar-4-text: #e1c18d;
+    --avatar-5-bg: #3b3347;
+    --avatar-5-text: #c8b0e0;
+    --avatar-6-bg: #45342f;
+    --avatar-6-text: #e0ae98;
   }
 }
 
@@ -62,6 +88,19 @@ h3 {
   --color-input-border: #dcd5d0;
   --color-text-placeholder: #8a8380;
   --color-error: #a33a3a;
+
+  --avatar-1-bg: #f1e3e9;
+  --avatar-1-text: #874b68;
+  --avatar-2-bg: #e4eee7;
+  --avatar-2-text: #476c56;
+  --avatar-3-bg: #e5ebf4;
+  --avatar-3-text: #4c6588;
+  --avatar-4-bg: #f3ead9;
+  --avatar-4-text: #866333;
+  --avatar-5-bg: #ece6f3;
+  --avatar-5-text: #70578b;
+  --avatar-6-bg: #f3e6df;
+  --avatar-6-text: #925b46;
 }
 
 :root[data-theme="dark"] {
@@ -78,6 +117,19 @@ h3 {
   --color-input-border: #6a6a6a;
   --color-text-placeholder: #858585;
   --color-error: #e58b8b;
+
+  --avatar-1-bg: #40303a;
+  --avatar-1-text: #dfa2be;
+  --avatar-2-bg: #2c3d33;
+  --avatar-2-text: #a2c9ad;
+  --avatar-3-bg: #2e394a;
+  --avatar-3-text: #a7bfe0;
+  --avatar-4-bg: #443a2d;
+  --avatar-4-text: #e1c18d;
+  --avatar-5-bg: #3b3347;
+  --avatar-5-text: #c8b0e0;
+  --avatar-6-bg: #45342f;
+  --avatar-6-text: #e0ae98;
 }
 
 html {

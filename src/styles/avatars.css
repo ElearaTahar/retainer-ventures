@@ -1,0 +1,42 @@
+.retainer-avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.retainer-avatar[data-color="1"] {
+  background-color: var(--avatar-1-bg);
+  color: var(--avatar-1-text);
+}
+
+.retainer-avatar[data-color="2"] {
+  background-color: var(--avatar-2-bg);
+  color: var(--avatar-2-text);
+}
+
+.retainer-avatar[data-color="3"] {
+  background-color: var(--avatar-3-bg);
+  color: var(--avatar-3-text);
+}
+
+.retainer-avatar[data-color="4"] {
+  background-color: var(--avatar-4-bg);
+  color: var(--avatar-4-text);
+}
+
+.retainer-avatar[data-color="5"] {
+  background-color: var(--avatar-5-bg);
+  color: var(--avatar-5-text);
+}
+
+.retainer-avatar[data-color="6"] {
+  background-color: var(--avatar-6-bg);
+  color: var(--avatar-6-text);
+}
