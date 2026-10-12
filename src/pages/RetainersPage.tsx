@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../db/database";
+import type { Language } from "../types/i18n";
 import { RetainersEmptyState } from "../components/RetainersEmptyState";
 import { RetainerFormDialog } from "../components/RetainerFormDialog";
 import type { Retainer } from "../types/retainers";
@@ -13,7 +14,11 @@ import {
 import "../styles/retainers-page.css";
 
 export function RetainersPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const language: Language = i18n.language === "fr" ? "fr" : "en";
+
+  const numberFormatter = new Intl.NumberFormat(language);
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedRetainer, setSelectedRetainer] = useState<Retainer | null>(
@@ -82,7 +87,8 @@ export function RetainersPage() {
                       {retainer.level !== undefined && (
                         <>
                           {" "}
-                          · {t("myRetainers.level")} {retainer.level}
+                          · {t("myRetainers.level")}{" "}
+                          {numberFormatter.format(retainer.level)}
                         </>
                       )}
                     </span>
@@ -104,7 +110,8 @@ export function RetainersPage() {
                   {retainer.retainerType === "combat" &&
                     retainer.itemLevel !== undefined && (
                       <span>
-                        {t("myRetainers.ilvl")} {retainer.itemLevel}
+                        {t("myRetainers.ilvl")}{" "}
+                        {numberFormatter.format(retainer.itemLevel)}
                       </span>
                     )}
 
@@ -112,12 +119,14 @@ export function RetainersPage() {
                     <>
                       {retainer.gathering !== undefined && (
                         <span>
-                          {t("myRetainers.gathering")} {retainer.gathering}
+                          {t("myRetainers.gathering")}{" "}
+                          {numberFormatter.format(retainer.gathering)}
                         </span>
                       )}
                       {retainer.perception !== undefined && (
                         <span>
-                          {t("myRetainers.perception")} {retainer.perception}
+                          {t("myRetainers.perception")}{" "}
+                          {numberFormatter.format(retainer.perception)}
                         </span>
                       )}
                     </>
