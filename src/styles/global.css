@@ -276,7 +276,7 @@ textarea {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding-top: 2rem;
+  padding-top: 4rem;
   padding-bottom: 2rem;
 }
 
@@ -310,5 +310,9 @@ textarea {
 
   .app-header-actions {
     flex-shrink: 0;
+  }
+
+  .page-layout {
+    padding-top: 2rem;
   }
 }
