@@ -19,7 +19,7 @@ export function RetainersEmptyState({
         <p>{t("myRetainers.noRetainerDescription")}</p>
       </div>
 
-      <button type="button" onClick={onAddRetainer}>
+      <button type="button" className="btn btn-subtle" onClick={onAddRetainer}>
         {t("myRetainers.addRetainerButton")}
       </button>
     </div>

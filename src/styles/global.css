@@ -16,8 +16,10 @@
   --color-focus: #252126;
   --color-accent: #5d394d;
   --color-accent-subtle: #5d394d;
+  --color-accent-hover: #794e67;
   --color-input-border: #dcd5d0;
   --color-text-placeholder: #8a8380;
+  --color-error: #a33a3a;
 
   --content-width: 1120px;
 }
@@ -39,8 +41,10 @@ h3 {
     --color-focus: #f1f2f4;
     --color-accent: #bd8ea7;
     --color-accent-subtle: #a77c93;
+    --color-accent-hover: #dfb0ca;
     --color-input-border: #6a6a6a;
     --color-text-placeholder: #858585;
+    --color-error: #e58b8b;
   }
 }
 
@@ -54,8 +58,10 @@ h3 {
   --color-focus: #252126;
   --color-accent: #5d394d;
   --color-accent-subtle: #5d394d;
+  --color-accent-hover: #794e67;
   --color-input-border: #dcd5d0;
   --color-text-placeholder: #8a8380;
+  --color-error: #a33a3a;
 }
 
 :root[data-theme="dark"] {
@@ -68,8 +74,10 @@ h3 {
   --color-focus: #f1f2f4;
   --color-accent: #bd8ea7;
   --color-accent-subtle: #a77c93;
+  --color-accent-hover: #dfb0ca;
   --color-input-border: #6a6a6a;
   --color-text-placeholder: #858585;
+  --color-error: #e58b8b;
 }
 
 html {
@@ -278,6 +286,66 @@ textarea {
   gap: 1.5rem;
   padding-top: 4rem;
   padding-bottom: 2rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.25;
+
+  border: 1px solid transparent;
+  border-radius: 6px;
+
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-text);
+  border-color: transparent;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-surface-hover);
+}
+
+.btn-subtle {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.btn-subtle:hover:not(:disabled) {
+  border-color: var(--color-accent);
 }
 
 @media (max-width: 700px) {

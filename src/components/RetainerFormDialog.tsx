@@ -1,0 +1,269 @@
+import { ChevronDown, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import type { SubmitEvent } from "react";
+import { useTranslation } from "react-i18next";
+import type { RetainerType } from "../types/ventures";
+import type { NewRetainer } from "../types/retainers";
+import { createRetainer } from "../db/retainers";
+
+type RetainerFormDialogProps = {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+export function RetainerFormDialog({
+  isOpen,
+  onClose,
+}: RetainerFormDialogProps) {
+  const { t } = useTranslation();
+
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  const [name, setName] = useState("");
+  const [retainerType, setRetainerType] = useState<RetainerType>("combat");
+  const [level, setLevel] = useState("");
+  const [itemLevel, setItemLevel] = useState("");
+  const [gathering, setGathering] = useState("");
+  const [perception, setPerception] = useState("");
+
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState(false);
+
+  function handleClose() {
+    setName("");
+    setRetainerType("combat");
+    setLevel("");
+    setItemLevel("");
+    setGathering("");
+    setPerception("");
+    setSaveError(false);
+    onClose();
+  }
+
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (isSaving) {
+      return;
+    }
+
+    let retainer: NewRetainer;
+
+    const trimmedName = name.trim();
+
+    if (!trimmedName) {
+      return;
+    }
+
+    if (retainerType === "combat") {
+      retainer = {
+        name: trimmedName,
+        retainerType: "combat",
+        level: level === "" ? undefined : Number(level),
+        itemLevel: itemLevel === "" ? undefined : Number(itemLevel),
+      };
+    } else {
+      retainer = {
+        name: trimmedName,
+        retainerType,
+        level: level === "" ? undefined : Number(level),
+        gathering: gathering === "" ? undefined : Number(gathering),
+        perception: perception === "" ? undefined : Number(perception),
+      };
+    }
+
+    setIsSaving(true);
+    setSaveError(false);
+
+    try {
+      await createRetainer(retainer);
+      handleClose();
+    } catch {
+      setSaveError(true);
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+
+    if (!dialog) {
+      return;
+    }
+
+    if (isOpen && !dialog.open) {
+      dialog.showModal();
+    } else if (!isOpen && dialog.open) {
+      dialog.close();
+    }
+  }, [isOpen]);
+
+  return (
+    <dialog
+      ref={dialogRef}
+      onClose={handleClose}
+      className="retainer-form-dialog"
+      aria-labelledby="retainer-form-title"
+    >
+      <div className="retainer-form-dialog-header">
+        <h2 id="retainer-form-title">{t("myRetainers.addRetainerTitle")}</h2>
+        <button
+          type="button"
+          onClick={handleClose}
+          aria-label={t("myRetainers.close")}
+        >
+          <X aria-hidden="true" />
+        </button>
+      </div>
+
+      <form
+        id="retainer-form"
+        className="retainer-form"
+        onSubmit={handleSubmit}
+      >
+        <div className="retainer-form-field">
+          <label htmlFor="retainer-name" className="retainer-form-label">
+            <span>{t("myRetainers.name")}</span>
+            <span className="retainer-form-required">
+              {t("myRetainers.required")}
+            </span>
+          </label>
+          <input
+            id="retainer-name"
+            type="text"
+            value={name}
+            onChange={(event) => {
+              setName(event.target.value);
+              setSaveError(false);
+            }}
+            required
+          />
+        </div>
+
+        <div className="retainer-form-row">
+          <div className="retainer-form-field">
+            <label htmlFor="retainer-type">{t("myRetainers.type")}</label>
+            <div className="retainer-form-select">
+              <select
+                id="retainer-type"
+                name="retainerType"
+                value={retainerType}
+                onChange={(event) => {
+                  setRetainerType(event.target.value as RetainerType);
+                  setSaveError(false);
+                }}
+                required
+              >
+                <option value="combat">{t("retainerTypes.combat")}</option>
+                <option value="miner">{t("retainerTypes.miner")}</option>
+                <option value="botanist">{t("retainerTypes.botanist")}</option>
+                <option value="fisher">{t("retainerTypes.fisher")}</option>
+              </select>
+              <ChevronDown aria-hidden="true" size={18} />
+            </div>
+          </div>
+
+          <div className="retainer-form-field">
+            <label htmlFor="retainer-level">{t("myRetainers.level")}</label>
+            <input
+              id="retainer-level"
+              type="number"
+              min="1"
+              step="1"
+              value={level}
+              onChange={(event) => {
+                setLevel(event.target.value);
+                setSaveError(false);
+              }}
+            />
+          </div>
+        </div>
+
+        {retainerType === "combat" ? (
+          <div className="retainer-form-row">
+            <div className="retainer-form-field">
+              <label htmlFor="retainer-item-level">
+                {t("myRetainers.ilvl")}
+              </label>
+              <input
+                id="retainer-item-level"
+                type="number"
+                min="0"
+                step="1"
+                value={itemLevel}
+                onChange={(event) => {
+                  setItemLevel(event.target.value);
+                  setSaveError(false);
+                }}
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="retainer-form-row">
+            <div className="retainer-form-field">
+              <label htmlFor="retainer-gathering">
+                {t("myRetainers.gathering")}
+              </label>
+              <input
+                id="retainer-gathering"
+                type="number"
+                min="0"
+                step="1"
+                value={gathering}
+                onChange={(event) => {
+                  setGathering(event.target.value);
+                  setSaveError(false);
+                }}
+              />
+            </div>
+
+            <div className="retainer-form-field">
+              <label htmlFor="retainer-perception">
+                {t("myRetainers.perception")}
+              </label>
+              <input
+                id="retainer-perception"
+                type="number"
+                min="0"
+                step="1"
+                value={perception}
+                onChange={(event) => {
+                  setPerception(event.target.value);
+                  setSaveError(false);
+                }}
+              />
+            </div>
+          </div>
+        )}
+      </form>
+
+      {saveError && (
+        <p className="retainer-form-error" role="alert">
+          {t("myRetainers.saveError")}
+        </p>
+      )}
+
+      <div className="retainer-form-footer">
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={handleClose}
+        >
+          {t("myRetainers.cancel")}
+        </button>
+
+        <button
+          type="submit"
+          form="retainer-form"
+          className="btn btn-primary"
+          disabled={isSaving}
+        >
+          {isSaving
+            ? t("myRetainers.saving")
+            : t("myRetainers.addRetainerButton")}
+        </button>
+      </div>
+    </dialog>
+  );
+}

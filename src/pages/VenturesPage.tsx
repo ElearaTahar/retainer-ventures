@@ -13,7 +13,7 @@ import { toLanguage } from "../utils/i18n";
 import { searchVentures } from "../utils/ventureSearch";
 import { VentureSearchResultCard } from "../components/VentureSearchResultCard";
 import { NavigationSearchResultCard } from "../components/NavigationSearchResultCard";
-import { ArrowRight, Clock, Dices, Search, SearchX, Sword } from "lucide-react";
+import { ArrowRight, Dices, Search, SearchX, Sword } from "lucide-react";
 import { MinerIcon } from "../components/icons/MinerIcon";
 import { BotanistIcon } from "../components/icons/BotanistIcon";
 import { FisherIcon } from "../components/icons/FisherIcon";
@@ -230,6 +230,7 @@ export function VenturesPage({
 
                 <button
                   type="button"
+                  className="btn btn-subtle"
                   onClick={() => {
                     setQuery("");
                     searchInputRef.current?.focus();
