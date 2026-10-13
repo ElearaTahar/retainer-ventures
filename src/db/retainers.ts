@@ -38,3 +38,27 @@ export async function updateRetainer(
 
   return result;
 }
+
+export async function archiveRetainer(id: number): Promise<number> {
+  const result = await db.retainers.update(id, { status: "archived" });
+
+  if (result === 0) {
+    throw new Error("Retainer not found");
+  }
+
+  return result;
+}
+
+export async function restoreRetainer(id: number): Promise<number> {
+  const result = await db.retainers.update(id, { status: "active" });
+
+  if (result === 0) {
+    throw new Error("Retainer not found");
+  }
+
+  return result;
+}
+
+export async function deleteRetainer(id: number) {
+  await db.retainers.delete(id);
+}

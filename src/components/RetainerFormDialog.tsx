@@ -1,10 +1,15 @@
-import { ChevronDown, X } from "lucide-react";
+import { ChevronDown, Ellipsis, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { SubmitEvent } from "react";
 import { useTranslation } from "react-i18next";
 import type { RetainerType } from "../types/ventures";
 import type { NewRetainer, Retainer } from "../types/retainers";
-import { createRetainer, updateRetainer } from "../db/retainers";
+import {
+  archiveRetainer,
+  createRetainer,
+  deleteRetainer,
+  updateRetainer,
+} from "../db/retainers";
 
 type RetainerFormDialogProps = {
   isOpen: boolean;
@@ -109,6 +114,50 @@ export function RetainerFormDialog({
     }
   }
 
+  async function handleArchive() {
+    if (isSaving || retainer === undefined) {
+      return;
+    }
+
+    setIsSaving(true);
+    setSaveError(false);
+
+    try {
+      await archiveRetainer(retainer.id);
+      handleClose();
+    } catch {
+      setSaveError(true);
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
+  async function handleDelete() {
+    if (isSaving || retainer === undefined) {
+      return;
+    }
+
+    const confirm = window.confirm(
+      t("myRetainers.confirmDeleteRetainer", { name: retainer.name }),
+    );
+
+    if (!confirm) {
+      return;
+    }
+
+    setIsSaving(true);
+    setSaveError(false);
+
+    try {
+      await deleteRetainer(retainer.id);
+      handleClose();
+    } catch {
+      setSaveError(true);
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
   useEffect(() => {
     const dialog = dialogRef.current;
 
@@ -136,6 +185,34 @@ export function RetainerFormDialog({
             ? t("myRetainers.editRetainerTitle")
             : t("myRetainers.addRetainerTitle")}
         </h2>
+
+        {isEditing && (
+          <details className="retainer-actions">
+            <summary aria-label={t("myRetainers.retainerActionsMenu")}>
+              <Ellipsis size={20} aria-hidden="true" />
+            </summary>
+
+            <div className="retainer-actions-menu">
+              <button
+                type="button"
+                className="retainer-actions-menu-item"
+                onClick={handleArchive}
+                disabled={isSaving}
+              >
+                {t("myRetainers.archiveRetainerButton")}
+              </button>
+              <button
+                type="button"
+                className="retainer-actions-menu-item retainer-actions-menu-item-danger"
+                onClick={handleDelete}
+                disabled={isSaving}
+              >
+                {t("myRetainers.deleteRetainerButton")}
+              </button>
+            </div>
+          </details>
+        )}
+
         <button
           type="button"
           onClick={handleClose}

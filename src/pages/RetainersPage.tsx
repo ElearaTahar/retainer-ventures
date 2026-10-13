@@ -12,6 +12,7 @@ import {
   getRetainerInitials,
 } from "../utils/retainerAvatars";
 import "../styles/retainers-page.css";
+import { archiveRetainer, restoreRetainer } from "../db/retainers";
 
 export function RetainersPage() {
   const { t, i18n } = useTranslation();
@@ -26,6 +27,10 @@ export function RetainersPage() {
   );
 
   const retainers = useLiveQuery(() => db.retainers.toArray());
+  const activeRetainers =
+    retainers?.filter((retainer) => retainer.status === "active") ?? [];
+  const archivedRetainers =
+    retainers?.filter((retainer) => retainer.status === "archived") ?? [];
 
   function handleAddRetainer() {
     setSelectedRetainer(null);
@@ -37,19 +42,29 @@ export function RetainersPage() {
     setIsFormOpen(true);
   }
 
+  async function handleRestoreRetainer(id: number) {
+    try {
+      await restoreRetainer(id);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   let content;
 
   if (retainers === undefined) {
     content = <p>{t("myRetainers.loading")}</p>;
-  } else if (retainers.length === 0) {
+  } else if (activeRetainers.length === 0) {
     content = <RetainersEmptyState onAddRetainer={handleAddRetainer} />;
   } else {
-    const avatarColors = getRetainerAvatarColors(retainers);
+    const avatarColors = getRetainerAvatarColors(activeRetainers);
     content = (
       <>
         <div className="retainers-header">
           <span>
-            {t("myRetainers.retainersNumber", { count: retainers.length })}
+            {t("myRetainers.retainersNumber", {
+              count: activeRetainers.length,
+            })}
           </span>
 
           <button
@@ -63,7 +78,7 @@ export function RetainersPage() {
         </div>
 
         <div className="retainers-list">
-          {retainers.map((retainer) => {
+          {activeRetainers.map((retainer) => {
             const initials = getRetainerInitials(retainer.name);
             const avatarColor = avatarColors.get(retainer.id);
 
@@ -145,6 +160,44 @@ export function RetainersPage() {
       <h1>{t("navigation.retainers")}</h1>
 
       {content}
+
+      {archivedRetainers.length > 0 && (
+        <details className="archived-retainers">
+          <summary>
+            {t("myRetainers.archivedRetainersNumber", {
+              count: archivedRetainers.length,
+            })}
+          </summary>
+
+          {archivedRetainers.map((retainer) => (
+            <div className="archived-retainer-row" key={retainer.id}>
+              <div className="archived-retainer-info">
+                <span className="archived-retainer-name" title={retainer.name}>
+                  {retainer.name}
+                </span>
+                <span className="archived-retainer-details">
+                  {t(`retainerTypes.${retainer.retainerType}`)}
+                  {retainer.level !== undefined && (
+                    <>
+                      {" "}
+                      · {t("myRetainers.level")}{" "}
+                      {numberFormatter.format(retainer.level)}
+                    </>
+                  )}
+                </span>
+              </div>
+
+              <button
+                type="button"
+                className="btn btn-secondary archived-retainer-restore"
+                onClick={() => handleRestoreRetainer(retainer.id)}
+              >
+                {t("myRetainers.restoreRetainerButton")}
+              </button>
+            </div>
+          ))}
+        </details>
+      )}
 
       {isFormOpen && (
         <RetainerFormDialog
