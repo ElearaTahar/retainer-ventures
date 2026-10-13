@@ -5,6 +5,8 @@ import "./i18n";
 import { App } from "./App";
 import { ScrollToTop } from "./components/ScrollToTop";
 import "./styles/global.css";
+import "./styles/empty-state.css";
+import "./styles/avatars.css";
 import "@fontsource-variable/manrope/wght.css";
 import "@fontsource-variable/dm-sans/wght.css";
 
