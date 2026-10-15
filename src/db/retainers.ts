@@ -59,6 +59,9 @@ export async function restoreRetainer(id: number): Promise<number> {
   return result;
 }
 
-export async function deleteRetainer(id: number) {
-  await db.retainers.delete(id);
+export async function deleteRetainer(id: number): Promise<void> {
+  return db.transaction("rw", db.retainers, db.ventureRuns, async () => {
+    await db.ventureRuns.where("retainerId").equals(id).delete();
+    await db.retainers.delete(id);
+  });
 }

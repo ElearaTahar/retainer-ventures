@@ -35,6 +35,8 @@
   --avatar-6-text: #925b46;
 
   --content-width: 1120px;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 h1,

@@ -11,8 +11,9 @@ import {
   getRetainerAvatarColors,
   getRetainerInitials,
 } from "../utils/retainerAvatars";
+import { restoreRetainer } from "../db/retainers";
+import { RecordRunDialog } from "../components/RecordRunDialog";
 import "../styles/retainers-page.css";
-import { archiveRetainer, restoreRetainer } from "../db/retainers";
 
 export function RetainersPage() {
   const { t, i18n } = useTranslation();
@@ -26,11 +27,17 @@ export function RetainersPage() {
     null,
   );
 
+  const [recordRunRetainerId, setRecordRunRetainerId] = useState<number | null>(
+    null,
+  );
+
   const retainers = useLiveQuery(() => db.retainers.toArray());
   const activeRetainers =
     retainers?.filter((retainer) => retainer.status === "active") ?? [];
   const archivedRetainers =
     retainers?.filter((retainer) => retainer.status === "archived") ?? [];
+
+  const avatarColors = getRetainerAvatarColors(activeRetainers);
 
   function handleAddRetainer() {
     setSelectedRetainer(null);
@@ -50,6 +57,10 @@ export function RetainersPage() {
     }
   }
 
+  function handleRecordRun(retainerId: number) {
+    setRecordRunRetainerId(retainerId);
+  }
+
   let content;
 
   if (retainers === undefined) {
@@ -57,7 +68,6 @@ export function RetainersPage() {
   } else if (activeRetainers.length === 0) {
     content = <RetainersEmptyState onAddRetainer={handleAddRetainer} />;
   } else {
-    const avatarColors = getRetainerAvatarColors(activeRetainers);
     content = (
       <>
         <div className="retainers-header">
@@ -147,6 +157,15 @@ export function RetainersPage() {
                     </>
                   )}
                 </div>
+
+                <button
+                  type="button"
+                  className="retainer-card-record-run"
+                  onClick={() => handleRecordRun(retainer.id)}
+                >
+                  <Plus size={16} aria-hidden="true" />
+                  {t("myRetainers.recordRunButton")}
+                </button>
               </div>
             );
           })}
@@ -154,6 +173,10 @@ export function RetainersPage() {
       </>
     );
   }
+
+  const recordRunRetainer = activeRetainers.find(
+    (retainer) => retainer.id === recordRunRetainerId,
+  );
 
   return (
     <div className="page-layout retainers-page">
@@ -204,6 +227,16 @@ export function RetainersPage() {
           isOpen={isFormOpen}
           onClose={() => setIsFormOpen(false)}
           retainer={selectedRetainer ?? undefined}
+        />
+      )}
+
+      {recordRunRetainer !== undefined && (
+        <RecordRunDialog
+          retainer={recordRunRetainer}
+          avatarColor={avatarColors.get(recordRunRetainer.id) ?? 1}
+          onClose={() => {
+            setRecordRunRetainerId(null);
+          }}
         />
       )}
     </div>
