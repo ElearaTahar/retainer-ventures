@@ -402,6 +402,16 @@ textarea {
   border-color: var(--color-accent);
 }
 
+.form-error {
+  margin: 1rem 0 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-error);
+  border-radius: 6px;
+  color: var(--color-error);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
 @media (max-width: 700px) {
   .app-header-content {
     display: flex;

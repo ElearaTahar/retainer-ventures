@@ -212,16 +212,6 @@
   margin-top: 1.5rem;
 }
 
-.retainer-form-error {
-  margin: 1rem 0 0;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--color-error);
-  border-radius: 6px;
-  color: var(--color-error);
-  font-size: 0.875rem;
-  line-height: 1.5;
-}
-
 @media (max-width: 480px) {
   .retainer-form-row {
     grid-template-columns: 1fr;

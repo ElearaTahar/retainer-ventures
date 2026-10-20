@@ -25,6 +25,7 @@ const resources = {
         required: "Required",
         back: "Back",
         continue: "Continue",
+        save: "Save",
       },
       notFound: {
         title: "Page not found",
@@ -192,6 +193,11 @@ const resources = {
           itemLevel: "Item level",
           unmet: "{{stat}}: {{current}} / {{required}} required",
         },
+        quantities: {
+          targeted: "How many did {{retainerName}} bring back?",
+          other: "What did {{retainerName}} bring back?",
+        },
+        saveError: "Could not save the result. Please try again.",
       },
     },
   },
@@ -218,6 +224,7 @@ const resources = {
         required: "Obligatoire",
         back: "Retour",
         continue: "Continuer",
+        save: "Enregistrer",
       },
       notFound: {
         title: "Page introuvable",
@@ -387,6 +394,11 @@ const resources = {
           itemLevel: "Niveau d'objet",
           unmet: "{{stat}} : {{current}} / {{required}} requis",
         },
+        quantities: {
+          targeted: "Combien {{retainerName}} en a-t-il rapporté ?",
+          other: "Qu'a rapporté {{retainerName}} ?",
+        },
+        saveError: "Impossible d'enregistrer le résultat. Veuillez réessayer.",
       },
     },
   },

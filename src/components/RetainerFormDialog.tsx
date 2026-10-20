@@ -346,7 +346,7 @@ export function RetainerFormDialog({
       </form>
 
       {saveError && (
-        <p className="retainer-form-error" role="alert">
+        <p className="form-error" role="alert">
           {t("myRetainers.saveError")}
         </p>
       )}

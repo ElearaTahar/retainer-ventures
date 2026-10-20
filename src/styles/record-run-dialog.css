@@ -307,6 +307,7 @@
     background-color 150ms ease,
     border-color 150ms ease;
 }
+
 .record-run-venture-button:hover {
   background-color: var(--color-surface-hover);
 }
@@ -337,6 +338,57 @@
   margin-left: auto;
   color: var(--color-accent);
   flex-shrink: 0;
+}
+
+.record-run-result-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.record-run-result-name {
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.record-run-quantities {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.record-run-quantity-button {
+  padding: 0.625rem 0.75rem;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.35;
+
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.record-run-quantity-button:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.record-run-quantity-button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.record-run-quantity-button[aria-pressed="true"] {
+  border-color: var(--color-accent);
 }
 
 .record-run-footer {

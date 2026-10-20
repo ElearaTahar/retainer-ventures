@@ -16,6 +16,9 @@ import { ItemIconStack } from "./ItemIconStack";
 import type { VentureRewardsData } from "../types/ventureRewards";
 import { getVentureDisplayIconIds } from "../utils/ventureDisplay";
 import { getRequirementStatus } from "../utils/ventureRequirements";
+import { getSuggestedQuantity } from "../utils/ventureQuantities";
+import type { NewVentureRun } from "../types/ventureRuns";
+import { addVentureRun } from "../db/ventureRuns";
 
 type RecordRunStep = 1 | 2 | 3 | 4;
 
@@ -48,6 +51,9 @@ export function RecordRunDialog({
 
   const dialogRef = useRef<HTMLDialogElement>(null);
 
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState(false);
+
   const categories = categoriesByRetainerType[retainer.retainerType];
 
   const initials = getRetainerInitials(retainer.name);
@@ -69,6 +75,8 @@ export function RecordRunDialog({
   );
 
   const [searchQuery, setSearchQuery] = useState("");
+
+  const [selectedQuantity, setSelectedQuantity] = useState<number | null>(null);
 
   const availableVentures = getAvailableVentures();
 
@@ -134,8 +142,55 @@ export function RecordRunDialog({
   }
 
   function handleSelectVenture(ventureId: number) {
+    const venture = targetedVentures.find(
+      (venture) => venture.id === ventureId,
+    );
+
+    if (venture !== undefined) {
+      setSelectedQuantity(getSuggestedQuantity(venture, retainer));
+    } else {
+      setSelectedQuantity(null);
+    }
+
     setSelectedVentureId(ventureId);
     setMaxUnlockedStep(4);
+  }
+
+  async function handleSaveRun() {
+    if (isSaving) return;
+
+    if (selectedVentureKind === "targeted") {
+      const selectedVenture = targetedVentures.find(
+        (venture) => venture.id === selectedVentureId,
+      );
+
+      if (selectedVenture === undefined || selectedQuantity === null) return;
+
+      const results = [
+        {
+          itemId: selectedVenture.targetItemId,
+          quantity: selectedQuantity,
+        },
+      ];
+
+      const newVentureRun: NewVentureRun = {
+        retainerId: retainer.id,
+        ventureId: selectedVenture.id,
+        results,
+      };
+
+      setIsSaving(true);
+      setSaveError(false);
+
+      try {
+        await addVentureRun(newVentureRun);
+        onClose();
+      } catch {
+        setSaveError(true);
+      } finally {
+        setIsSaving(false);
+      }
+    }
   }
 
   function getAvailableVentures() {
@@ -367,7 +422,53 @@ export function RecordRunDialog({
           </div>
         );
       case 4:
-        return <p>Filtered rewards and quantity.</p>;
+        if (selectedVentureKind === "targeted") {
+          const selectedVenture = targetedVentures.find(
+            (venture) => venture.id === selectedVentureId,
+          );
+
+          if (selectedVenture === undefined) return null;
+
+          const targetItem = itemsById.get(selectedVenture.targetItemId);
+
+          return (
+            <div>
+              <p className="record-run-step-hint">
+                {t(`recordRun.quantities.${selectedVentureKind}`, {
+                  retainerName: retainer.name,
+                })}
+              </p>
+
+              <div className="record-run-result-item">
+                <ItemIconStack
+                  iconIds={getVentureDisplayIconIds(
+                    selectedVenture,
+                    itemsById,
+                    ventureRewards,
+                  )}
+                />
+
+                <span className="record-run-result-name">
+                  {targetItem?.name[language === "fr" ? "fr" : "en"] ?? ""}
+                </span>
+              </div>
+
+              <div className="record-run-quantities">
+                {selectedVenture.quantities.map((quantity) => (
+                  <button
+                    className="record-run-quantity-button"
+                    key={quantity}
+                    type="button"
+                    onClick={() => setSelectedQuantity(quantity)}
+                    aria-pressed={selectedQuantity === quantity}
+                  >
+                    {quantity}
+                  </button>
+                ))}
+              </div>
+            </div>
+          );
+        }
     }
   }
 
@@ -428,6 +529,12 @@ export function RecordRunDialog({
 
       <div className="record-run-content">{renderStepContent()}</div>
 
+      {saveError && (
+        <p className="form-error" role="alert">
+          {t("recordRun.saveError")}
+        </p>
+      )}
+
       <div className="record-run-footer">
         {currentStep !== 1 && (
           <button
@@ -442,10 +549,16 @@ export function RecordRunDialog({
         <button
           type="button"
           className="btn btn-primary record-run-continue"
-          onClick={handleNextStep}
-          disabled={currentStep >= maxUnlockedStep}
+          onClick={() => (currentStep < 4 ? handleNextStep() : handleSaveRun())}
+          disabled={
+            (currentStep >= maxUnlockedStep && currentStep < 4) ||
+            (currentStep === 4 &&
+              selectedVentureKind === "targeted" &&
+              selectedQuantity === null) ||
+            isSaving
+          }
         >
-          {t("navigation.continue")}
+          {currentStep === 4 ? t("navigation.save") : t("navigation.continue")}
         </button>
       </div>
     </dialog>
