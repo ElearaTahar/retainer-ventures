@@ -180,10 +180,17 @@ const resources = {
         selectVentureKindHint:
           "What venture type did <bold>{{name}}</bold> complete?",
         selectVentureHint: "Which venture did <bold>{{name}}</bold> complete?",
+        levelFilterHint:
+          "Only ventures available at level {{level}} are shown.",
         search: {
           label: "Search for a venture",
           placeholder: "Search for a venture name…",
           noResults: "No ventures found.",
+        },
+        requirements: {
+          gathering: "Gathering",
+          itemLevel: "Item level",
+          unmet: "{{stat}}: {{current}} / {{required}} required",
         },
       },
     },
@@ -368,10 +375,17 @@ const resources = {
           "Quel type de tâche a été réalisé par <bold>{{name}}</bold> ?",
         selectVentureHint:
           "Quelle tâche a été réalisée par <bold>{{name}}</bold> ?",
+        levelFilterHint:
+          "Seules les tâches accessibles au niveau {{level}} sont affichées.",
         search: {
           label: "Rechercher une tâche",
           placeholder: "Chercher une tâche…",
           noResults: "Aucune tâche trouvée.",
+        },
+        requirements: {
+          gathering: "Collecte",
+          itemLevel: "Niveau d'objet",
+          unmet: "{{stat}} : {{current}} / {{required}} requis",
         },
       },
     },

@@ -15,6 +15,7 @@ import type { ItemSearchEntry } from "../types/items";
 import { ItemIconStack } from "./ItemIconStack";
 import type { VentureRewardsData } from "../types/ventureRewards";
 import { getVentureDisplayIconIds } from "../utils/ventureDisplay";
+import { getRequirementStatus } from "../utils/ventureRequirements";
 
 type RecordRunStep = 1 | 2 | 3 | 4;
 
@@ -141,14 +142,23 @@ export function RecordRunDialog({
     switch (selectedVentureKind) {
       case "targeted":
         return targetedVentures.filter(
-          (venture) => venture.retainerType === retainer.retainerType,
+          (venture) =>
+            venture.retainerType === retainer.retainerType &&
+            (retainer.level === undefined ||
+              venture.requiredLevel <= retainer.level),
         );
+
       case "exploration":
         return explorationVentures.filter(
-          (venture) => venture.retainerType === retainer.retainerType,
+          (venture) =>
+            venture.retainerType === retainer.retainerType &&
+            (retainer.level === undefined ||
+              venture.requiredLevel <= retainer.level),
         );
+
       case "quick":
         return [quickVenture];
+
       default:
         return [];
     }
@@ -255,6 +265,13 @@ export function RecordRunDialog({
                     components={{ bold: <strong /> }}
                   />
                 </p>
+
+                {retainer.level !== undefined && (
+                  <p className="record-run-level-hint">
+                    {t("recordRun.levelFilterHint", { level: retainer.level })}
+                  </p>
+                )}
+
                 <div className="record-run-search">
                   <input
                     id="venture-search"
@@ -273,37 +290,78 @@ export function RecordRunDialog({
                   {t("recordRun.search.noResults")}
                 </p>
               ) : (
-                filteredVentures.map((venture) => (
-                  <button
-                    className="record-run-venture-button"
-                    data-selected={selectedVentureId === venture.id}
-                    key={venture.id}
-                    type="button"
-                    onClick={() => handleSelectVenture(venture.id)}
-                    aria-pressed={selectedVentureId === venture.id}
-                  >
-                    <ItemIconStack
-                      iconIds={getVentureDisplayIconIds(
-                        venture,
-                        itemsById,
-                        ventureRewards,
-                      )}
-                    />
-                    <span className="record-run-venture-name">
-                      {venture.kind === "targeted"
-                        ? (itemsById.get(venture.targetItemId)?.name[
-                            language === "fr" ? "fr" : "en"
-                          ] ?? venture.id)
-                        : venture.name[language === "fr" ? "fr" : "en"]}
-                    </span>
-                    {selectedVentureId === venture.id && (
-                      <Check
-                        className="record-run-venture-check"
-                        aria-hidden="true"
+                filteredVentures.map((venture) => {
+                  const requirementStatus =
+                    venture.kind === "targeted" ||
+                    venture.kind === "exploration"
+                      ? getRequirementStatus(venture.requirement, retainer)
+                      : "unknown";
+
+                  const currentStat =
+                    retainer.retainerType === "combat"
+                      ? retainer.itemLevel
+                      : retainer.gathering;
+
+                  const requirementLabel =
+                    venture.kind === "quick"
+                      ? null
+                      : venture.requirement.type === "gathering"
+                        ? "recordRun.requirements.gathering"
+                        : "recordRun.requirements.itemLevel";
+
+                  return (
+                    <button
+                      className="record-run-venture-button"
+                      data-selected={selectedVentureId === venture.id}
+                      key={venture.id}
+                      type="button"
+                      onClick={() => handleSelectVenture(venture.id)}
+                      aria-pressed={selectedVentureId === venture.id}
+                    >
+                      <ItemIconStack
+                        iconIds={getVentureDisplayIconIds(
+                          venture,
+                          itemsById,
+                          ventureRewards,
+                        )}
                       />
-                    )}
-                  </button>
-                ))
+
+                      <div className="record-run-venture-info">
+                        <span>
+                          {venture.kind === "targeted"
+                            ? (itemsById.get(venture.targetItemId)?.name[
+                                language === "fr" ? "fr" : "en"
+                              ] ?? venture.id)
+                            : venture.name[language === "fr" ? "fr" : "en"]}
+                        </span>
+
+                        {requirementStatus === "unmet" &&
+                          venture.kind !== "quick" &&
+                          requirementLabel !== null && (
+                            <span className="record-run-venture-requirement">
+                              {t("recordRun.requirements.unmet", {
+                                stat: t(requirementLabel),
+                                current:
+                                  currentStat !== undefined
+                                    ? numberFormatter.format(currentStat)
+                                    : "?",
+                                required: numberFormatter.format(
+                                  venture.requirement.value,
+                                ),
+                              })}
+                            </span>
+                          )}
+                      </div>
+
+                      {selectedVentureId === venture.id && (
+                        <Check
+                          className="record-run-venture-check"
+                          aria-hidden="true"
+                        />
+                      )}
+                    </button>
+                  );
+                })
               )}
             </div>
           </div>
