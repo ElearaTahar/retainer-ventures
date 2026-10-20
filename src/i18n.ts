@@ -178,7 +178,13 @@ const resources = {
         },
         selectRetainerHint: "Who completed the venture?",
         selectVentureKindHint:
-          "Select the venture type completed by <bold>{{name}}</bold>.",
+          "What venture type did <bold>{{name}}</bold> complete?",
+        selectVentureHint: "Which venture did <bold>{{name}}</bold> complete?",
+        search: {
+          label: "Search for a venture",
+          placeholder: "Search for a venture name…",
+          noResults: "No ventures found.",
+        },
       },
     },
   },
@@ -359,7 +365,14 @@ const resources = {
         },
         selectRetainerHint: "Qui a réalisé cette tâche ?",
         selectVentureKindHint:
-          "Sélectionnez le type de tâche effectué par <bold>{{name}}</bold>.",
+          "Quel type de tâche a été réalisé par <bold>{{name}}</bold> ?",
+        selectVentureHint:
+          "Quelle tâche a été réalisée par <bold>{{name}}</bold> ?",
+        search: {
+          label: "Rechercher une tâche",
+          placeholder: "Chercher une tâche…",
+          noResults: "Aucune tâche trouvée.",
+        },
       },
     },
   },

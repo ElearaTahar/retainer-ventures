@@ -241,6 +241,89 @@
   color: var(--color-accent);
 }
 
+.record-run-search {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.record-run-search input {
+  width: 100%;
+  padding: 0.75rem;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font: inherit;
+}
+
+.record-run-search input:focus-visible {
+  outline: 2px solid var(--color-focus);
+}
+
+.record-run-empty {
+  font: inherit;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.record-run-venture-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.record-run-venture-button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.875rem;
+  text-align: left;
+
+  padding: 0.625rem 0.75rem;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.35;
+
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+.record-run-venture-button:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.record-run-venture-button:focus-visible {
+  outline: 2px solid var(--color-focus);
+}
+
+.record-run-venture-button[aria-pressed="true"] {
+  border-color: var(--color-accent);
+}
+
+.record-run-venture-name {
+  flex: 1;
+  min-width: 0;
+}
+
+.record-run-venture-check {
+  margin-left: auto;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
 .record-run-footer {
   display: flex;
   gap: 0.75rem;

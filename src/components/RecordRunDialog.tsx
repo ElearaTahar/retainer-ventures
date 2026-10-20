@@ -6,18 +6,37 @@ import type { Retainer } from "../types/retainers";
 import { getRetainerInitials } from "../utils/retainerAvatars";
 import type { Language } from "../types/i18n";
 import "../styles/record-run-dialog.css";
+import type {
+  ExplorationVenture,
+  QuickVenture,
+  TargetedVenture,
+} from "../types/ventures";
+import type { ItemSearchEntry } from "../types/items";
+import { ItemIconStack } from "./ItemIconStack";
+import type { VentureRewardsData } from "../types/ventureRewards";
+import { getVentureDisplayIconIds } from "../utils/ventureDisplay";
 
 type RecordRunStep = 1 | 2 | 3 | 4;
 
 type VentureKind = "targeted" | "exploration" | "quick";
 
 type RecordRunDialogProps = {
+  targetedVentures: TargetedVenture[];
+  explorationVentures: ExplorationVenture[];
+  quickVenture: QuickVenture;
+  itemsById: Map<number, ItemSearchEntry>;
+  ventureRewards: VentureRewardsData;
   retainer: Retainer;
   avatarColor: number;
   onClose: () => void;
 };
 
 export function RecordRunDialog({
+  targetedVentures,
+  explorationVentures,
+  quickVenture,
+  itemsById,
+  ventureRewards,
   retainer,
   avatarColor,
   onClose,
@@ -44,6 +63,29 @@ export function RecordRunDialog({
   const [selectedVentureKind, setSelectedVentureKind] =
     useState<VentureKind | null>(null);
 
+  const [selectedVentureId, setSelectedVentureId] = useState<number | null>(
+    null,
+  );
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const availableVentures = getAvailableVentures();
+
+  const normalizedSearchQuery = searchQuery.trim().toLocaleLowerCase();
+  const filteredVentures = availableVentures.filter((venture) => {
+    const ventureName =
+      venture.kind === "targeted"
+        ? (itemsById.get(venture.targetItemId)?.name[
+            language === "fr" ? "fr" : "en"
+          ] ?? "")
+        : venture.name[language === "fr" ? "fr" : "en"];
+
+    return ventureName
+      .trim()
+      .toLocaleLowerCase()
+      .includes(normalizedSearchQuery);
+  });
+
   useEffect(() => {
     const dialog = dialogRef.current;
 
@@ -54,9 +96,62 @@ export function RecordRunDialog({
     dialog.showModal();
   }, []);
 
+  function handlePreviousStep() {
+    if (currentStep === 4 && selectedVentureKind === "quick") {
+      setCurrentStep(2);
+      return;
+    }
+
+    if (currentStep > 1) {
+      setCurrentStep((currentStep - 1) as RecordRunStep);
+    }
+  }
+
+  function handleNextStep() {
+    if (currentStep === 2 && selectedVentureKind === "quick") {
+      setCurrentStep(4);
+      return;
+    }
+
+    if (currentStep < 4) {
+      setCurrentStep((currentStep + 1) as RecordRunStep);
+    }
+  }
+
   function handleSelectVentureKind(kind: VentureKind) {
     setSelectedVentureKind(kind);
-    setMaxUnlockedStep(3);
+
+    if (kind === "quick") {
+      setSelectedVentureId(quickVenture.id);
+      setMaxUnlockedStep(4);
+    } else {
+      setSelectedVentureId(null);
+      setMaxUnlockedStep(3);
+    }
+
+    setSearchQuery("");
+  }
+
+  function handleSelectVenture(ventureId: number) {
+    setSelectedVentureId(ventureId);
+    setMaxUnlockedStep(4);
+  }
+
+  function getAvailableVentures() {
+    switch (selectedVentureKind) {
+      case "targeted":
+        return targetedVentures.filter(
+          (venture) => venture.retainerType === retainer.retainerType,
+        );
+      case "exploration":
+        return explorationVentures.filter(
+          (venture) => venture.retainerType === retainer.retainerType,
+        );
+      case "quick":
+        return [quickVenture];
+      default:
+        return [];
+    }
   }
 
   function renderStepContent() {
@@ -149,7 +244,70 @@ export function RecordRunDialog({
           </>
         );
       case 3:
-        return <p>Choose a venture in the previously chosen venture type.</p>;
+        return (
+          <div>
+            {selectedVentureKind !== "quick" && (
+              <>
+                <p className="record-run-step-hint">
+                  <Trans
+                    i18nKey="recordRun.selectVentureHint"
+                    values={{ name: retainer.name }}
+                    components={{ bold: <strong /> }}
+                  />
+                </p>
+                <div className="record-run-search">
+                  <input
+                    id="venture-search"
+                    type="search"
+                    aria-label={t("recordRun.search.label")}
+                    placeholder={t("recordRun.search.placeholder")}
+                    value={searchQuery}
+                    onChange={(event) => setSearchQuery(event.target.value)}
+                  />
+                </div>
+              </>
+            )}
+            <div className="record-run-venture-list">
+              {filteredVentures.length === 0 ? (
+                <p className="record-run-empty">
+                  {t("recordRun.search.noResults")}
+                </p>
+              ) : (
+                filteredVentures.map((venture) => (
+                  <button
+                    className="record-run-venture-button"
+                    data-selected={selectedVentureId === venture.id}
+                    key={venture.id}
+                    type="button"
+                    onClick={() => handleSelectVenture(venture.id)}
+                    aria-pressed={selectedVentureId === venture.id}
+                  >
+                    <ItemIconStack
+                      iconIds={getVentureDisplayIconIds(
+                        venture,
+                        itemsById,
+                        ventureRewards,
+                      )}
+                    />
+                    <span className="record-run-venture-name">
+                      {venture.kind === "targeted"
+                        ? (itemsById.get(venture.targetItemId)?.name[
+                            language === "fr" ? "fr" : "en"
+                          ] ?? venture.id)
+                        : venture.name[language === "fr" ? "fr" : "en"]}
+                    </span>
+                    {selectedVentureId === venture.id && (
+                      <Check
+                        className="record-run-venture-check"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </button>
+                ))
+              )}
+            </div>
+          </div>
+        );
       case 4:
         return <p>Filtered rewards and quantity.</p>;
     }
@@ -192,7 +350,10 @@ export function RecordRunDialog({
                   ? "completed"
                   : "upcoming"
             }
-            disabled={step.id > maxUnlockedStep}
+            disabled={
+              step.id > maxUnlockedStep ||
+              (selectedVentureKind === "quick" && step.id === 3)
+            }
           >
             <span className="record-run-step-circle" aria-hidden="true">
               {step.id < maxUnlockedStep && step.id !== currentStep ? (
@@ -214,9 +375,7 @@ export function RecordRunDialog({
           <button
             type="button"
             className="btn btn-secondary"
-            onClick={() =>
-              setCurrentStep(Math.max(currentStep - 1, 1) as RecordRunStep)
-            }
+            onClick={handlePreviousStep}
           >
             {t("navigation.back")}
           </button>
@@ -225,9 +384,7 @@ export function RecordRunDialog({
         <button
           type="button"
           className="btn btn-primary record-run-continue"
-          onClick={() =>
-            setCurrentStep(Math.min(currentStep + 1, 4) as RecordRunStep)
-          }
+          onClick={handleNextStep}
           disabled={currentStep >= maxUnlockedStep}
         >
           {t("navigation.continue")}

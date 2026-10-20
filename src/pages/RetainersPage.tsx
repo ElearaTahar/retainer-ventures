@@ -14,8 +14,29 @@ import {
 import { restoreRetainer } from "../db/retainers";
 import { RecordRunDialog } from "../components/RecordRunDialog";
 import "../styles/retainers-page.css";
+import type {
+  ExplorationVenture,
+  QuickVenture,
+  TargetedVenture,
+} from "../types/ventures";
+import type { ItemSearchEntry } from "../types/items";
+import type { VentureRewardsData } from "../types/ventureRewards";
 
-export function RetainersPage() {
+type RetainersPageProps = {
+  targetedVentures: TargetedVenture[];
+  explorationVentures: ExplorationVenture[];
+  quickVenture: QuickVenture;
+  itemsById: Map<number, ItemSearchEntry>;
+  ventureRewards: VentureRewardsData;
+};
+
+export function RetainersPage({
+  targetedVentures,
+  explorationVentures,
+  quickVenture,
+  itemsById,
+  ventureRewards,
+}: RetainersPageProps) {
   const { t, i18n } = useTranslation();
 
   const language: Language = i18n.language === "fr" ? "fr" : "en";
@@ -232,6 +253,11 @@ export function RetainersPage() {
 
       {recordRunRetainer !== undefined && (
         <RecordRunDialog
+          targetedVentures={targetedVentures}
+          explorationVentures={explorationVentures}
+          quickVenture={quickVenture}
+          itemsById={itemsById}
+          ventureRewards={ventureRewards}
           retainer={recordRunRetainer}
           avatarColor={avatarColors.get(recordRunRetainer.id) ?? 1}
           onClose={() => {
