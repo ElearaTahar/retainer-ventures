@@ -2,7 +2,8 @@
   font: inherit;
   width: calc(100% - 2rem);
   max-width: 540px;
-  max-height: calc(100dvh - 2rem);
+  height: min(680px, calc(100dvh - 2rem));
+  box-sizing: border-box;
   padding: 1.5rem;
   border: none;
   border-radius: 10px;
@@ -48,7 +49,7 @@
 
   cursor: pointer;
 
-  transition: background-color 150ms ease;
+  transition: background-color 180ms ease;
 }
 
 .record-run-dialog-header > button:hover {
@@ -151,14 +152,10 @@
   min-height: 0;
   overflow-y: auto;
   padding: 0.25rem 0.75rem 0.5rem 0.25rem;
+  scrollbar-gutter: stable;
 }
 
-.record-run-step-hint {
-  font: inherit;
-  font-size: 0.8125rem;
-  color: var(--color-text-muted);
-}
-
+.record-run-step-hint,
 .record-run-level-hint {
   font: inherit;
   font-size: 0.8125rem;
@@ -224,7 +221,6 @@
   line-height: 1.25;
 
   cursor: pointer;
-  transition: transform 150ms ease;
 }
 
 .record-run-kind-button:hover {
@@ -263,6 +259,11 @@
   margin-bottom: 1rem;
 }
 
+.record-run-search input::placeholder {
+  color: var(--color-text-placeholder);
+  font-size: 0.875rem;
+}
+
 .record-run-search input {
   width: 100%;
   padding: 0.75rem;
@@ -287,10 +288,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-
-  max-height: 300px;
-  overflow-y: auto;
-  padding-right: 0.5rem;
 }
 
 .record-run-venture-button {
@@ -312,9 +309,6 @@
   line-height: 1.35;
 
   cursor: pointer;
-  transition:
-    background-color 150ms ease,
-    border-color 150ms ease;
 }
 
 .record-run-venture-button:hover {
@@ -384,9 +378,6 @@
   line-height: 1.35;
 
   cursor: pointer;
-  transition:
-    background-color 150ms ease,
-    border-color 150ms ease;
 }
 
 .record-run-quantity-button:hover {
@@ -418,6 +409,10 @@
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 8px;
+
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
 }
 
 .record-run-reward-button {
@@ -531,6 +526,11 @@
   font-size: 0.875rem;
 }
 
+.record-run-item-search::placeholder {
+  color: var(--color-text-placeholder);
+  font-size: 0.875rem;
+}
+
 .record-run-item-search:focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
@@ -626,6 +626,16 @@
   flex-shrink: 0;
 }
 
+.record-run-kind-button,
+.record-run-venture-button,
+.record-run-quantity-button,
+.record-run-search-result {
+  transition:
+    background-color var(--transition-interactive),
+    border-color var(--transition-interactive),
+    color var(--transition-interactive);
+}
+
 @media (max-width: 480px) {
   .record-run-steps {
     flex-direction: column;
@@ -639,8 +649,37 @@
   .record-run-step::after {
     display: none;
   }
+}
 
-  .record-run-rewards-grid {
-    grid-template-columns: 1fr;
+@media (prefers-reduced-motion: reduce) {
+  .record-run-dialog *,
+  .record-run-dialog *::before,
+  .record-run-dialog *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
+}
+
+@keyframes record-run-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.record-run-step-panel {
+  animation: record-run-enter 240ms ease-out both;
+}
+
+.record-run-search-results {
+  animation: record-run-enter 200ms ease-out both;
+}
+
+.record-run-other-results .record-run-reward-card {
+  animation: record-run-enter 200ms ease-out both;
 }

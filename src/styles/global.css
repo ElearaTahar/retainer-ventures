@@ -36,6 +36,8 @@
 
   --content-width: 1120px;
 
+  --transition-interactive: 180ms ease;
+
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -305,6 +307,10 @@ textarea {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .btn,
+  .theme-toggle,
+  .language-select,
+  .app-navigation a,
   .theme-toggle-icon {
     transition: none;
   }
@@ -334,6 +340,13 @@ textarea {
   background: var(--color-surface);
 }
 
+.theme-toggle,
+.language-select {
+  transition:
+    background-color var(--transition-interactive),
+    color var(--transition-interactive);
+}
+
 .page-layout {
   display: flex;
   flex-direction: column;
@@ -359,8 +372,9 @@ textarea {
 
   cursor: pointer;
   transition:
-    background-color 150ms ease,
-    border-color 150ms ease;
+    background-color var(--transition-interactive),
+    border-color var(--transition-interactive),
+    color var(--transition-interactive);
 }
 
 .btn:focus-visible {
@@ -438,6 +452,8 @@ textarea {
   .app-navigation a {
     font-size: 0.8rem;
     white-space: nowrap;
+
+    transition: color var(--transition-interactive);
   }
 
   .app-header-actions {

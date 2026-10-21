@@ -146,6 +146,28 @@ export function RecordRunDialog({
     dialog.showModal();
   }, []);
 
+  const searchResultsRef = useRef<HTMLUListElement>(null);
+  const hadSearchResultsRef = useRef(false);
+  const hasSearchResults = searchResults.length > 0;
+
+  useEffect(() => {
+    const hadResults = hadSearchResultsRef.current;
+    hadSearchResultsRef.current = hasSearchResults;
+
+    if (!hasSearchResults || hadResults) return;
+
+    const frameId = requestAnimationFrame(() => {
+      searchResultsRef.current?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "instant"
+          : "smooth",
+        block: "nearest",
+      });
+    });
+
+    return () => cancelAnimationFrame(frameId);
+  }, [hasSearchResults]);
+
   function handlePreviousStep() {
     if (currentStep === 4 && selectedVentureKind === "quick") {
       setCurrentStep(2);
@@ -361,7 +383,7 @@ export function RecordRunDialog({
         />
 
         {searchResults.length > 0 && (
-          <ul className="record-run-search-results">
+          <ul ref={searchResultsRef} className="record-run-search-results">
             {searchResults.map((searchResult) => {
               const isAlreadyAdded = explorationResults.some(
                 (result) => result.itemId === searchResult.id,
@@ -952,7 +974,11 @@ export function RecordRunDialog({
         ))}
       </nav>
 
-      <div className="record-run-content">{renderStepContent()}</div>
+      <div className="record-run-content">
+        <div key={currentStep} className="record-run-step-panel">
+          {renderStepContent()}
+        </div>
+      </div>
 
       {saveError && (
         <p className="form-error" role="alert">
