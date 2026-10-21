@@ -196,6 +196,19 @@ const resources = {
         quantities: {
           targeted: "How many did {{retainerName}} bring back?",
           other: "What did {{retainerName}} bring back?",
+          itemLabel: "Quantity for {{itemLabel}}",
+        },
+        rewards: {
+          showMore: "Show more rewards",
+          showLess: "Show less",
+          remove: "Remove",
+          searchLabel: "Search for an item",
+          searchPlaceholder: "Search for another item",
+          removeItem: "Remove {{itemName}}",
+          unrecognizedWarning_one:
+            "This item is not among the known rewards. You can still save it.",
+          unrecognizedWarning_other:
+            "These items are not among the known rewards. You can still save them.",
         },
         saveError: "Could not save the result. Please try again.",
       },
@@ -397,6 +410,19 @@ const resources = {
         quantities: {
           targeted: "Combien {{retainerName}} en a-t-il rapporté ?",
           other: "Qu'a rapporté {{retainerName}} ?",
+          itemLabel: "Quantité pour {{itemLabel}}",
+        },
+        rewards: {
+          showMore: "Voir plus de récompenses",
+          showLess: "Voir moins",
+          remove: "Supprimer",
+          searchLabel: "Rechercher un objet",
+          searchPlaceholder: "Rechercher un autre objet",
+          removeItem: "Supprimer {{itemName}}",
+          unrecognizedWarning_one:
+            "Cet objet ne figure pas parmi les récompenses connues. L'enregistrement reste possible.",
+          unrecognizedWarning_other:
+            "Ces objets ne figurent pas parmi les récompenses connues. L'enregistrement reste possible.",
         },
         saveError: "Impossible d'enregistrer le résultat. Veuillez réessayer.",
       },

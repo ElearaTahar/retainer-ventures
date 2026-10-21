@@ -1,4 +1,4 @@
-import { Check, Compass, Crosshair, Dices, X } from "lucide-react";
+import { Check, Compass, Crosshair, Dices, Trash2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { categoriesByRetainerType } from "../data/ventureCategories";
@@ -17,8 +17,12 @@ import type { VentureRewardsData } from "../types/ventureRewards";
 import { getVentureDisplayIconIds } from "../utils/ventureDisplay";
 import { getRequirementStatus } from "../utils/ventureRequirements";
 import { getSuggestedQuantity } from "../utils/ventureQuantities";
-import type { NewVentureRun } from "../types/ventureRuns";
+import type { VentureResult, NewVentureRun } from "../types/ventureRuns";
 import { addVentureRun } from "../db/ventureRuns";
+import {
+  getKnownRewardItemIds,
+  isKnownVentureReward,
+} from "../utils/ventureRewards";
 
 type RecordRunStep = 1 | 2 | 3 | 4;
 
@@ -78,6 +82,26 @@ export function RecordRunDialog({
 
   const [selectedQuantity, setSelectedQuantity] = useState<number | null>(null);
 
+  const [explorationResults, setExplorationResults] = useState<VentureResult[]>(
+    [],
+  );
+  const [explorationQuantityInputs, setExplorationQuantityInputs] = useState<
+    Record<number, string>
+  >({});
+  const hasInvalidExplorationQuantity = explorationResults.some((result) => {
+    const inputValue =
+      explorationQuantityInputs[result.itemId] ?? String(result.quantity);
+
+    const quantity = Number(inputValue);
+
+    return inputValue === "" || quantity <= 0 || !Number.isInteger(quantity);
+  });
+
+  const [showAllRewards, setShowAllRewards] = useState(false);
+
+  const canSaveExploration =
+    explorationResults.length > 0 && !hasInvalidExplorationQuantity;
+
   const availableVentures = getAvailableVentures();
 
   const normalizedSearchQuery = searchQuery.trim().toLocaleLowerCase();
@@ -94,6 +118,23 @@ export function RecordRunDialog({
       .toLocaleLowerCase()
       .includes(normalizedSearchQuery);
   });
+
+  const [itemSearchQuery, setItemSearchQuery] = useState("");
+
+  const normalizedItemSearchQuery = itemSearchQuery.trim().toLocaleLowerCase();
+  const searchResults =
+    normalizedItemSearchQuery === ""
+      ? []
+      : Array.from(itemsById.values())
+          .filter((item) => {
+            const itemName = item.name[language === "fr" ? "fr" : "en"];
+
+            return itemName
+              .trim()
+              .toLocaleLowerCase()
+              .includes(normalizedItemSearchQuery);
+          })
+          .slice(0, 5);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -152,12 +193,53 @@ export function RecordRunDialog({
       setSelectedQuantity(null);
     }
 
+    if (ventureId !== selectedVentureId) {
+      setExplorationResults([]);
+      setExplorationQuantityInputs({});
+      setShowAllRewards(false);
+      setItemSearchQuery("");
+    }
+
     setSelectedVentureId(ventureId);
     setMaxUnlockedStep(4);
   }
 
+  function handleAddExplorationResult(newResult: VentureResult) {
+    setExplorationResults((previousResults) => [...previousResults, newResult]);
+  }
+
+  function handleRemoveExplorationResult(index: number) {
+    const itemId = explorationResults[index]?.itemId;
+
+    if (itemId === undefined) return;
+
+    setExplorationResults((previousResults) =>
+      previousResults.filter((_, idx) => index !== idx),
+    );
+
+    setExplorationQuantityInputs((previousInputs) => {
+      const { [itemId]: _removed, ...remainingInputs } = previousInputs;
+
+      return remainingInputs;
+    });
+  }
+
+  function handleUpdateExplorationQuantity(index: number, quantity: number) {
+    setExplorationResults((previousResults) =>
+      previousResults.map((result, idx) => {
+        if (idx === index) {
+          return { ...result, quantity };
+        }
+
+        return result;
+      }),
+    );
+  }
+
   async function handleSaveRun() {
     if (isSaving) return;
+
+    let newVentureRun: NewVentureRun | null = null;
 
     if (selectedVentureKind === "targeted") {
       const selectedVenture = targetedVentures.find(
@@ -173,23 +255,45 @@ export function RecordRunDialog({
         },
       ];
 
-      const newVentureRun: NewVentureRun = {
+      newVentureRun = {
         retainerId: retainer.id,
         ventureId: selectedVenture.id,
         results,
       };
+    }
 
-      setIsSaving(true);
-      setSaveError(false);
+    if (selectedVentureKind === "exploration") {
+      if (!canSaveExploration) return;
 
-      try {
-        await addVentureRun(newVentureRun);
-        onClose();
-      } catch {
-        setSaveError(true);
-      } finally {
-        setIsSaving(false);
-      }
+      const selectedVenture = explorationVentures.find(
+        (venture) => venture.id === selectedVentureId,
+      );
+
+      if (selectedVenture === undefined) return;
+
+      newVentureRun = {
+        retainerId: retainer.id,
+        ventureId: selectedVenture.id,
+        results: explorationResults,
+      };
+    }
+
+    if (selectedVentureKind === "quick") {
+      return;
+    }
+
+    if (newVentureRun === null) return;
+
+    setIsSaving(true);
+    setSaveError(false);
+
+    try {
+      await addVentureRun(newVentureRun);
+      onClose();
+    } catch {
+      setSaveError(true);
+    } finally {
+      setIsSaving(false);
     }
   }
 
@@ -469,6 +573,286 @@ export function RecordRunDialog({
             </div>
           );
         }
+
+        if (selectedVentureKind === "exploration") {
+          const selectedVenture = explorationVentures.find(
+            (venture) => venture.id === selectedVentureId,
+          );
+
+          if (selectedVenture === undefined) return null;
+
+          const rewards =
+            ventureRewards.rewardsByRetainerTaskRandomId[
+              selectedVenture.retainerTaskRandomId
+            ];
+
+          const knownRewardItemIds =
+            rewards === undefined ? [] : getKnownRewardItemIds(rewards);
+
+          const firstRewards = knownRewardItemIds.slice(0, 6);
+
+          const additionalSelectedRewards = knownRewardItemIds.filter(
+            (itemId) => {
+              const isSelected = explorationResults.some(
+                (result) => result.itemId === itemId,
+              );
+
+              const inFirstRewards = firstRewards.includes(itemId);
+
+              return isSelected && !inFirstRewards;
+            },
+          );
+
+          const rewardsToShow = showAllRewards
+            ? knownRewardItemIds
+            : [...firstRewards, ...additionalSelectedRewards];
+
+          const otherResults = explorationResults.filter(
+            (result) => !knownRewardItemIds.includes(result.itemId),
+          );
+
+          const unrecognizedResults =
+            rewards === undefined
+              ? []
+              : explorationResults.filter(
+                  (result) => !isKnownVentureReward(rewards, result.itemId),
+                );
+
+          return (
+            <div>
+              <p className="record-run-step-hint">
+                {t("recordRun.quantities.other", {
+                  retainerName: retainer.name,
+                })}
+              </p>
+
+              <div className="record-run-rewards-grid">
+                {rewardsToShow.map((itemId) => {
+                  const item = itemsById.get(itemId);
+
+                  const resultIndex = explorationResults.findIndex(
+                    (result) => result.itemId === itemId,
+                  );
+
+                  const isAdded = resultIndex !== -1;
+
+                  const result = isAdded
+                    ? explorationResults[resultIndex]
+                    : undefined;
+
+                  return (
+                    <div className="record-run-reward-card" key={itemId}>
+                      <button
+                        className="record-run-reward-button"
+                        type="button"
+                        onClick={() => {
+                          if (!isAdded) {
+                            handleAddExplorationResult({ itemId, quantity: 1 });
+                          } else {
+                            if (resultIndex !== -1)
+                              handleRemoveExplorationResult(resultIndex);
+                          }
+                        }}
+                        aria-pressed={isAdded}
+                      >
+                        {item?.iconId !== undefined && (
+                          <ItemIconStack iconIds={[item.iconId]} />
+                        )}
+
+                        {item?.name[language === "fr" ? "fr" : "en"]}
+                      </button>
+
+                      {result !== undefined && (
+                        <input
+                          className="record-run-reward-quantity"
+                          aria-label={t("recordRun.quantities.itemLabel", {
+                            itemLabel:
+                              item?.name[language === "fr" ? "fr" : "en"] ??
+                              itemId,
+                          })}
+                          type="number"
+                          min={1}
+                          step={1}
+                          value={
+                            explorationQuantityInputs[result.itemId] ??
+                            String(result.quantity)
+                          }
+                          onChange={(event) => {
+                            setExplorationQuantityInputs((previousInputs) => ({
+                              ...previousInputs,
+                              [result.itemId]: event.target.value,
+                            }));
+
+                            const inputValue = event.target.value;
+                            const quantity = Number(inputValue);
+
+                            if (Number.isInteger(quantity) && quantity > 0) {
+                              handleUpdateExplorationQuantity(
+                                resultIndex,
+                                quantity,
+                              );
+                            }
+                          }}
+                        />
+                      )}
+
+                      {isAdded && (
+                        <Check
+                          className="record-run-reward-check"
+                          aria-hidden="true"
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {knownRewardItemIds.length > 6 && (
+                <button
+                  className="record-run-show-more"
+                  type="button"
+                  onClick={() => {
+                    setShowAllRewards((previous) => !previous);
+                  }}
+                >
+                  {showAllRewards
+                    ? t("recordRun.rewards.showLess")
+                    : t("recordRun.rewards.showMore")}
+                </button>
+              )}
+
+              <div className="record-run-search-section">
+                <label className="record-run-step-hint" htmlFor="searchInput">
+                  {t("recordRun.rewards.searchLabel")}
+                </label>
+                <input
+                  className="record-run-item-search"
+                  type="search"
+                  id="searchInput"
+                  value={itemSearchQuery}
+                  onChange={(event) => setItemSearchQuery(event.target.value)}
+                  placeholder={t("recordRun.rewards.searchPlaceholder")}
+                />
+
+                {searchResults.length > 0 && (
+                  <ul className="record-run-search-results">
+                    {searchResults.map((searchResult) => {
+                      const isAlreadyAdded = explorationResults.some(
+                        (result) => result.itemId === searchResult.id,
+                      );
+
+                      return (
+                        <li key={searchResult.id}>
+                          <button
+                            className="record-run-search-result"
+                            type="button"
+                            onClick={() => {
+                              handleAddExplorationResult({
+                                itemId: searchResult.id,
+                                quantity: 1,
+                              });
+
+                              setItemSearchQuery("");
+                            }}
+                            disabled={isAlreadyAdded}
+                          >
+                            {searchResult.iconId !== undefined && (
+                              <ItemIconStack iconIds={[searchResult.iconId]} />
+                            )}
+
+                            {searchResult.name[language === "fr" ? "fr" : "en"]}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </div>
+
+              {otherResults.length > 0 && (
+                <div className="record-run-rewards-grid record-run-other-results">
+                  {otherResults.map((result) => {
+                    const item = itemsById.get(result.itemId);
+
+                    const resultIndex = explorationResults.findIndex(
+                      (entry) => entry.itemId === result.itemId,
+                    );
+
+                    return (
+                      <div
+                        className="record-run-reward-card"
+                        key={result.itemId}
+                      >
+                        {item?.iconId !== undefined && (
+                          <ItemIconStack iconIds={[item.iconId]} />
+                        )}
+
+                        <span className="record-run-result-name">
+                          {item?.name[language === "fr" ? "fr" : "en"]}
+                        </span>
+
+                        <input
+                          className="record-run-reward-quantity"
+                          type="number"
+                          min={1}
+                          step={1}
+                          value={
+                            explorationQuantityInputs[result.itemId] ??
+                            String(result.quantity)
+                          }
+                          onChange={(event) => {
+                            setExplorationQuantityInputs((previousInputs) => ({
+                              ...previousInputs,
+                              [result.itemId]: event.target.value,
+                            }));
+
+                            const inputValue = event.target.value;
+                            const quantity = Number(inputValue);
+
+                            if (Number.isInteger(quantity) && quantity > 0) {
+                              handleUpdateExplorationQuantity(
+                                resultIndex,
+                                quantity,
+                              );
+                            }
+                          }}
+                          aria-label={t("recordRun.quantities.itemLabel", {
+                            itemLabel:
+                              item?.name[language === "fr" ? "fr" : "en"] ??
+                              String(result.itemId),
+                          })}
+                        />
+
+                        <button
+                          className="record-run-result-remove"
+                          type="button"
+                          onClick={() =>
+                            handleRemoveExplorationResult(resultIndex)
+                          }
+                          aria-label={t("recordRun.rewards.removeItem", {
+                            itemName:
+                              item?.name[language === "fr" ? "fr" : "en"] ??
+                              String(result.itemId),
+                          })}
+                        >
+                          <Trash2 size={18} aria-hidden="true" />
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {unrecognizedResults.length > 0 && (
+                <p className="record-run-step-hint record-run-reward-warning">
+                  {t("recordRun.rewards.unrecognizedWarning", {
+                    count: unrecognizedResults.length,
+                  })}
+                </p>
+              )}
+            </div>
+          );
+        }
     }
   }
 
@@ -555,7 +939,10 @@ export function RecordRunDialog({
             (currentStep === 4 &&
               selectedVentureKind === "targeted" &&
               selectedQuantity === null) ||
-            isSaving
+            isSaving ||
+            (currentStep === 4 &&
+              selectedVentureKind === "exploration" &&
+              !canSaveExploration)
           }
         >
           {currentStep === 4 ? t("navigation.save") : t("navigation.continue")}
