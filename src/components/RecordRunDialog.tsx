@@ -205,7 +205,15 @@ export function RecordRunDialog({
   }
 
   function handleAddExplorationResult(newResult: VentureResult) {
-    setExplorationResults((previousResults) => [...previousResults, newResult]);
+    setExplorationResults((previousResults) =>
+      selectedVentureKind === "quick"
+        ? [newResult]
+        : [...previousResults, newResult],
+    );
+
+    if (selectedVentureKind === "quick") {
+      setExplorationQuantityInputs({});
+    }
   }
 
   function handleRemoveExplorationResult(index: number) {
@@ -279,7 +287,13 @@ export function RecordRunDialog({
     }
 
     if (selectedVentureKind === "quick") {
-      return;
+      if (!canSaveExploration || explorationResults.length !== 1) return;
+
+      newVentureRun = {
+        retainerId: retainer.id,
+        ventureId: quickVenture.id,
+        results: explorationResults,
+      };
     }
 
     if (newVentureRun === null) return;
@@ -853,6 +867,131 @@ export function RecordRunDialog({
             </div>
           );
         }
+
+        if (selectedVentureKind === "quick") {
+          return (
+            <div>
+              <p className="record-run-step-hint">
+                {t("recordRun.quantities.other", {
+                  retainerName: retainer.name,
+                })}
+              </p>
+
+              <div className="record-run-search-section">
+                <label className="record-run-step-hint" htmlFor="searchInput">
+                  {t("recordRun.rewards.searchLabel")}
+                </label>
+                <input
+                  className="record-run-item-search"
+                  type="search"
+                  id="searchInput"
+                  value={itemSearchQuery}
+                  onChange={(event) => setItemSearchQuery(event.target.value)}
+                  placeholder={t("recordRun.rewards.searchPlaceholder")}
+                />
+
+                {searchResults.length > 0 && (
+                  <ul className="record-run-search-results">
+                    {searchResults.map((searchResult) => {
+                      const isAlreadyAdded = explorationResults.some(
+                        (result) => result.itemId === searchResult.id,
+                      );
+
+                      return (
+                        <li key={searchResult.id}>
+                          <button
+                            className="record-run-search-result"
+                            type="button"
+                            onClick={() => {
+                              handleAddExplorationResult({
+                                itemId: searchResult.id,
+                                quantity: 1,
+                              });
+
+                              setItemSearchQuery("");
+                            }}
+                            disabled={isAlreadyAdded}
+                          >
+                            {searchResult.iconId !== undefined && (
+                              <ItemIconStack iconIds={[searchResult.iconId]} />
+                            )}
+
+                            {searchResult.name[language === "fr" ? "fr" : "en"]}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </div>
+
+              {explorationResults.length > 0 && (
+                <div className="record-run-rewards-grid record-run-other-results">
+                  {explorationResults.map((result) => {
+                    const item = itemsById.get(result.itemId);
+
+                    return (
+                      <div
+                        className="record-run-reward-card"
+                        key={result.itemId}
+                      >
+                        {item?.iconId !== undefined && (
+                          <ItemIconStack iconIds={[item.iconId]} />
+                        )}
+
+                        <span className="record-run-result-name">
+                          {item?.name[language === "fr" ? "fr" : "en"]}
+                        </span>
+
+                        <input
+                          className="record-run-reward-quantity"
+                          type="number"
+                          min={1}
+                          step={1}
+                          value={
+                            explorationQuantityInputs[result.itemId] ??
+                            String(result.quantity)
+                          }
+                          onChange={(event) => {
+                            setExplorationQuantityInputs((previousInputs) => ({
+                              ...previousInputs,
+                              [result.itemId]: event.target.value,
+                            }));
+
+                            const inputValue = event.target.value;
+                            const quantity = Number(inputValue);
+
+                            if (Number.isInteger(quantity) && quantity > 0) {
+                              handleUpdateExplorationQuantity(0, quantity);
+                            }
+                          }}
+                          aria-label={t("recordRun.quantities.itemLabel", {
+                            itemLabel:
+                              item?.name[language === "fr" ? "fr" : "en"] ??
+                              String(result.itemId),
+                          })}
+                        />
+
+                        <button
+                          className="record-run-result-remove"
+                          type="button"
+                          onClick={() => handleRemoveExplorationResult(0)}
+                          aria-label={t("recordRun.rewards.removeItem", {
+                            itemName:
+                              item?.name[language === "fr" ? "fr" : "en"] ??
+                              String(result.itemId),
+                          })}
+                        >
+                          <Trash2 size={18} aria-hidden="true" />
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          );
+        }
     }
   }
 
@@ -941,7 +1080,8 @@ export function RecordRunDialog({
               selectedQuantity === null) ||
             isSaving ||
             (currentStep === 4 &&
-              selectedVentureKind === "exploration" &&
+              (selectedVentureKind === "exploration" ||
+                selectedVentureKind === "quick") &&
               !canSaveExploration)
           }
         >
