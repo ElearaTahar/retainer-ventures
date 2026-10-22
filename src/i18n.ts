@@ -212,6 +212,15 @@ const resources = {
         },
         saveError: "Could not save the result. Please try again.",
       },
+      ventureRuns: {
+        title: "Venture reports",
+        empty:
+          "No venture reports yet. Record a venture result to see it here.",
+        unknownRetainer: "Unknown retainer",
+        unknownVenture: "Unknown venture",
+        runsNumber_one: "{{count}} report",
+        runsNumber_other: "{{count}} reports",
+      },
     },
   },
   fr: {
@@ -425,6 +434,15 @@ const resources = {
             "Ces objets ne figurent pas parmi les récompenses connues. L'enregistrement reste possible.",
         },
         saveError: "Impossible d'enregistrer le résultat. Veuillez réessayer.",
+      },
+      ventureRuns: {
+        title: "Rapports de tâches",
+        empty:
+          "Aucun rapport de tâche pour le moment. Enregistrez le résultat d'une tâche pour le retrouver ici.",
+        unknownRetainer: "Servant inconnu",
+        unknownVenture: "Tâche inconnue",
+        runsNumber_one: "{{count}} rapport",
+        runsNumber_other: "{{count}} rapports",
       },
     },
   },

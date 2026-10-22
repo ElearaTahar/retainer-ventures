@@ -9,6 +9,9 @@
 
   font-size: 0.8125rem;
   font-weight: 700;
+
+  position: relative;
+  z-index: 1;
 }
 
 .retainer-avatar[data-color="1"] {

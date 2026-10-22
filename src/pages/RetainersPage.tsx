@@ -21,6 +21,7 @@ import type {
 } from "../types/ventures";
 import type { ItemSearchEntry } from "../types/items";
 import type { VentureRewardsData } from "../types/ventureRewards";
+import { ItemIconStack } from "../components/ItemIconStack";
 
 type RetainersPageProps = {
   targetedVentures: TargetedVenture[];
@@ -58,7 +59,11 @@ export function RetainersPage({
   const archivedRetainers =
     retainers?.filter((retainer) => retainer.status === "archived") ?? [];
 
-  const avatarColors = getRetainerAvatarColors(activeRetainers);
+  const ventureRuns = useLiveQuery(() =>
+    db.ventureRuns.orderBy("completedAt").reverse().toArray(),
+  );
+
+  const avatarColors = getRetainerAvatarColors(retainers ?? []);
 
   function handleAddRetainer() {
     setSelectedRetainer(null);
@@ -91,7 +96,7 @@ export function RetainersPage({
   } else {
     content = (
       <>
-        <div className="retainers-header">
+        <div className="section-header">
           <span>
             {t("myRetainers.retainersNumber", {
               count: activeRetainers.length,
@@ -241,6 +246,109 @@ export function RetainersPage({
             </div>
           ))}
         </details>
+      )}
+
+      {(activeRetainers.length > 0 ||
+        (ventureRuns !== undefined && ventureRuns.length > 0)) && (
+        <section className="venture-runs-section">
+          <h2>{t("ventureRuns.title")}</h2>
+
+          {ventureRuns !== undefined && ventureRuns.length > 0 && (
+            <div className="section-header">
+              <span>
+                {t("ventureRuns.runsNumber", {
+                  count: ventureRuns.length,
+                })}
+              </span>
+            </div>
+          )}
+
+          {ventureRuns === undefined ? null : ventureRuns.length === 0 ? (
+            <p className="run-timeline-empty">{t("ventureRuns.empty")}</p>
+          ) : (
+            <ol className="run-timeline">
+              {ventureRuns.map((run) => {
+                const retainer = retainers?.find(
+                  (retainer) => retainer.id === run.retainerId,
+                );
+
+                const initials = getRetainerInitials(retainer?.name ?? "");
+                const avatarColor = avatarColors.get(retainer?.id ?? 1);
+
+                const venture =
+                  targetedVentures.find(
+                    (venture) => venture.id === run.ventureId,
+                  ) ??
+                  explorationVentures.find(
+                    (venture) => venture.id === run.ventureId,
+                  ) ??
+                  (quickVenture.id === run.ventureId
+                    ? quickVenture
+                    : undefined);
+
+                const ventureName =
+                  venture?.kind === "targeted"
+                    ? itemsById.get(venture.targetItemId)?.name[
+                        language === "fr" ? "fr" : "en"
+                      ]
+                    : venture?.name[language === "fr" ? "fr" : "en"];
+
+                return (
+                  <li className="run-timeline-item" key={run.id}>
+                    <div
+                      className="retainer-avatar"
+                      data-color={avatarColor}
+                      aria-hidden="true"
+                    >
+                      {initials}
+                    </div>
+
+                    <div className="run-timeline-content">
+                      <div className="run-timeline-details">
+                        <span className="run-timeline-venture">
+                          {ventureName ?? t("ventureRuns.unknownVenture")}
+                        </span>
+                        <span className="run-timeline-retainer">
+                          {retainer?.name ?? t("ventureRuns.unknownRetainer")}
+                        </span>
+                      </div>
+
+                      <div className="run-timeline-rewards">
+                        {run.results.map((result) => {
+                          const item = itemsById.get(result.itemId);
+                          const itemName =
+                            item?.name[language === "fr" ? "fr" : "en"] ??
+                            t("explorationVenture.unknownItem", {
+                              id: result.itemId,
+                            });
+
+                          return (
+                            <span
+                              className="run-timeline-reward"
+                              key={result.itemId}
+                            >
+                              {item?.iconId !== undefined && (
+                                <ItemIconStack iconIds={[item.iconId]} />
+                              )}
+                              {`${itemName} ×${result.quantity}`}
+                            </span>
+                          );
+                        })}
+                      </div>
+
+                      <div className="run-timeline-date">
+                        {new Intl.DateTimeFormat(navigator.language, {
+                          dateStyle: "medium",
+                          timeStyle: "short",
+                        }).format(new Date(run.completedAt))}
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          )}
+        </section>
       )}
 
       {isFormOpen && (
