@@ -259,7 +259,7 @@
 
 .run-timeline-content {
   display: grid;
-  grid-template-columns: 1fr 2fr auto;
+  grid-template-columns: 1fr 2fr auto auto;
   gap: 1rem;
   align-items: center;
 }
@@ -302,6 +302,34 @@
   font-size: 0.8125rem;
 }
 
+.run-timeline-delete-button {
+  padding: 0.375rem;
+  background-color: transparent;
+}
+
+.btn-secondary.run-timeline-delete-button:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--color-error) 12%, transparent);
+  color: var(--color-error);
+}
+
+.run-timeline-delete {
+  color: currentColor;
+  width: 20px;
+  height: 20px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .run-timeline-delete-button {
+    opacity: 0;
+    transition: opacity 200ms ease-out;
+  }
+
+  .run-timeline-item:hover .run-timeline-delete-button,
+  .run-timeline-item:focus-within .run-timeline-delete-button {
+    opacity: 1;
+  }
+}
+
 @media (max-width: 1000px) {
   .retainers-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -314,7 +342,15 @@
   }
 
   .run-timeline-content {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr auto;
+  }
+
+  .run-timeline-details {
+    grid-column: 1 / -1;
+  }
+
+  .run-timeline-rewards {
+    grid-column: 1 / -1;
   }
 
   .run-timeline-item {
@@ -331,6 +367,10 @@
 @media (prefers-reduced-motion: reduce) {
   .run-timeline-item {
     animation: none;
+  }
+
+  .run-timeline-delete-button {
+    transition: none;
   }
 }
 

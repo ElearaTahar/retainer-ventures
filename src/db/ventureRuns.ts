@@ -26,3 +26,7 @@ export async function addVentureRun(
     return await db.ventureRuns.add({ ...ventureRun, completedAt: Date.now() });
   });
 }
+
+export async function deleteVentureRun(id: number): Promise<void> {
+  return db.ventureRuns.delete(id);
+}

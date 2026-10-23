@@ -1,4 +1,4 @@
-import { Pencil, Plus } from "lucide-react";
+import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLiveQuery } from "dexie-react-hooks";
@@ -22,6 +22,8 @@ import type {
 import type { ItemSearchEntry } from "../types/items";
 import type { VentureRewardsData } from "../types/ventureRewards";
 import { ItemIconStack } from "../components/ItemIconStack";
+import { VentureRun } from "../types/ventureRuns";
+import { deleteVentureRun } from "../db/ventureRuns";
 
 type RetainersPageProps = {
   targetedVentures: TargetedVenture[];
@@ -85,6 +87,27 @@ export function RetainersPage({
 
   function handleRecordRun(retainerId: number) {
     setRecordRunRetainerId(retainerId);
+  }
+
+  async function handleDeleteRun(
+    runId: number,
+    ventureName: string,
+    retainerName: string,
+  ) {
+    const confirm = window.confirm(
+      t("ventureRuns.confirmDeleteRun", {
+        ventureName,
+        retainerName,
+      }),
+    );
+
+    if (!confirm) return;
+
+    try {
+      await deleteVentureRun(runId);
+    } catch {
+      window.alert(t("ventureRuns.errorDeleteRun"));
+    }
   }
 
   let content;
@@ -342,6 +365,21 @@ export function RetainersPage({
                           timeStyle: "short",
                         }).format(new Date(run.completedAt))}
                       </div>
+
+                      <button
+                        className="btn btn-secondary run-timeline-delete-button"
+                        type="button"
+                        aria-label={t("ventureRuns.deleteRun")}
+                        onClick={() =>
+                          handleDeleteRun(
+                            run.id,
+                            ventureName ?? t("ventureRuns.unknownVenture"),
+                            retainer?.name ?? t("ventureRuns.unknownRetainer"),
+                          )
+                        }
+                      >
+                        <Trash2 className="run-timeline-delete" />
+                      </button>
                     </div>
                   </li>
                 );

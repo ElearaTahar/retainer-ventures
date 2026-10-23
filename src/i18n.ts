@@ -220,6 +220,10 @@ const resources = {
         unknownVenture: "Unknown venture",
         runsNumber_one: "{{count}} report",
         runsNumber_other: "{{count}} reports",
+        deleteRun: "Delete the venture report",
+        confirmDeleteRun:
+          "Delete the {{ventureName}} result for {{retainerName}}?",
+        errorDeleteRun: "Could not delete the result. Please try again.",
       },
     },
   },
@@ -443,6 +447,11 @@ const resources = {
         unknownVenture: "Tâche inconnue",
         runsNumber_one: "{{count}} rapport",
         runsNumber_other: "{{count}} rapports",
+        deleteRun: "Supprimer le rapport de tâche",
+        confirmDeleteRun:
+          "Supprimer le résultat de la tâche {{ventureName}} de {{retainerName}} ?",
+        errorDeleteRun:
+          "Impossible de supprimer le résultat. Veuillez réessayer.",
       },
     },
   },
