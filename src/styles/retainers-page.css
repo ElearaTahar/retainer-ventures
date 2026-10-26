@@ -97,40 +97,39 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.375rem 0.75rem;
+  min-height: 1.25rem;
 
   color: var(--color-text-muted);
   font-size: 0.8125rem;
 }
 
-.retainer-card-record-run {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0.5rem;
+.retainer-card-record-run,
+.retainer-card-repeat-run {
   width: 100%;
-  padding: 0.625rem 0;
+}
 
+.retainer-card-repeat-run {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: auto auto;
+  justify-content: center;
+}
+
+.btn.retainer-card-repeat-run {
+  background-color: var(--color-surface);
+}
+
+.retainer-card-repeat-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-start;
+}
+
+.retainer-card-repeat-venture {
   color: var(--color-text-muted);
-  background: transparent;
-  border: 0;
-
-  font: inherit;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  cursor: pointer;
-
-  transition: color 150ms ease;
-}
-
-.retainer-card-record-run:hover {
-  color: var(--color-text);
-  background-color: transparent;
-}
-
-.retainer-card-record-run:focus-visible {
-  outline: 2px solid var(--color-focus);
-  outline-offset: -2px;
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
 }
 
 .archived-retainers {

@@ -36,6 +36,7 @@ type RecordRunDialogProps = {
   ventureRewards: VentureRewardsData;
   retainer: Retainer;
   avatarColor: number;
+  initialVentureId?: number;
   onClose: () => void;
 };
 
@@ -47,6 +48,7 @@ export function RecordRunDialog({
   ventureRewards,
   retainer,
   avatarColor,
+  initialVentureId,
   onClose,
 }: RecordRunDialogProps) {
   const { t, i18n } = useTranslation();
@@ -62,8 +64,25 @@ export function RecordRunDialog({
 
   const initials = getRetainerInitials(retainer.name);
 
-  const [currentStep, setCurrentStep] = useState<RecordRunStep>(2);
-  const [maxUnlockedStep, setMaxUnlockedStep] = useState<RecordRunStep>(2);
+  const initialVentureKind =
+    initialVentureId === undefined
+      ? null
+      : quickVenture.id === initialVentureId
+        ? "quick"
+        : targetedVentures.some((venture) => venture.id === initialVentureId)
+          ? "targeted"
+          : explorationVentures.some(
+                (venture) => venture.id === initialVentureId,
+              )
+            ? "exploration"
+            : null;
+
+  const [currentStep, setCurrentStep] = useState<RecordRunStep>(
+    initialVentureKind === null ? 2 : 4,
+  );
+  const [maxUnlockedStep, setMaxUnlockedStep] = useState<RecordRunStep>(
+    initialVentureKind === null ? 2 : 4,
+  );
   const steps = [
     { id: 1, label: t("recordRun.steps.retainer") },
     { id: 2, label: t("recordRun.steps.type") },
@@ -72,15 +91,24 @@ export function RecordRunDialog({
   ] as const;
 
   const [selectedVentureKind, setSelectedVentureKind] =
-    useState<VentureKind | null>(null);
+    useState<VentureKind | null>(initialVentureKind);
 
   const [selectedVentureId, setSelectedVentureId] = useState<number | null>(
-    null,
+    initialVentureId ?? null,
   );
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [selectedQuantity, setSelectedQuantity] = useState<number | null>(null);
+  const initialTargetedVenture =
+    initialVentureKind === "targeted"
+      ? targetedVentures.find((venture) => venture.id === initialVentureId)
+      : undefined;
+
+  const [selectedQuantity, setSelectedQuantity] = useState<number | null>(
+    initialTargetedVenture !== undefined
+      ? getSuggestedQuantity(initialTargetedVenture, retainer)
+      : null,
+  );
 
   const [explorationResults, setExplorationResults] = useState<VentureResult[]>(
     [],

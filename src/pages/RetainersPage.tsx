@@ -1,4 +1,4 @@
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { Pencil, Plus, Repeat, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLiveQuery } from "dexie-react-hooks";
@@ -22,7 +22,6 @@ import type {
 import type { ItemSearchEntry } from "../types/items";
 import type { VentureRewardsData } from "../types/ventureRewards";
 import { ItemIconStack } from "../components/ItemIconStack";
-import { VentureRun } from "../types/ventureRuns";
 import { deleteVentureRun } from "../db/ventureRuns";
 
 type RetainersPageProps = {
@@ -61,6 +60,10 @@ export function RetainersPage({
   const archivedRetainers =
     retainers?.filter((retainer) => retainer.status === "archived") ?? [];
 
+  const [recordRunInitialVentureId, setRecordRunInitialVentureId] = useState<
+    number | null
+  >(null);
+
   const ventureRuns = useLiveQuery(() =>
     db.ventureRuns.orderBy("completedAt").reverse().toArray(),
   );
@@ -86,6 +89,12 @@ export function RetainersPage({
   }
 
   function handleRecordRun(retainerId: number) {
+    setRecordRunInitialVentureId(null);
+    setRecordRunRetainerId(retainerId);
+  }
+
+  function handleRepeatRun(retainerId: number, ventureId: number) {
+    setRecordRunInitialVentureId(ventureId);
     setRecordRunRetainerId(retainerId);
   }
 
@@ -140,6 +149,28 @@ export function RetainersPage({
           {activeRetainers.map((retainer) => {
             const initials = getRetainerInitials(retainer.name);
             const avatarColor = avatarColors.get(retainer.id);
+
+            const lastRun = ventureRuns?.find(
+              (run) => run.retainerId === retainer.id,
+            );
+
+            const lastVenture =
+              targetedVentures.find(
+                (venture) => venture.id === lastRun?.ventureId,
+              ) ??
+              explorationVentures.find(
+                (venture) => venture.id === lastRun?.ventureId,
+              ) ??
+              (quickVenture.id === lastRun?.ventureId
+                ? quickVenture
+                : undefined);
+
+            const lastVentureName =
+              lastVenture?.kind === "targeted"
+                ? itemsById.get(lastVenture.targetItemId)?.name[
+                    language === "fr" ? "fr" : "en"
+                  ]
+                : lastVenture?.name[language === "fr" ? "fr" : "en"];
 
             return (
               <div className="retainer-card" key={retainer.id}>
@@ -209,12 +240,32 @@ export function RetainersPage({
 
                 <button
                   type="button"
-                  className="retainer-card-record-run"
+                  className="btn btn-subtle retainer-card-record-run"
                   onClick={() => handleRecordRun(retainer.id)}
                 >
                   <Plus size={16} aria-hidden="true" />
                   {t("myRetainers.recordRunButton")}
                 </button>
+
+                {lastRun !== undefined && (
+                  <button
+                    type="button"
+                    className="btn btn-subtle retainer-card-repeat-run"
+                    onClick={() =>
+                      handleRepeatRun(retainer.id, lastRun.ventureId)
+                    }
+                  >
+                    <Repeat size={16} aria-hidden="true" />
+                    <div className="retainer-card-repeat-texts">
+                      <span className="retainer-card-repeat-label">
+                        {t("myRetainers.repeatLastRunButton")}
+                      </span>
+                      <span className="retainer-card-repeat-venture">
+                        {lastVentureName ?? t("ventureRuns.unknownVenture")}
+                      </span>
+                    </div>
+                  </button>
+                )}
               </div>
             );
           })}
@@ -406,8 +457,10 @@ export function RetainersPage({
           ventureRewards={ventureRewards}
           retainer={recordRunRetainer}
           avatarColor={avatarColors.get(recordRunRetainer.id) ?? 1}
+          initialVentureId={recordRunInitialVentureId ?? undefined}
           onClose={() => {
             setRecordRunRetainerId(null);
+            setRecordRunInitialVentureId(null);
           }}
         />
       )}
