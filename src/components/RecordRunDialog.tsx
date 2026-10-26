@@ -133,19 +133,31 @@ export function RecordRunDialog({
   const availableVentures = getAvailableVentures();
 
   const normalizedSearchQuery = searchQuery.trim().toLocaleLowerCase();
-  const filteredVentures = availableVentures.filter((venture) => {
-    const ventureName =
-      venture.kind === "targeted"
-        ? (itemsById.get(venture.targetItemId)?.name[
-            language === "fr" ? "fr" : "en"
-          ] ?? "")
-        : venture.name[language === "fr" ? "fr" : "en"];
 
-    return ventureName
-      .trim()
-      .toLocaleLowerCase()
-      .includes(normalizedSearchQuery);
-  });
+  function getVentureSearchName(
+    venture: TargetedVenture | ExplorationVenture | QuickVenture,
+  ) {
+    const name =
+      venture.kind === "targeted"
+        ? (itemsById.get(venture.targetItemId)?.name[language] ?? "")
+        : venture.name[language];
+
+    return name.trim().toLocaleLowerCase();
+  }
+
+  const filteredVentures = availableVentures
+    .filter((venture) =>
+      getVentureSearchName(venture).includes(normalizedSearchQuery),
+    )
+    .sort((a, b) => {
+      const nameA = getVentureSearchName(a);
+      const nameB = getVentureSearchName(b);
+
+      const priorityA = nameA === normalizedSearchQuery ? 0 : 1;
+      const priorityB = nameB === normalizedSearchQuery ? 0 : 1;
+
+      return priorityA - priorityB;
+    });
 
   const [itemSearchQuery, setItemSearchQuery] = useState("");
 
@@ -161,6 +173,15 @@ export function RecordRunDialog({
               .trim()
               .toLocaleLowerCase()
               .includes(normalizedItemSearchQuery);
+          })
+          .sort((a, b) => {
+            const nameA = a.name[language].trim().toLocaleLowerCase();
+            const nameB = b.name[language].trim().toLocaleLowerCase();
+
+            const priorityA = nameA === normalizedItemSearchQuery ? 0 : 1;
+            const priorityB = nameB === normalizedItemSearchQuery ? 0 : 1;
+
+            return priorityA - priorityB;
           })
           .slice(0, 5);
 
