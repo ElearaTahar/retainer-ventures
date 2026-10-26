@@ -225,6 +225,7 @@ const resources = {
         confirmDeleteRun:
           "Delete the {{ventureName}} result for {{retainerName}}?",
         errorDeleteRun: "Could not delete the result. Please try again.",
+        showMore: "Show more",
       },
     },
   },
@@ -454,6 +455,7 @@ const resources = {
           "Supprimer le résultat de la tâche {{ventureName}} de {{retainerName}} ?",
         errorDeleteRun:
           "Impossible de supprimer le résultat. Veuillez réessayer.",
+        showMore: "Afficher plus",
       },
     },
   },

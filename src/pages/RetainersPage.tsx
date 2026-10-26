@@ -70,6 +70,9 @@ export function RetainersPage({
 
   const avatarColors = getRetainerAvatarColors(retainers ?? []);
 
+  const [visibleRunsCount, setVisibleRunsCount] = useState<number>(20);
+  const visibleRuns = ventureRuns?.slice(0, visibleRunsCount) ?? [];
+
   function handleAddRetainer() {
     setSelectedRetainer(null);
     setIsFormOpen(true);
@@ -341,7 +344,7 @@ export function RetainersPage({
             <p className="run-timeline-empty">{t("ventureRuns.empty")}</p>
           ) : (
             <ol className="run-timeline">
-              {ventureRuns.map((run) => {
+              {visibleRuns.map((run) => {
                 const retainer = retainers?.find(
                   (retainer) => retainer.id === run.retainerId,
                 );
@@ -436,6 +439,18 @@ export function RetainersPage({
                 );
               })}
             </ol>
+          )}
+
+          {(ventureRuns?.length ?? 0) > visibleRunsCount && (
+            <button
+              type="button"
+              className="btn btn-subtle"
+              onClick={() =>
+                setVisibleRunsCount((previousCount) => previousCount + 20)
+              }
+            >
+              {t("ventureRuns.showMore")}
+            </button>
           )}
         </section>
       )}
