@@ -197,6 +197,66 @@
   margin-bottom: 0.5rem;
 }
 
+.venture-runs-filter {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: fit-content;
+  margin-left: auto;
+}
+
+.venture-runs-filter-trigger:has(+ .venture-runs-filter-reset) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.btn.venture-runs-filter-reset {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 0.625rem;
+  background-color: transparent;
+}
+
+.venture-runs-filter > .btn[aria-expanded="true"] {
+  background-color: var(--color-surface-hover);
+}
+
+.venture-runs-filter-options {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  left: auto;
+  z-index: 10;
+
+  width: 260px;
+  max-width: calc(100vw - 2rem);
+  max-height: 320px;
+  overflow-y: auto;
+
+  font: inherit;
+  font-size: 0.875rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  padding: 1rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+.venture-runs-filter-options label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
 .run-timeline-empty {
   color: var(--color-text-muted);
   font-size: 0.8125rem;

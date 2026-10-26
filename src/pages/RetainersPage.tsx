@@ -1,5 +1,5 @@
-import { Pencil, Plus, Repeat, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { ListFilter, Pencil, Plus, Repeat, Trash2, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../db/database";
@@ -71,7 +71,21 @@ export function RetainersPage({
   const avatarColors = getRetainerAvatarColors(retainers ?? []);
 
   const [visibleRunsCount, setVisibleRunsCount] = useState<number>(20);
-  const visibleRuns = ventureRuns?.slice(0, visibleRunsCount) ?? [];
+
+  const [selectedRetainerIdsForFilter, setSelectedRetainerIdsForFilter] =
+    useState<number[]>([]);
+
+  const [isRetainerFilterOpen, setIsRetainerFilterOpen] = useState(false);
+  const retainerFilterRef = useRef<HTMLDivElement>(null);
+
+  const filteredRuns =
+    selectedRetainerIdsForFilter.length === 0
+      ? (ventureRuns ?? [])
+      : (ventureRuns ?? []).filter((run) =>
+          selectedRetainerIdsForFilter.includes(run.retainerId),
+        );
+
+  const visibleRuns = filteredRuns.slice(0, visibleRunsCount);
 
   function handleAddRetainer() {
     setSelectedRetainer(null);
@@ -121,6 +135,35 @@ export function RetainersPage({
       window.alert(t("ventureRuns.errorDeleteRun"));
     }
   }
+
+  function handleToggleRetainerFilter(retainerId: number) {
+    setSelectedRetainerIdsForFilter((previous) =>
+      previous.includes(retainerId)
+        ? previous.filter((id) => id !== retainerId)
+        : [...previous, retainerId],
+    );
+
+    setVisibleRunsCount(20);
+  }
+
+  useEffect(() => {
+    if (!isRetainerFilterOpen) return;
+
+    function handlePointerDown(event: PointerEvent) {
+      if (
+        retainerFilterRef.current &&
+        !retainerFilterRef.current.contains(event.target as Node)
+      ) {
+        setIsRetainerFilterOpen(false);
+      }
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, [isRetainerFilterOpen]);
 
   let content;
 
@@ -333,15 +376,85 @@ export function RetainersPage({
           {ventureRuns !== undefined && ventureRuns.length > 0 && (
             <div className="section-header">
               <span>
-                {t("ventureRuns.runsNumber", {
-                  count: ventureRuns.length,
-                })}
+                {selectedRetainerIdsForFilter.length === 0
+                  ? t("ventureRuns.runsNumber", { count: ventureRuns.length })
+                  : t("ventureRuns.filteredRunsNumber", {
+                      count: filteredRuns.length,
+                      total: ventureRuns.length,
+                    })}
               </span>
+
+              <div
+                className="venture-runs-filter"
+                ref={retainerFilterRef}
+                onKeyDown={(event) => {
+                  if (event.key === "Escape") {
+                    setIsRetainerFilterOpen(false);
+                  }
+                }}
+              >
+                <button
+                  type="button"
+                  className="btn btn-secondary venture-runs-filter-trigger"
+                  onClick={() =>
+                    setIsRetainerFilterOpen((previous) => !previous)
+                  }
+                  aria-expanded={isRetainerFilterOpen}
+                >
+                  <ListFilter size={16} aria-hidden="true" />
+                  {selectedRetainerIdsForFilter.length === 0
+                    ? t("ventureRuns.allRetainers")
+                    : t("ventureRuns.selectedRetainers", {
+                        count: selectedRetainerIdsForFilter.length,
+                      })}
+                </button>
+
+                {selectedRetainerIdsForFilter.length > 0 && (
+                  <button
+                    type="button"
+                    className="btn btn-secondary venture-runs-filter-reset"
+                    onClick={() => {
+                      setSelectedRetainerIdsForFilter([]);
+                      setVisibleRunsCount(20);
+                    }}
+                    aria-label={t("ventureRuns.resetFilter")}
+                    title={t("ventureRuns.resetFilter")}
+                  >
+                    <X size={16} aria-hidden="true" />
+                  </button>
+                )}
+
+                {isRetainerFilterOpen && (
+                  <div className="venture-runs-filter-options">
+                    {retainers?.map((retainer) => (
+                      <label key={retainer.id}>
+                        <input
+                          type="checkbox"
+                          name={retainer.name}
+                          checked={selectedRetainerIdsForFilter.includes(
+                            retainer.id,
+                          )}
+                          onChange={() =>
+                            handleToggleRetainerFilter(retainer.id)
+                          }
+                        />
+                        {retainer.name}
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
           {ventureRuns === undefined ? null : ventureRuns.length === 0 ? (
             <p className="run-timeline-empty">{t("ventureRuns.empty")}</p>
+          ) : filteredRuns.length === 0 ? (
+            <p className="run-timeline-empty">
+              {t("ventureRuns.noFilteredRuns", {
+                count: selectedRetainerIdsForFilter.length,
+              })}
+            </p>
           ) : (
             <ol className="run-timeline">
               {visibleRuns.map((run) => {
@@ -441,7 +554,7 @@ export function RetainersPage({
             </ol>
           )}
 
-          {(ventureRuns?.length ?? 0) > visibleRunsCount && (
+          {filteredRuns.length > visibleRunsCount && (
             <button
               type="button"
               className="btn btn-subtle"
