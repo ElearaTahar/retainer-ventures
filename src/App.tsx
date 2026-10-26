@@ -105,7 +105,6 @@ export function App() {
               />
             }
           />
-          <Route path="/retainers" element={<RetainersPage />} />
           <Route
             path="/ventures/quick-exploration"
             element={
@@ -131,6 +130,20 @@ export function App() {
               />
             }
           />
+
+          <Route
+            path="/retainers"
+            element={
+              <RetainersPage
+                targetedVentures={targetedVentures}
+                explorationVentures={explorationVentures}
+                quickVenture={quickVenture}
+                itemsById={itemsById}
+                ventureRewards={ventureRewards}
+              />
+            }
+          />
+
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
 

@@ -1,5 +1,5 @@
-import { Pencil, Plus } from "lucide-react";
-import { useState } from "react";
+import { ListFilter, Pencil, Plus, Repeat, Trash2, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../db/database";
@@ -11,10 +11,34 @@ import {
   getRetainerAvatarColors,
   getRetainerInitials,
 } from "../utils/retainerAvatars";
+import { restoreRetainer } from "../db/retainers";
+import { RecordRunDialog } from "../components/RecordRunDialog";
 import "../styles/retainers-page.css";
-import { archiveRetainer, restoreRetainer } from "../db/retainers";
+import type {
+  ExplorationVenture,
+  QuickVenture,
+  TargetedVenture,
+} from "../types/ventures";
+import type { ItemSearchEntry } from "../types/items";
+import type { VentureRewardsData } from "../types/ventureRewards";
+import { ItemIconStack } from "../components/ItemIconStack";
+import { deleteVentureRun } from "../db/ventureRuns";
 
-export function RetainersPage() {
+type RetainersPageProps = {
+  targetedVentures: TargetedVenture[];
+  explorationVentures: ExplorationVenture[];
+  quickVenture: QuickVenture;
+  itemsById: Map<number, ItemSearchEntry>;
+  ventureRewards: VentureRewardsData;
+};
+
+export function RetainersPage({
+  targetedVentures,
+  explorationVentures,
+  quickVenture,
+  itemsById,
+  ventureRewards,
+}: RetainersPageProps) {
   const { t, i18n } = useTranslation();
 
   const language: Language = i18n.language === "fr" ? "fr" : "en";
@@ -26,11 +50,42 @@ export function RetainersPage() {
     null,
   );
 
+  const [recordRunRetainerId, setRecordRunRetainerId] = useState<number | null>(
+    null,
+  );
+
   const retainers = useLiveQuery(() => db.retainers.toArray());
   const activeRetainers =
     retainers?.filter((retainer) => retainer.status === "active") ?? [];
   const archivedRetainers =
     retainers?.filter((retainer) => retainer.status === "archived") ?? [];
+
+  const [recordRunInitialVentureId, setRecordRunInitialVentureId] = useState<
+    number | null
+  >(null);
+
+  const ventureRuns = useLiveQuery(() =>
+    db.ventureRuns.orderBy("completedAt").reverse().toArray(),
+  );
+
+  const avatarColors = getRetainerAvatarColors(retainers ?? []);
+
+  const [visibleRunsCount, setVisibleRunsCount] = useState<number>(20);
+
+  const [selectedRetainerIdsForFilter, setSelectedRetainerIdsForFilter] =
+    useState<number[]>([]);
+
+  const [isRetainerFilterOpen, setIsRetainerFilterOpen] = useState(false);
+  const retainerFilterRef = useRef<HTMLDivElement>(null);
+
+  const filteredRuns =
+    selectedRetainerIdsForFilter.length === 0
+      ? (ventureRuns ?? [])
+      : (ventureRuns ?? []).filter((run) =>
+          selectedRetainerIdsForFilter.includes(run.retainerId),
+        );
+
+  const visibleRuns = filteredRuns.slice(0, visibleRunsCount);
 
   function handleAddRetainer() {
     setSelectedRetainer(null);
@@ -50,6 +105,66 @@ export function RetainersPage() {
     }
   }
 
+  function handleRecordRun(retainerId: number) {
+    setRecordRunInitialVentureId(null);
+    setRecordRunRetainerId(retainerId);
+  }
+
+  function handleRepeatRun(retainerId: number, ventureId: number) {
+    setRecordRunInitialVentureId(ventureId);
+    setRecordRunRetainerId(retainerId);
+  }
+
+  async function handleDeleteRun(
+    runId: number,
+    ventureName: string,
+    retainerName: string,
+  ) {
+    const confirm = window.confirm(
+      t("ventureRuns.confirmDeleteRun", {
+        ventureName,
+        retainerName,
+      }),
+    );
+
+    if (!confirm) return;
+
+    try {
+      await deleteVentureRun(runId);
+    } catch {
+      window.alert(t("ventureRuns.errorDeleteRun"));
+    }
+  }
+
+  function handleToggleRetainerFilter(retainerId: number) {
+    setSelectedRetainerIdsForFilter((previous) =>
+      previous.includes(retainerId)
+        ? previous.filter((id) => id !== retainerId)
+        : [...previous, retainerId],
+    );
+
+    setVisibleRunsCount(20);
+  }
+
+  useEffect(() => {
+    if (!isRetainerFilterOpen) return;
+
+    function handlePointerDown(event: PointerEvent) {
+      if (
+        retainerFilterRef.current &&
+        !retainerFilterRef.current.contains(event.target as Node)
+      ) {
+        setIsRetainerFilterOpen(false);
+      }
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, [isRetainerFilterOpen]);
+
   let content;
 
   if (retainers === undefined) {
@@ -57,10 +172,9 @@ export function RetainersPage() {
   } else if (activeRetainers.length === 0) {
     content = <RetainersEmptyState onAddRetainer={handleAddRetainer} />;
   } else {
-    const avatarColors = getRetainerAvatarColors(activeRetainers);
     content = (
       <>
-        <div className="retainers-header">
+        <div className="section-header">
           <span>
             {t("myRetainers.retainersNumber", {
               count: activeRetainers.length,
@@ -81,6 +195,28 @@ export function RetainersPage() {
           {activeRetainers.map((retainer) => {
             const initials = getRetainerInitials(retainer.name);
             const avatarColor = avatarColors.get(retainer.id);
+
+            const lastRun = ventureRuns?.find(
+              (run) => run.retainerId === retainer.id,
+            );
+
+            const lastVenture =
+              targetedVentures.find(
+                (venture) => venture.id === lastRun?.ventureId,
+              ) ??
+              explorationVentures.find(
+                (venture) => venture.id === lastRun?.ventureId,
+              ) ??
+              (quickVenture.id === lastRun?.ventureId
+                ? quickVenture
+                : undefined);
+
+            const lastVentureName =
+              lastVenture?.kind === "targeted"
+                ? itemsById.get(lastVenture.targetItemId)?.name[
+                    language === "fr" ? "fr" : "en"
+                  ]
+                : lastVenture?.name[language === "fr" ? "fr" : "en"];
 
             return (
               <div className="retainer-card" key={retainer.id}>
@@ -147,6 +283,35 @@ export function RetainersPage() {
                     </>
                   )}
                 </div>
+
+                <button
+                  type="button"
+                  className="btn btn-subtle retainer-card-record-run"
+                  onClick={() => handleRecordRun(retainer.id)}
+                >
+                  <Plus size={16} aria-hidden="true" />
+                  {t("myRetainers.recordRunButton")}
+                </button>
+
+                {lastRun !== undefined && (
+                  <button
+                    type="button"
+                    className="btn btn-subtle retainer-card-repeat-run"
+                    onClick={() =>
+                      handleRepeatRun(retainer.id, lastRun.ventureId)
+                    }
+                  >
+                    <Repeat size={16} aria-hidden="true" />
+                    <div className="retainer-card-repeat-texts">
+                      <span className="retainer-card-repeat-label">
+                        {t("myRetainers.repeatLastRunButton")}
+                      </span>
+                      <span className="retainer-card-repeat-venture">
+                        {lastVentureName ?? t("ventureRuns.unknownVenture")}
+                      </span>
+                    </div>
+                  </button>
+                )}
               </div>
             );
           })}
@@ -154,6 +319,10 @@ export function RetainersPage() {
       </>
     );
   }
+
+  const recordRunRetainer = activeRetainers.find(
+    (retainer) => retainer.id === recordRunRetainerId,
+  );
 
   return (
     <div className="page-layout retainers-page">
@@ -199,11 +368,228 @@ export function RetainersPage() {
         </details>
       )}
 
+      {(activeRetainers.length > 0 ||
+        (ventureRuns !== undefined && ventureRuns.length > 0)) && (
+        <section className="venture-runs-section">
+          <h2>{t("ventureRuns.title")}</h2>
+
+          {ventureRuns !== undefined && ventureRuns.length > 0 && (
+            <div className="section-header">
+              <span>
+                {selectedRetainerIdsForFilter.length === 0
+                  ? t("ventureRuns.runsNumber", { count: ventureRuns.length })
+                  : t("ventureRuns.filteredRunsNumber", {
+                      count: filteredRuns.length,
+                      total: ventureRuns.length,
+                    })}
+              </span>
+
+              <div
+                className="venture-runs-filter"
+                ref={retainerFilterRef}
+                onKeyDown={(event) => {
+                  if (event.key === "Escape") {
+                    setIsRetainerFilterOpen(false);
+                  }
+                }}
+              >
+                <button
+                  type="button"
+                  className="btn btn-secondary venture-runs-filter-trigger"
+                  onClick={() =>
+                    setIsRetainerFilterOpen((previous) => !previous)
+                  }
+                  aria-expanded={isRetainerFilterOpen}
+                >
+                  <ListFilter size={16} aria-hidden="true" />
+                  {selectedRetainerIdsForFilter.length === 0
+                    ? t("ventureRuns.allRetainers")
+                    : t("ventureRuns.selectedRetainers", {
+                        count: selectedRetainerIdsForFilter.length,
+                      })}
+                </button>
+
+                {selectedRetainerIdsForFilter.length > 0 && (
+                  <button
+                    type="button"
+                    className="btn btn-secondary venture-runs-filter-reset"
+                    onClick={() => {
+                      setSelectedRetainerIdsForFilter([]);
+                      setVisibleRunsCount(20);
+                    }}
+                    aria-label={t("ventureRuns.resetFilter")}
+                    title={t("ventureRuns.resetFilter")}
+                  >
+                    <X size={16} aria-hidden="true" />
+                  </button>
+                )}
+
+                {isRetainerFilterOpen && (
+                  <div className="venture-runs-filter-options">
+                    {retainers?.map((retainer) => (
+                      <label key={retainer.id}>
+                        <input
+                          type="checkbox"
+                          name={retainer.name}
+                          checked={selectedRetainerIdsForFilter.includes(
+                            retainer.id,
+                          )}
+                          onChange={() =>
+                            handleToggleRetainerFilter(retainer.id)
+                          }
+                        />
+                        {retainer.name}
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {ventureRuns === undefined ? null : ventureRuns.length === 0 ? (
+            <p className="run-timeline-empty">{t("ventureRuns.empty")}</p>
+          ) : filteredRuns.length === 0 ? (
+            <p className="run-timeline-empty">
+              {t("ventureRuns.noFilteredRuns", {
+                count: selectedRetainerIdsForFilter.length,
+              })}
+            </p>
+          ) : (
+            <ol className="run-timeline">
+              {visibleRuns.map((run) => {
+                const retainer = retainers?.find(
+                  (retainer) => retainer.id === run.retainerId,
+                );
+
+                const initials = getRetainerInitials(retainer?.name ?? "");
+                const avatarColor = avatarColors.get(retainer?.id ?? 1);
+
+                const venture =
+                  targetedVentures.find(
+                    (venture) => venture.id === run.ventureId,
+                  ) ??
+                  explorationVentures.find(
+                    (venture) => venture.id === run.ventureId,
+                  ) ??
+                  (quickVenture.id === run.ventureId
+                    ? quickVenture
+                    : undefined);
+
+                const ventureName =
+                  venture?.kind === "targeted"
+                    ? itemsById.get(venture.targetItemId)?.name[
+                        language === "fr" ? "fr" : "en"
+                      ]
+                    : venture?.name[language === "fr" ? "fr" : "en"];
+
+                return (
+                  <li className="run-timeline-item" key={run.id}>
+                    <div
+                      className="retainer-avatar"
+                      data-color={avatarColor}
+                      aria-hidden="true"
+                    >
+                      {initials}
+                    </div>
+
+                    <div className="run-timeline-content">
+                      <div className="run-timeline-details">
+                        <span className="run-timeline-venture">
+                          {ventureName ?? t("ventureRuns.unknownVenture")}
+                        </span>
+                        <span className="run-timeline-retainer">
+                          {retainer?.name ?? t("ventureRuns.unknownRetainer")}
+                        </span>
+                      </div>
+
+                      <div className="run-timeline-rewards">
+                        {run.results.map((result) => {
+                          const item = itemsById.get(result.itemId);
+                          const itemName =
+                            item?.name[language === "fr" ? "fr" : "en"] ??
+                            t("explorationVenture.unknownItem", {
+                              id: result.itemId,
+                            });
+
+                          return (
+                            <span
+                              className="run-timeline-reward"
+                              key={result.itemId}
+                            >
+                              {item?.iconId !== undefined && (
+                                <ItemIconStack iconIds={[item.iconId]} />
+                              )}
+                              {`${itemName} ×${result.quantity}`}
+                            </span>
+                          );
+                        })}
+                      </div>
+
+                      <div className="run-timeline-date">
+                        {new Intl.DateTimeFormat(navigator.language, {
+                          dateStyle: "medium",
+                          timeStyle: "short",
+                        }).format(new Date(run.completedAt))}
+                      </div>
+
+                      <button
+                        className="btn btn-secondary run-timeline-delete-button"
+                        type="button"
+                        aria-label={t("ventureRuns.deleteRun")}
+                        onClick={() =>
+                          handleDeleteRun(
+                            run.id,
+                            ventureName ?? t("ventureRuns.unknownVenture"),
+                            retainer?.name ?? t("ventureRuns.unknownRetainer"),
+                          )
+                        }
+                      >
+                        <Trash2 className="run-timeline-delete" />
+                      </button>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          )}
+
+          {filteredRuns.length > visibleRunsCount && (
+            <button
+              type="button"
+              className="btn btn-subtle"
+              onClick={() =>
+                setVisibleRunsCount((previousCount) => previousCount + 20)
+              }
+            >
+              {t("ventureRuns.showMore")}
+            </button>
+          )}
+        </section>
+      )}
+
       {isFormOpen && (
         <RetainerFormDialog
           isOpen={isFormOpen}
           onClose={() => setIsFormOpen(false)}
           retainer={selectedRetainer ?? undefined}
+        />
+      )}
+
+      {recordRunRetainer !== undefined && (
+        <RecordRunDialog
+          targetedVentures={targetedVentures}
+          explorationVentures={explorationVentures}
+          quickVenture={quickVenture}
+          itemsById={itemsById}
+          ventureRewards={ventureRewards}
+          retainer={recordRunRetainer}
+          avatarColor={avatarColors.get(recordRunRetainer.id) ?? 1}
+          initialVentureId={recordRunInitialVentureId ?? undefined}
+          onClose={() => {
+            setRecordRunRetainerId(null);
+            setRecordRunInitialVentureId(null);
+          }}
         />
       )}
     </div>

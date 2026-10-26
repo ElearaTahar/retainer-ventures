@@ -10,6 +10,7 @@ import {
   deleteRetainer,
   updateRetainer,
 } from "../db/retainers";
+import "../styles/retainer-form-dialog.css";
 
 type RetainerFormDialogProps = {
   isOpen: boolean;
@@ -216,7 +217,7 @@ export function RetainerFormDialog({
         <button
           type="button"
           onClick={handleClose}
-          aria-label={t("myRetainers.close")}
+          aria-label={t("navigation.close")}
         >
           <X aria-hidden="true" />
         </button>
@@ -231,7 +232,7 @@ export function RetainerFormDialog({
           <label htmlFor="retainer-name" className="retainer-form-label">
             <span>{t("myRetainers.name")}</span>
             <span className="retainer-form-required">
-              {t("myRetainers.required")}
+              {t("navigation.required")}
             </span>
           </label>
           <input
@@ -345,7 +346,7 @@ export function RetainerFormDialog({
       </form>
 
       {saveError && (
-        <p className="retainer-form-error" role="alert">
+        <p className="form-error" role="alert">
           {t("myRetainers.saveError")}
         </p>
       )}
@@ -356,7 +357,7 @@ export function RetainerFormDialog({
           className="btn btn-secondary"
           onClick={handleClose}
         >
-          {t("myRetainers.cancel")}
+          {t("navigation.cancel")}
         </button>
 
         <button
