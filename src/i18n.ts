@@ -56,6 +56,7 @@ const resources = {
         },
       },
       retainerTypes: {
+        all: "All",
         combat: "Combat",
         miner: "Miner",
         botanist: "Botanist",
@@ -292,6 +293,7 @@ const resources = {
         },
       },
       retainerTypes: {
+        all: "Tous",
         combat: "Combattant",
         miner: "Mineur",
         botanist: "Botaniste",

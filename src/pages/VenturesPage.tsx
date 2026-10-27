@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import "../styles/ventures-page.css";
 import type {
   ExplorationVenture,
   QuickVenture,
+  RetainerType,
   TargetedVenture,
 } from "../types/ventures";
 import type { ItemSearchEntry } from "../types/items";
@@ -17,6 +18,16 @@ import { ArrowRight, Dices, Search, SearchX, Sword } from "lucide-react";
 import { MinerIcon } from "../components/icons/MinerIcon";
 import { BotanistIcon } from "../components/icons/BotanistIcon";
 import { FisherIcon } from "../components/icons/FisherIcon";
+
+type RetainerTypeFilter = RetainerType | "all";
+
+const retainerTypes: RetainerTypeFilter[] = [
+  "all",
+  "combat",
+  "miner",
+  "botanist",
+  "fisher",
+];
 
 type VenturesPageProps = {
   targetedVentures: TargetedVenture[];
@@ -36,6 +47,8 @@ export function VenturesPage({
   const { t, i18n } = useTranslation();
 
   const language = toLanguage(i18n.language);
+
+  const [retainerType, setRetainerType] = useState<RetainerTypeFilter>("all");
 
   const [query, setQuery] = useState("");
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -60,6 +73,33 @@ export function VenturesPage({
   const ventureResults = searchResults.filter(
     (result) => result.kind === "venture",
   );
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const [indicator, setIndicator] = useState({
+    left: 0,
+    width: 0,
+  });
+
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+
+    if (!container) return;
+
+    const activeSpan = container.querySelector<HTMLSpanElement>(
+      '.btn-filter[aria-pressed="true"] > span',
+    );
+
+    if (!activeSpan) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const spanRect = activeSpan.getBoundingClientRect();
+
+    const left = spanRect.left - containerRect.left + container.scrollLeft;
+    const width = spanRect.width;
+
+    setIndicator({ left, width });
+  }, [retainerType, language]);
 
   return (
     <div className="page-layout ventures-page">
@@ -242,6 +282,28 @@ export function VenturesPage({
             )}
           </div>
         )}
+      </section>
+
+      <section>
+        <div ref={containerRef} className="retainer-filters">
+          {retainerTypes.map((rType) => (
+            <button
+              key={rType}
+              className="btn btn-filter"
+              type="button"
+              onClick={() => setRetainerType(rType)}
+              aria-pressed={rType === retainerType}
+            >
+              <span>{t(`retainerTypes.${rType}`)}</span>
+            </button>
+          ))}
+
+          <span
+            className="filter-indicator"
+            aria-hidden="true"
+            style={{ left: indicator.left, width: indicator.width }}
+          />
+        </div>
       </section>
     </div>
   );
