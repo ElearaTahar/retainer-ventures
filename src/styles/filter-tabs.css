@@ -1,0 +1,17 @@
+.filters {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.filter-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 3px;
+  background-color: var(--color-accent);
+
+  transition:
+    left 200ms ease,
+    width 200ms ease;
+}

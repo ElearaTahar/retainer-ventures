@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import "../styles/ventures-page.css";
@@ -18,6 +18,7 @@ import { ArrowRight, Dices, Search, SearchX, Sword } from "lucide-react";
 import { MinerIcon } from "../components/icons/MinerIcon";
 import { BotanistIcon } from "../components/icons/BotanistIcon";
 import { FisherIcon } from "../components/icons/FisherIcon";
+import { FilterTabs } from "../components/FilterTabs";
 
 type RetainerTypeFilter = RetainerType | "all";
 
@@ -50,6 +51,11 @@ export function VenturesPage({
 
   const [retainerType, setRetainerType] = useState<RetainerTypeFilter>("all");
 
+  const retainerOptions = retainerTypes.map((rType) => ({
+    value: rType,
+    label: t(`retainerTypes.${rType}`),
+  }));
+
   const [query, setQuery] = useState("");
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -73,33 +79,6 @@ export function VenturesPage({
   const ventureResults = searchResults.filter(
     (result) => result.kind === "venture",
   );
-
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const [indicator, setIndicator] = useState({
-    left: 0,
-    width: 0,
-  });
-
-  useLayoutEffect(() => {
-    const container = containerRef.current;
-
-    if (!container) return;
-
-    const activeSpan = container.querySelector<HTMLSpanElement>(
-      '.btn-filter[aria-pressed="true"] > span',
-    );
-
-    if (!activeSpan) return;
-
-    const containerRect = container.getBoundingClientRect();
-    const spanRect = activeSpan.getBoundingClientRect();
-
-    const left = spanRect.left - containerRect.left + container.scrollLeft;
-    const width = spanRect.width;
-
-    setIndicator({ left, width });
-  }, [retainerType, language]);
 
   return (
     <div className="page-layout ventures-page">
@@ -285,25 +264,11 @@ export function VenturesPage({
       </section>
 
       <section>
-        <div ref={containerRef} className="retainer-filters">
-          {retainerTypes.map((rType) => (
-            <button
-              key={rType}
-              className="btn btn-filter"
-              type="button"
-              onClick={() => setRetainerType(rType)}
-              aria-pressed={rType === retainerType}
-            >
-              <span>{t(`retainerTypes.${rType}`)}</span>
-            </button>
-          ))}
-
-          <span
-            className="filter-indicator"
-            aria-hidden="true"
-            style={{ left: indicator.left, width: indicator.width }}
-          />
-        </div>
+        <FilterTabs
+          optionsList={retainerOptions}
+          selectedOption={retainerType}
+          onChange={setRetainerType}
+        />
       </section>
     </div>
   );
