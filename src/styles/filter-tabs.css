@@ -3,11 +3,12 @@
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
+  padding: 6px;
 }
 
 .filter-indicator {
   position: absolute;
-  bottom: 0;
+  bottom: 6px;
   height: 3px;
   background-color: var(--color-accent);
 

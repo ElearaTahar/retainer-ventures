@@ -62,6 +62,18 @@ const resources = {
         botanist: "Botanist",
         fisher: "Fisher",
       },
+      ventureCategories: {
+        all: "All",
+        targeted: "Targeted",
+        exploration: "Exploration",
+        quick: "Quick exploration",
+      },
+      ventureFilters: {
+        retainerType: "Retainer type",
+        category: "Venture category",
+        rewards: "Rewards",
+        hasMinion: "Minion among known rewards",
+      },
       ventureCategoryDescriptions: {
         targeted: "Send your retainer to gather specific resources.",
         exploration:
@@ -298,6 +310,18 @@ const resources = {
         miner: "Mineur",
         botanist: "Botaniste",
         fisher: "Pêcheur",
+      },
+      ventureCategories: {
+        all: "Toutes",
+        targeted: "Ciblées",
+        exploration: "Exploration",
+        quick: "Improvisée",
+      },
+      ventureFilters: {
+        retainerType: "Type de servant",
+        category: "Catégorie de tâche",
+        rewards: "Récompenses",
+        hasMinion: "Mascotte parmi les récompenses connues",
       },
       ventureCategoryDescriptions: {
         targeted: "Envoyez votre servant récupérer des ressources spécifiques.",

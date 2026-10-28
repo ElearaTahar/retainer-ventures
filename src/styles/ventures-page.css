@@ -28,6 +28,57 @@
   margin: 0;
 }
 
+.venture-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.venture-filters-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.venture-filter-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin: 0 0 0.5rem;
+}
+
+.venture-minion-filter {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 0.5rem;
+  padding: 0.625rem 0.875rem;
+
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.25;
+
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.venture-minion-filter:has(input:checked) {
+  border-color: var(--color-accent);
+}
+
+.venture-minion-filter:has(input:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.venture-minion-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
 .venture-type-navigation {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -303,6 +354,11 @@
 @media (max-width: 700px) {
   .ventures-page:has(#searchInput:focus) {
     padding-bottom: 40dvh;
+  }
+
+  .venture-filters-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
   }
 
   .venture-type-navigation {

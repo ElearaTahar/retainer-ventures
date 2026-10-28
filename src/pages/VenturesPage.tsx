@@ -14,7 +14,15 @@ import { toLanguage } from "../utils/i18n";
 import { searchVentures } from "../utils/ventureSearch";
 import { VentureSearchResultCard } from "../components/VentureSearchResultCard";
 import { NavigationSearchResultCard } from "../components/NavigationSearchResultCard";
-import { ArrowRight, Dices, Search, SearchX, Sword } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  Dices,
+  PawPrint,
+  Search,
+  SearchX,
+  Sword,
+} from "lucide-react";
 import { MinerIcon } from "../components/icons/MinerIcon";
 import { BotanistIcon } from "../components/icons/BotanistIcon";
 import { FisherIcon } from "../components/icons/FisherIcon";
@@ -28,6 +36,15 @@ const retainerTypes: RetainerTypeFilter[] = [
   "miner",
   "botanist",
   "fisher",
+];
+
+type VentureCategoryFilter = "all" | "targeted" | "exploration" | "quick";
+
+const ventureCategories: VentureCategoryFilter[] = [
+  "all",
+  "targeted",
+  "exploration",
+  "quick",
 ];
 
 type VenturesPageProps = {
@@ -55,6 +72,16 @@ export function VenturesPage({
     value: rType,
     label: t(`retainerTypes.${rType}`),
   }));
+
+  const [ventureCategory, setVentureCategory] =
+    useState<VentureCategoryFilter>("all");
+
+  const ventureOptions = ventureCategories.map((categ) => ({
+    value: categ,
+    label: t(`ventureCategories.${categ}`),
+  }));
+
+  const [minionsOnly, setMinionsOnly] = useState(false);
 
   const [query, setQuery] = useState("");
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -263,12 +290,50 @@ export function VenturesPage({
         )}
       </section>
 
-      <section>
-        <FilterTabs
-          optionsList={retainerOptions}
-          selectedOption={retainerType}
-          onChange={setRetainerType}
-        />
+      <section className="venture-filters">
+        <div className="venture-filters-grid">
+          <div className="venture-filter-group">
+            <h2 className="venture-filter-label">
+              {t("ventureFilters.retainerType")}
+            </h2>
+            <FilterTabs
+              optionsList={retainerOptions}
+              selectedOption={retainerType}
+              onChange={setRetainerType}
+            />
+          </div>
+
+          <div className="venture-filter-group">
+            <h2 className="venture-filter-label">
+              {t("ventureFilters.category")}
+            </h2>
+            <FilterTabs
+              optionsList={ventureOptions}
+              selectedOption={ventureCategory}
+              onChange={setVentureCategory}
+            />
+          </div>
+        </div>
+
+        <div className="venture-filter-group">
+          <h2 className="venture-filter-label">
+            {t("ventureFilters.rewards")}
+          </h2>
+          <label className="venture-minion-filter">
+            <input
+              className="venture-minion-input"
+              type="checkbox"
+              name="minionsOnly"
+              checked={minionsOnly}
+              onChange={(event) => setMinionsOnly(event.target.checked)}
+            />
+            <PawPrint size={16} aria-hidden="true" />
+
+            <span>{t("ventureFilters.hasMinion")}</span>
+
+            {minionsOnly && <Check size={16} aria-hidden="true" />}
+          </label>
+        </div>
       </section>
     </div>
   );

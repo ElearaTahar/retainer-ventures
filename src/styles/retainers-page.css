@@ -257,6 +257,10 @@
   cursor: pointer;
 }
 
+.venture-runs-filter-options input {
+  accent-color: var(--color-accent);
+}
+
 .run-timeline-empty {
   color: var(--color-text-muted);
   font-size: 0.8125rem;
