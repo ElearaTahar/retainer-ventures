@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useDeferredValue, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "../styles/ventures-page.css";
 import "../styles/empty-state.css";
@@ -75,21 +75,24 @@ export function VenturesPage({
   const [minionsOnly, setMinionsOnly] = useState(false);
 
   const [query, setQuery] = useState("");
+  const deferredQuery = useDeferredValue(query);
+
+  const searchResults = searchVentures(
+    deferredQuery,
+    targetedVentures,
+    explorationVentures,
+    quickVenture,
+    itemsById,
+    ventureRewards,
+    language,
+  );
 
   const matchingItemsByVentureId = new Map<number, ItemSearchEntry[]>(
-    searchVentures(
-      query,
-      targetedVentures,
-      explorationVentures,
-      quickVenture,
-      itemsById,
-      ventureRewards,
-      language,
-    ).map((result) => [result.venture.id, result.matchingItems]),
+    searchResults.map((result) => [result.venture.id, result.matchingItems]),
   );
 
   const matchesSearch = (ventureId: number) =>
-    query.trim() === "" || matchingItemsByVentureId.has(ventureId);
+    deferredQuery.trim() === "" || matchingItemsByVentureId.has(ventureId);
 
   const retainerOptions = retainerTypes.map((rType) => ({
     value: rType,
@@ -259,7 +262,7 @@ export function VenturesPage({
                       itemsById={itemsById}
                       ventureRewards={ventureRewards}
                       isExpanded={isExpanded(venture.id)}
-                      onToggle={() => toggleExpanded(venture.id)}
+                      onToggle={toggleExpanded}
                     />
                   ))}
                 </div>
@@ -294,7 +297,7 @@ export function VenturesPage({
                       itemsById={itemsById}
                       ventureRewards={ventureRewards}
                       isExpanded={isExpanded(venture.id)}
-                      onToggle={() => toggleExpanded(venture.id)}
+                      onToggle={toggleExpanded}
                     />
                   ))}
                 </div>

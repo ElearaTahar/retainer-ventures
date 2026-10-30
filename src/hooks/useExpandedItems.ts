@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 export function useExpandedItems() {
   const [expandedIds, setExpandedIds] = useState<Set<number>>(() => new Set());
 
-  function toggleExpanded(id: number) {
+  const toggleExpanded = useCallback((id: number) => {
     setExpandedIds((current) => {
       const next = new Set(current);
 
@@ -15,7 +15,7 @@ export function useExpandedItems() {
 
       return next;
     });
-  }
+  }, []);
 
   const expand = useCallback((id: number) => {
     setExpandedIds((current) => {

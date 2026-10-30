@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useId } from "react";
+import { memo, useId } from "react";
 import { ExplorationRewardGroup } from "./ExplorationRewardGroup";
 import type { ItemSearchEntry } from "../types/items";
 import type { ExplorationVenture, TargetedVenture } from "../types/ventures";
@@ -19,10 +19,10 @@ type VentureCatalogItemProps = {
   itemsById: Map<number, ItemSearchEntry>;
   ventureRewards: VentureRewardsData;
   isExpanded: boolean;
-  onToggle: () => void;
+  onToggle: (id: number) => void;
 };
 
-export function VentureCatalogItem({
+export const VentureCatalogItem = memo(function VentureCatalogItem({
   venture,
   matchingItems,
   itemsById,
@@ -104,8 +104,7 @@ export function VentureCatalogItem({
         type="button"
         className="venture-item-summary"
         aria-expanded={isExpanded}
-        aria-controls={panelId}
-        onClick={onToggle}
+        onClick={() => onToggle(venture.id)}
       >
         <span className="venture-item-identity">
           {iconIds.length > 0 && <ItemIconStack iconIds={iconIds} />}
@@ -145,135 +144,138 @@ export function VentureCatalogItem({
           )}
       </button>
 
-      <div
-        id={panelId}
-        hidden={!isExpanded}
-        className={`venture-item-details ${!isTargetedVenture ? "venture-item-details--exploration" : ""}`}
-      >
-        {isTargetedVenture ? (
-          <>
-            <dl className="venture-properties">
-              {!requirementIsYieldStat && (
-                <div>
-                  <dt>{t("targetedVenture.details.requirement")}</dt>
-                  <dd>
-                    {t("targetedVenture.details.gathering", {
-                      value: venture.requirement.value,
-                    })}
-                  </dd>
-                </div>
-              )}
-
-              <div>
-                <dt>{t("targetedVenture.details.experience")}</dt>
-                <dd>{numberFormatter.format(venture.experience)}</dd>
-              </div>
-            </dl>
-
-            <div className="venture-duration">
-              <p>{t("targetedVenture.details.duration")}</p>
-
-              <dl>
-                {durationSteps.map((step) => (
-                  <div key={step.levelOffset}>
-                    <dt>
-                      {t("abbreviatedLevel", {
-                        level: venture.requiredLevel + step.levelOffset,
-                      })}
-                    </dt>
-                    <span aria-hidden="true">→</span>
+      {isExpanded && (
+        <div
+          id={panelId}
+          className={`venture-item-details ${!isTargetedVenture ? "venture-item-details--exploration" : ""}`}
+        >
+          {isTargetedVenture ? (
+            <>
+              <dl className="venture-properties">
+                {!requirementIsYieldStat && (
+                  <div>
+                    <dt>{t("targetedVenture.details.requirement")}</dt>
                     <dd>
-                      {t("targetedVenture.details.minutesShort", {
-                        minutes: step.minutes,
+                      {t("targetedVenture.details.gathering", {
+                        value: venture.requirement.value,
                       })}
                     </dd>
                   </div>
-                ))}
+                )}
+
+                <div>
+                  <dt>{t("targetedVenture.details.experience")}</dt>
+                  <dd>{numberFormatter.format(venture.experience)}</dd>
+                </div>
               </dl>
-            </div>
 
-            <div className="venture-yields-wrapper">
-              <table className="venture-yields">
-                <caption>
-                  {t("targetedVenture.details.possibleQuantities")}
-                </caption>
-                <tbody>
-                  <tr>
-                    <th scope="row">{yieldStatLabel}</th>
+              <div className="venture-duration">
+                <p>{t("targetedVenture.details.duration")}</p>
 
-                    {yieldThresholds.map((threshold, index) => (
-                      <td key={index}>{threshold}</td>
-                    ))}
-                  </tr>
-                  <tr>
-                    <th scope="row">{t("targetedVenture.details.quantity")}</th>
-
-                    {venture.quantities.map((quantity, index) => (
-                      <td key={index}>{quantity}</td>
-                    ))}
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </>
-        ) : (
-          <>
-            <dl className="venture-properties">
-              <div>
-                <dt>{t("explorationVenture.details.requirement")}</dt>
-                <dd>
-                  {venture.requirement.type === "item-level"
-                    ? t("explorationVenture.details.itemLevelRequirement", {
-                        value: venture.requirement.value,
-                      })
-                    : t("explorationVenture.details.gatheringRequirement", {
-                        value: venture.requirement.value,
-                      })}
-                </dd>
+                <dl>
+                  {durationSteps.map((step) => (
+                    <div key={step.levelOffset}>
+                      <dt>
+                        {t("abbreviatedLevel", {
+                          level: venture.requiredLevel + step.levelOffset,
+                        })}
+                      </dt>
+                      <span aria-hidden="true">→</span>
+                      <dd>
+                        {t("targetedVenture.details.minutesShort", {
+                          minutes: step.minutes,
+                        })}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
               </div>
 
-              <div>
-                <dt>{t("explorationVenture.details.experience")}</dt>
-                <dd>{numberFormatter.format(venture.experience)}</dd>
+              <div className="venture-yields-wrapper">
+                <table className="venture-yields">
+                  <caption>
+                    {t("targetedVenture.details.possibleQuantities")}
+                  </caption>
+                  <tbody>
+                    <tr>
+                      <th scope="row">{yieldStatLabel}</th>
+
+                      {yieldThresholds.map((threshold, index) => (
+                        <td key={index}>{threshold}</td>
+                      ))}
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        {t("targetedVenture.details.quantity")}
+                      </th>
+
+                      {venture.quantities.map((quantity, index) => (
+                        <td key={index}>{quantity}</td>
+                      ))}
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-            </dl>
+            </>
+          ) : (
+            <>
+              <dl className="venture-properties">
+                <div>
+                  <dt>{t("explorationVenture.details.requirement")}</dt>
+                  <dd>
+                    {venture.requirement.type === "item-level"
+                      ? t("explorationVenture.details.itemLevelRequirement", {
+                          value: venture.requirement.value,
+                        })
+                      : t("explorationVenture.details.gatheringRequirement", {
+                          value: venture.requirement.value,
+                        })}
+                  </dd>
+                </div>
 
-            {rewards && (
-              <div className="exploration-rewards">
-                <ExplorationRewardGroup
-                  title={t("explorationVenture.rewards.allaganPieces")}
-                  itemIds={rewards.allaganPieces}
-                  itemsById={itemsById}
-                  matchingItemIds={matchingItemIds}
-                />
+                <div>
+                  <dt>{t("explorationVenture.details.experience")}</dt>
+                  <dd>{numberFormatter.format(venture.experience)}</dd>
+                </div>
+              </dl>
 
-                <ExplorationRewardGroup
-                  title={t(
-                    `explorationVenture.rewards.jobItems.${venture.retainerType}`,
-                  )}
-                  itemIds={rewards.jobItems}
-                  itemsById={itemsById}
-                  matchingItemIds={matchingItemIds}
-                />
+              {rewards && (
+                <div className="exploration-rewards">
+                  <ExplorationRewardGroup
+                    title={t("explorationVenture.rewards.allaganPieces")}
+                    itemIds={rewards.allaganPieces}
+                    itemsById={itemsById}
+                    matchingItemIds={matchingItemIds}
+                  />
 
-                <ExplorationRewardGroup
-                  title={t("explorationVenture.rewards.minions")}
-                  itemIds={rewards.minions}
-                  itemsById={itemsById}
-                  matchingItemIds={matchingItemIds}
-                />
+                  <ExplorationRewardGroup
+                    title={t(
+                      `explorationVenture.rewards.jobItems.${venture.retainerType}`,
+                    )}
+                    itemIds={rewards.jobItems}
+                    itemsById={itemsById}
+                    matchingItemIds={matchingItemIds}
+                  />
 
-                <ExplorationRewardGroup
-                  title={t("explorationVenture.rewards.otherItems")}
-                  itemIds={rewards.otherItems}
-                  itemsById={itemsById}
-                  matchingItemIds={matchingItemIds}
-                />
-              </div>
-            )}
-          </>
-        )}
-      </div>
+                  <ExplorationRewardGroup
+                    title={t("explorationVenture.rewards.minions")}
+                    itemIds={rewards.minions}
+                    itemsById={itemsById}
+                    matchingItemIds={matchingItemIds}
+                  />
+
+                  <ExplorationRewardGroup
+                    title={t("explorationVenture.rewards.otherItems")}
+                    itemIds={rewards.otherItems}
+                    itemsById={itemsById}
+                    matchingItemIds={matchingItemIds}
+                  />
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
-}
+});
