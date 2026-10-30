@@ -155,11 +155,15 @@ export function VenturesPage({
 
   return (
     <div className="page-layout ventures-page">
-      <h1 className="visually-hidden">{t("navigation.ventures")}</h1>
+      <div className="ventures-intro">
+        <h1>{t("ventures.title")}</h1>
+        <p>{t("ventures.description")}</p>
+      </div>
 
-      <section className="ventures-section">
-        <h2>{t("ventures.search.title")}</h2>
-        <label htmlFor="searchInput">{t("ventures.search.label")}</label>
+      <div className="ventures-section">
+        <label htmlFor="searchInput" className="visually-hidden">
+          {t("ventures.search.label")}
+        </label>
 
         <div className="venture-search-field">
           <Search className="venture-search-icon" aria-hidden="true" />
@@ -172,7 +176,7 @@ export function VenturesPage({
             placeholder={t("ventures.search.placeholder")}
           />
         </div>
-      </section>
+      </div>
 
       <section className="venture-filters">
         <div className="venture-filters-grid">
@@ -234,7 +238,15 @@ export function VenturesPage({
       )}
 
       {resultCount > 0 && (
-        <p>{t("ventures.search.resultsFor", { count: resultCount })}</p>
+        <div className="venture-results-header">
+          <h2>{t("ventures.resultsTitle")}</h2>
+
+          <p className="venture-results-count">
+            {deferredQuery.trim() !== ""
+              ? t("ventures.search.resultsFor", { count: resultCount })
+              : t("ventures.resultsCount", { count: resultCount })}
+          </p>
+        </div>
       )}
 
       {showTargeted && (
@@ -250,8 +262,8 @@ export function VenturesPage({
             if (venturesGroup.length === 0) return null;
 
             return (
-              <div key={rType}>
-                <h3>{t(`retainerTypes.${rType}`)}</h3>
+              <div key={rType} className="venture-retainer-group">
+                <h4>{t(`retainerTypes.${rType}`)}</h4>
 
                 <div className="venture-catalog-items">
                   {venturesGroup.map((venture) => (
@@ -285,8 +297,8 @@ export function VenturesPage({
             if (venturesGroup.length === 0) return null;
 
             return (
-              <div key={rType}>
-                <h3>{t(`retainerTypes.${rType}`)}</h3>
+              <div key={rType} className="venture-retainer-group">
+                <h4>{t(`retainerTypes.${rType}`)}</h4>
 
                 <div className="venture-catalog-items">
                   {venturesGroup.map((venture) => (

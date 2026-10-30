@@ -31,9 +31,14 @@ const resources = {
         backToVentures: "Back to Ventures",
       },
       ventures: {
+        title: "What venture should you send your retainer on today?",
+        description:
+          "Explore retainer ventures in Final Fantasy XIV and discover the rewards they can bring back.",
+        resultsTitle: "Available ventures",
+        resultsCount_one: "{{count}} venture",
+        resultsCount_other: "{{count}} ventures",
         search: {
-          title: "Looking for something specific?",
-          label: "Search ventures, items or rewards",
+          label: "Search for a venture or reward",
           placeholder: "e.g. Iron Ore, Quick exploration…",
           resultsFor_one: "{{count}} venture found",
           resultsFor_other: "{{count}} ventures found",
@@ -264,9 +269,14 @@ const resources = {
         backToVentures: "Retour aux tâches",
       },
       ventures: {
+        title: "Quelle tâche confier à votre servant aujourd'hui ?",
+        description:
+          "Explorez les tâches de servants de Final Fantasy XIV et découvrez les récompenses qu'ils peuvent rapporter.",
+        resultsTitle: "Tâches disponibles",
+        resultsCount_one: "{{count}} tâche",
+        resultsCount_other: "{{count}} tâches",
         search: {
-          title: "Vous cherchez quelque chose de précis ?",
-          label: "Rechercher des tâches, objets ou récompenses",
+          label: "Rechercher une tâche ou une récompense",
           placeholder: "Ex. : Minerai de fer, Tâche improvisée…",
           resultsFor_one: "{{count}} tâche trouvée",
           resultsFor_other: "{{count}} tâches trouvées",

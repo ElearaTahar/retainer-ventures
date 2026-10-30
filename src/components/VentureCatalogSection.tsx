@@ -12,8 +12,8 @@ export function VentureCatalogSection({
   children,
 }: VentureCatalogSectionProps) {
   return (
-    <section>
-      <h2>{title}</h2>
+    <section className="venture-catalog-section">
+      <h3>{title}</h3>
 
       <p>{description}</p>
 
