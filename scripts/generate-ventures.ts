@@ -2,6 +2,8 @@ import { writeFile } from "node:fs/promises";
 
 const XIVAPI_BASE_URL = "https://v2.xivapi.com/api";
 
+const QUICK_EXPLORATION_REQUIRED_LEVEL = 10;
+
 type RetainerType = "combat" | "miner" | "botanist" | "fisher";
 
 type VentureKind = "targeted" | "exploration" | "quick";
@@ -352,6 +354,7 @@ type QuickExploration = {
     en: string;
     fr: string;
   };
+  requiredLevel: number;
   durationMinutes: number;
   ventureCost: number;
 };
@@ -387,6 +390,7 @@ function toQuickExploration(
         en: randomTask.fields.Name,
         fr: randomTask.fields["Name@lang(fr)"],
       },
+      requiredLevel: QUICK_EXPLORATION_REQUIRED_LEVEL,
       durationMinutes: data.fields.MaxTimemin,
       ventureCost: data.fields.VentureCost,
     };

@@ -61,7 +61,7 @@ export function QuickVentureCatalogItem({
         </span>
 
         <span className="venture-item-level">
-          {t("abbreviatedLevel", { level: 10 })}
+          {t("abbreviatedLevel", { level: venture.requiredLevel })}
         </span>
 
         <span className="venture-item-cost">
