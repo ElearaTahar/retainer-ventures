@@ -201,26 +201,34 @@ export function VenturesPage({
               onChange={setVentureCategory}
             />
           </div>
-        </div>
 
-        <div>
-          <h2 className="venture-filter-label">
-            {t("ventureFilters.rewards")}
-          </h2>
-          <label className="venture-minion-filter">
-            <input
-              className="venture-minion-input"
-              type="checkbox"
-              name="minionsOnly"
-              checked={minionsOnly}
-              onChange={(event) => setMinionsOnly(event.target.checked)}
-            />
-            <PawPrint size={16} aria-hidden="true" />
+          <div>
+            <h2 className="venture-filter-label">
+              {t("ventureFilters.rewards")}
+            </h2>
+            <label className="venture-minion-filter">
+              <input
+                className="venture-minion-input"
+                type="checkbox"
+                name="minionsOnly"
+                checked={minionsOnly}
+                onChange={(event) => setMinionsOnly(event.target.checked)}
+              />
+              <PawPrint size={16} aria-hidden="true" />
 
-            <span>{t("ventureFilters.hasMinion")}</span>
+              <span>{t("ventureFilters.hasMinion")}</span>
 
-            {minionsOnly && <Check size={16} aria-hidden="true" />}
-          </label>
+              <Check
+                size={16}
+                aria-hidden="true"
+                className={
+                  minionsOnly
+                    ? "venture-minion-check"
+                    : "venture-minion-check--hidden"
+                }
+              />
+            </label>
+          </div>
         </div>
       </section>
 

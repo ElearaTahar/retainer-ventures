@@ -33,9 +33,9 @@
 }
 
 .venture-filters-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
 }
 
 .venture-filter-label {
@@ -72,11 +72,23 @@
   outline-offset: 3px;
 }
 
+.venture-minion-filter svg {
+  flex-shrink: 0;
+}
+
 .venture-minion-input {
   position: absolute;
   width: 1px;
   height: 1px;
   opacity: 0;
+}
+
+.venture-minion-check {
+  color: var(--color-accent);
+}
+
+.venture-minion-check--hidden {
+  visibility: hidden;
 }
 
 .venture-results-header {
@@ -166,7 +178,7 @@
   }
 
   .venture-filters-grid {
-    grid-template-columns: minmax(0, 1fr);
+    flex-direction: column;
     gap: 1.25rem;
   }
 }
