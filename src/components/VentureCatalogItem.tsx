@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { memo, useId } from "react";
+import { memo, useEffect, useId, useState } from "react";
 import { ExplorationRewardGroup } from "./ExplorationRewardGroup";
 import type { ItemSearchEntry } from "../types/items";
 import type { ExplorationVenture, TargetedVenture } from "../types/ventures";
@@ -12,6 +12,11 @@ const durationSteps = [
   { levelOffset: 10, minutes: 50 },
   { levelOffset: 20, minutes: 40 },
 ];
+
+const supportsInterpolateSize = CSS.supports(
+  "interpolate-size",
+  "allow-keywords",
+);
 
 type VentureCatalogItemProps = {
   venture: TargetedVenture | ExplorationVenture;
@@ -33,6 +38,22 @@ export const VentureCatalogItem = memo(function VentureCatalogItem({
   const { t, i18n } = useTranslation();
   const language = i18n.language === "fr" ? "fr" : "en";
   const numberFormatter = new Intl.NumberFormat(language);
+
+  const [isVisible, setIsVisible] = useState(isExpanded);
+
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  const shouldSkipAnimation = prefersReducedMotion || !supportsInterpolateSize;
+
+  useEffect(() => {
+    if (isExpanded) {
+      setIsVisible(true);
+    } else if (shouldSkipAnimation) {
+      setIsVisible(false);
+    }
+  }, [isExpanded, shouldSkipAnimation]);
 
   const isTargetedVenture = "targetItemId" in venture;
 
@@ -144,10 +165,19 @@ export const VentureCatalogItem = memo(function VentureCatalogItem({
           )}
       </button>
 
-      {isExpanded && (
+      {isVisible && (
         <div
           id={panelId}
-          className={`venture-item-details ${!isTargetedVenture ? "venture-item-details--exploration" : ""}`}
+          className={`venture-item-details ${!isTargetedVenture ? "venture-item-details--exploration" : ""} ${isExpanded ? "" : "venture-item-details--closing"}`}
+          onAnimationEnd={(event) => {
+            if (
+              event.target === event.currentTarget &&
+              event.animationName === "venture-details-collapse" &&
+              !isExpanded
+            ) {
+              setIsVisible(false);
+            }
+          }}
         >
           {isTargetedVenture ? (
             <>

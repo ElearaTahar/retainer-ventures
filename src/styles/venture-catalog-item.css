@@ -26,6 +26,8 @@
   background: transparent;
   border: 0;
   cursor: pointer;
+
+  transition: background-color var(--transition-interactive);
 }
 
 .venture-item-summary:hover {
@@ -98,6 +100,8 @@
   padding-left: 1.75rem;
 
   border: 0;
+
+  animation: venture-details-appear 180ms ease-out both;
 }
 
 .venture-item-details[hidden] {
@@ -129,6 +133,62 @@
   gap: 24px;
   align-items: start;
   justify-content: start;
+}
+
+@keyframes venture-details-appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@supports (interpolate-size: allow-keywords) {
+  .venture-item-details {
+    interpolate-size: allow-keywords;
+    animation: venture-details-expand 250ms ease-out both;
+    overflow: clip;
+  }
+
+  .venture-item-details--closing {
+    animation-name: venture-details-collapse;
+  }
+
+  @keyframes venture-details-expand {
+    from {
+      height: 0;
+      opacity: 0;
+      padding-block: 0;
+    }
+
+    to {
+      height: auto;
+      opacity: 1;
+      padding-block: 1.25rem;
+    }
+  }
+
+  @keyframes venture-details-collapse {
+    from {
+      height: auto;
+      opacity: 1;
+      padding-block: 1.25rem;
+    }
+
+    to {
+      height: 0;
+      opacity: 0;
+      padding-block: 0;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .venture-item-details {
+    animation: none;
+  }
 }
 
 .venture-properties {

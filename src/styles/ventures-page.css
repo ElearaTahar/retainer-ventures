@@ -59,6 +59,8 @@
   border: 1px solid var(--color-border);
   border-radius: 0.5rem;
   cursor: pointer;
+
+  transition: border-color var(--transition-interactive);
 }
 
 .venture-minion-filter:has(input:checked) {
