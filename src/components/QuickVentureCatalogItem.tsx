@@ -11,6 +11,7 @@ import { Info } from "lucide-react";
 
 type QuickVentureCatalogItemProps = {
   venture: QuickVenture;
+  matchingItems?: ItemSearchEntry[];
   rewards: QuickRewards;
   itemsById: Map<number, ItemSearchEntry>;
   isExpanded: boolean;
@@ -19,6 +20,7 @@ type QuickVentureCatalogItemProps = {
 
 export function QuickVentureCatalogItem({
   venture,
+  matchingItems,
   rewards,
   itemsById,
   isExpanded,
@@ -37,6 +39,11 @@ export function QuickVentureCatalogItem({
     .map((id) => itemsById.get(id)?.iconId)
     .filter((id): id is number => id !== undefined)
     .slice(0, 2);
+
+  const matchingItemsNames =
+    matchingItems?.map((item) => item.name[language]).join(", ") ?? "";
+
+  const matchingItemIds = matchingItems?.map((item) => item.id) ?? [];
 
   return (
     <div className="venture-catalog-item">
@@ -71,6 +78,16 @@ export function QuickVentureCatalogItem({
           }`}
           aria-hidden="true"
         />
+
+        {matchingItems !== undefined && matchingItems.length > 0 && (
+          <span className="venture-item-matching-rewards">
+            {t("ventures.search.matchingRewards", {
+              count: matchingItems.length,
+            }) +
+              " " +
+              matchingItemsNames}
+          </span>
+        )}
       </button>
 
       <div
@@ -91,8 +108,13 @@ export function QuickVentureCatalogItem({
               {itemIds.map((itemId) => {
                 const item = itemsById.get(itemId);
 
+                const isMatchingItem = matchingItemIds.includes(itemId);
+
                 return (
-                  <li key={itemId}>
+                  <li
+                    key={itemId}
+                    className={`exploration-reward-item ${isMatchingItem ? "exploration-reward-item--matching" : ""}`}
+                  >
                     {item && (
                       <img
                         src={buildItemIconUrl(item.iconId)}

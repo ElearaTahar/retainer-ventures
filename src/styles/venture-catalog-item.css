@@ -80,6 +80,13 @@
   transform: rotate(225deg);
 }
 
+.venture-item-matching-rewards {
+  grid-column: 1 / -1;
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
 .venture-item-details {
   position: relative;
 
@@ -99,10 +106,6 @@
 
 .venture-item-details--quick {
   grid-template-columns: minmax(0, 1fr);
-}
-
-.venture-item-details--quick .exploration-community-notice {
-  max-width: 65ch;
 }
 
 .venture-item-details::before {
@@ -221,6 +224,79 @@
 
 .venture-yields caption {
   text-align: left;
+}
+
+.exploration-community-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  max-width: 65ch;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.exploration-community-notice svg {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.exploration-reward-group > h3 {
+  margin: 0 0 8px;
+
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.exploration-rewards {
+  grid-column: 2 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  gap: 0.75rem 1.5rem;
+}
+
+.exploration-reward-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.exploration-reward-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+}
+
+.exploration-reward-item--matching {
+  background-color: color-mix(
+    in srgb,
+    var(--color-accent) 15%,
+    transparent 85%
+  );
+  border-radius: 4px;
+  padding: 3px;
+  font-weight: 500;
+}
+
+.exploration-reward-item img {
+  flex: 0 0 auto;
+}
+
+.exploration-reward-item,
+.exploration-reward-group > p {
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.exploration-reward-group > p {
+  margin: 0;
+  color: var(--color-text-muted);
 }
 
 .quick-venture-rewards {

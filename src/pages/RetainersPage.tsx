@@ -303,9 +303,7 @@ export function RetainersPage({
                   >
                     <Repeat size={16} aria-hidden="true" />
                     <div className="retainer-card-repeat-texts">
-                      <span className="retainer-card-repeat-label">
-                        {t("myRetainers.repeatLastRunButton")}
-                      </span>
+                      <span>{t("myRetainers.repeatLastRunButton")}</span>
                       <span className="retainer-card-repeat-venture">
                         {lastVentureName ?? t("ventureRuns.unknownVenture")}
                       </span>

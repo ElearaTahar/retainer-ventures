@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import "../styles/ventures-page.css";
+import "../styles/empty-state.css";
 import type {
   ExplorationVenture,
   QuickVenture,
@@ -12,25 +12,13 @@ import type { ItemSearchEntry } from "../types/items";
 import type { VentureRewardsData } from "../types/ventureRewards";
 import { toLanguage } from "../utils/i18n";
 import { searchVentures } from "../utils/ventureSearch";
-import { VentureSearchResultCard } from "../components/VentureSearchResultCard";
-import { NavigationSearchResultCard } from "../components/NavigationSearchResultCard";
-import {
-  ArrowRight,
-  Check,
-  Dices,
-  PawPrint,
-  Search,
-  SearchX,
-  Sword,
-} from "lucide-react";
-import { MinerIcon } from "../components/icons/MinerIcon";
-import { BotanistIcon } from "../components/icons/BotanistIcon";
-import { FisherIcon } from "../components/icons/FisherIcon";
+import { Check, PawPrint, Search } from "lucide-react";
 import { FilterTabs } from "../components/FilterTabs";
 import { VentureCatalogSection } from "../components/VentureCatalogSection";
 import { VentureCatalogItem } from "../components/VentureCatalogItem";
 import { useExpandedItems } from "../hooks/useExpandedItems";
 import { QuickVentureCatalogItem } from "../components/QuickVentureCatalogItem";
+import { RetainerBellIcon } from "../components/icons/RetainerBellIcon";
 
 type RetainerTypeFilter = RetainerType | "all";
 
@@ -87,41 +75,26 @@ export function VenturesPage({
   const [minionsOnly, setMinionsOnly] = useState(false);
 
   const [query, setQuery] = useState("");
-  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const matchingItemsByVentureId = new Map<number, ItemSearchEntry[]>(
+    searchVentures(
+      query,
+      targetedVentures,
+      explorationVentures,
+      quickVenture,
+      itemsById,
+      ventureRewards,
+      language,
+    ).map((result) => [result.venture.id, result.matchingItems]),
+  );
+
+  const matchesSearch = (ventureId: number) =>
+    query.trim() === "" || matchingItemsByVentureId.has(ventureId);
 
   const retainerOptions = retainerTypes.map((rType) => ({
     value: rType,
     label: t(`retainerTypes.${rType}`),
   }));
-
-  const [ventureCategory, setVentureCategory] =
-    useState<VentureCategoryFilter>("all");
-
-  const ventureOptions = ventureCategories.map((categ) => ({
-    value: categ,
-    label: t(`ventureCategories.${categ}`),
-  }));
-
-  const showTargeted =
-    (ventureCategory === "all" || ventureCategory === "targeted") &&
-    !minionsOnly;
-
-  const showExploration =
-    ventureCategory === "all" || ventureCategory === "exploration";
-
-  const showQuick = ventureCategory === "all" || ventureCategory === "quick";
-
-  const sortedTargetedVentures = [...targetedVentures].sort(
-    (a, b) => a.requiredLevel - b.requiredLevel,
-  );
-
-  const filteredExplorationVentures = explorationVentures.filter(
-    (venture) => !minionsOnly || hasMinionReward(venture, ventureRewards),
-  );
-
-  const sortedExplorationVentures = [...filteredExplorationVentures].sort(
-    (a, b) => a.requiredLevel - b.requiredLevel,
-  );
 
   const retainerTypesForGroup = retainerTypes.filter((rType) => {
     if (retainerType === "all") {
@@ -131,103 +104,55 @@ export function VenturesPage({
     }
   });
 
-  const searchResults = searchVentures(
-    query,
-    targetedVentures,
-    explorationVentures,
-    quickVenture,
-    itemsById,
-    ventureRewards,
-    t,
-    language,
+  const [ventureCategory, setVentureCategory] =
+    useState<VentureCategoryFilter>("all");
+
+  const ventureOptions = ventureCategories.map((categ) => ({
+    value: categ,
+    label: t(`ventureCategories.${categ}`),
+  }));
+
+  const showQuick =
+    (ventureCategory === "all" || ventureCategory === "quick") &&
+    matchesSearch(quickVenture.id) &&
+    !minionsOnly;
+
+  const sortedTargetedVentures = targetedVentures
+    .filter(
+      (venture) =>
+        matchesSearch(venture.id) &&
+        retainerTypesForGroup.includes(venture.retainerType),
+    )
+    .sort((a, b) => a.requiredLevel - b.requiredLevel);
+
+  const showTargeted =
+    (ventureCategory === "all" || ventureCategory === "targeted") &&
+    !minionsOnly &&
+    sortedTargetedVentures.length > 0;
+
+  const filteredExplorationVentures = explorationVentures.filter(
+    (venture) =>
+      (!minionsOnly || hasMinionReward(venture, ventureRewards)) &&
+      matchesSearch(venture.id) &&
+      retainerTypesForGroup.includes(venture.retainerType),
   );
 
-  const trimmedQuery = query.trim();
-  const hasSearchQuery = trimmedQuery !== "";
+  const showExploration =
+    (ventureCategory === "all" || ventureCategory === "exploration") &&
+    filteredExplorationVentures.length > 0;
 
-  const navigationResults = searchResults.filter(
-    (result) => result.kind === "navigation",
+  const sortedExplorationVentures = [...filteredExplorationVentures].sort(
+    (a, b) => a.requiredLevel - b.requiredLevel,
   );
-  const ventureResults = searchResults.filter(
-    (result) => result.kind === "venture",
-  );
+
+  const resultCount =
+    (showTargeted ? sortedTargetedVentures.length : 0) +
+    (showExploration ? sortedExplorationVentures.length : 0) +
+    (showQuick ? 1 : 0);
 
   return (
     <div className="page-layout ventures-page">
       <h1 className="visually-hidden">{t("navigation.ventures")}</h1>
-
-      <section className="ventures-section">
-        <h2>{t("ventures.browseVentures")}</h2>
-
-        <nav
-          className="venture-type-navigation"
-          aria-label={t("ventures.types")}
-        >
-          <Link to="/ventures/combat">
-            <span className="venture-type-navigation-identity">
-              <Sword className="venture-type-navigation-icon" />
-              {t("retainerTypes.combat")}
-            </span>
-            <ArrowRight
-              className="venture-type-navigation-arrow"
-              size={18}
-              aria-hidden="true"
-            />
-          </Link>
-          <Link to="/ventures/miner">
-            <span className="venture-type-navigation-identity">
-              <MinerIcon className="venture-type-navigation-icon" />
-              {t("retainerTypes.miner")}
-            </span>
-            <ArrowRight
-              className="venture-type-navigation-arrow"
-              size={18}
-              aria-hidden="true"
-            />
-          </Link>
-          <Link to="/ventures/botanist">
-            <span className="venture-type-navigation-identity">
-              <BotanistIcon className="venture-type-navigation-icon" />
-              {t("retainerTypes.botanist")}
-            </span>
-            <ArrowRight
-              className="venture-type-navigation-arrow"
-              size={18}
-              aria-hidden="true"
-            />
-          </Link>
-          <Link to="/ventures/fisher">
-            <span className="venture-type-navigation-identity">
-              <FisherIcon className="venture-type-navigation-icon" />
-              {t("retainerTypes.fisher")}
-            </span>
-            <ArrowRight
-              className="venture-type-navigation-arrow"
-              size={18}
-              aria-hidden="true"
-            />
-          </Link>
-          <Link
-            to="/ventures/quick-exploration"
-            className="quick-venture-type-navigation"
-          >
-            <span className="quick-venture-type-navigation-content">
-              <span className="quick-venture-type-navigation-heading">
-                <Dices className="venture-type-navigation-icon" />
-                <span>{t("quickExplorationVenture.title")}</span>
-              </span>
-              <span className="quick-venture-type-navigation-subtitle">
-                {t("quickExplorationVenture.description")}
-              </span>
-            </span>
-            <ArrowRight
-              className="venture-type-navigation-arrow"
-              size={18}
-              aria-hidden="true"
-            />
-          </Link>
-        </nav>
-      </section>
 
       <section className="ventures-section">
         <h2>{t("ventures.search.title")}</h2>
@@ -237,7 +162,6 @@ export function VenturesPage({
           <Search className="venture-search-icon" aria-hidden="true" />
 
           <input
-            ref={searchInputRef}
             type="search"
             id="searchInput"
             value={query}
@@ -245,99 +169,11 @@ export function VenturesPage({
             placeholder={t("ventures.search.placeholder")}
           />
         </div>
-
-        {hasSearchQuery && (
-          <div className="venture-search-results">
-            <div className="venture-search-results-heading">
-              {searchResults.length > 0 && (
-                <p>
-                  {t("ventures.search.resultsFor", {
-                    count: searchResults.length,
-                    query: trimmedQuery,
-                  })}
-                </p>
-              )}
-            </div>
-
-            {searchResults.length > 0 ? (
-              <>
-                {navigationResults.length > 0 && (
-                  <div className="venture-search-result-group">
-                    <h3>{t("ventures.search.navigation")}</h3>
-
-                    <div className="venture-search-list">
-                      <div className="venture-search-columns">
-                        <span>{t("ventures.search.destinationColumn")}</span>
-                        <span>{t("ventures.search.durationColumn")}</span>
-                        <span>{t("ventures.search.costColumn")}</span>
-                        <span aria-hidden="true" />
-                      </div>
-                      {navigationResults.map((result) => {
-                        return (
-                          <NavigationSearchResultCard
-                            key={`navigation:${result.link}`}
-                            result={result}
-                          />
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-
-                {ventureResults.length > 0 && (
-                  <div className="venture-search-result-group">
-                    <h3>{t("ventures.search.ventures")}</h3>
-
-                    <div className="venture-search-list">
-                      <div className="venture-search-columns">
-                        <span>{t("ventures.search.ventureColumn")}</span>
-                        <span>{t("ventures.search.durationColumn")}</span>
-                        <span>{t("ventures.search.costColumn")}</span>
-                        <span aria-hidden="true" />
-                      </div>
-                      {ventureResults.map((result) => {
-                        return (
-                          <VentureSearchResultCard
-                            key={`venture:${result.venture.id}`}
-                            result={result}
-                            language={language}
-                          />
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="empty-state" role="status">
-                <SearchX size={32} aria-hidden="true" />
-
-                <div className="empty-state-text">
-                  <p className="empty-state-title">
-                    {t("ventures.search.noResults", { query: trimmedQuery })}
-                  </p>
-                  <p>{t("ventures.search.noResultsHint")}</p>
-                </div>
-
-                <button
-                  type="button"
-                  className="btn btn-subtle"
-                  onClick={() => {
-                    setQuery("");
-                    searchInputRef.current?.focus();
-                  }}
-                >
-                  {t("ventures.search.clear")}
-                </button>
-              </div>
-            )}
-          </div>
-        )}
       </section>
 
       <section className="venture-filters">
         <div className="venture-filters-grid">
-          <div className="venture-filter-group">
+          <div>
             <h2 className="venture-filter-label">
               {t("ventureFilters.retainerType")}
             </h2>
@@ -348,7 +184,7 @@ export function VenturesPage({
             />
           </div>
 
-          <div className="venture-filter-group">
+          <div>
             <h2 className="venture-filter-label">
               {t("ventureFilters.category")}
             </h2>
@@ -360,7 +196,7 @@ export function VenturesPage({
           </div>
         </div>
 
-        <div className="venture-filter-group">
+        <div>
           <h2 className="venture-filter-label">
             {t("ventureFilters.rewards")}
           </h2>
@@ -381,6 +217,23 @@ export function VenturesPage({
         </div>
       </section>
 
+      {resultCount === 0 && (
+        <div className="empty-state">
+          <RetainerBellIcon className="app-logo" aria-hidden="true" />
+
+          <div className="empty-state-text">
+            <p className="empty-state-title">
+              {t("ventures.search.noResults")}
+            </p>
+            <p>{t("ventures.search.noResultsHint")}</p>
+          </div>
+        </div>
+      )}
+
+      {resultCount > 0 && (
+        <p>{t("ventures.search.resultsFor", { count: resultCount })}</p>
+      )}
+
       {showTargeted && (
         <VentureCatalogSection
           title={t("targetedVenture.title")}
@@ -391,6 +244,8 @@ export function VenturesPage({
               (venture) => venture.retainerType === rType,
             );
 
+            if (venturesGroup.length === 0) return null;
+
             return (
               <div key={rType}>
                 <h3>{t(`retainerTypes.${rType}`)}</h3>
@@ -400,6 +255,7 @@ export function VenturesPage({
                     <VentureCatalogItem
                       key={venture.id}
                       venture={venture}
+                      matchingItems={matchingItemsByVentureId.get(venture.id)}
                       itemsById={itemsById}
                       ventureRewards={ventureRewards}
                       isExpanded={isExpanded(venture.id)}
@@ -423,6 +279,8 @@ export function VenturesPage({
               (venture) => venture.retainerType === rType,
             );
 
+            if (venturesGroup.length === 0) return null;
+
             return (
               <div key={rType}>
                 <h3>{t(`retainerTypes.${rType}`)}</h3>
@@ -432,6 +290,7 @@ export function VenturesPage({
                     <VentureCatalogItem
                       key={venture.id}
                       venture={venture}
+                      matchingItems={matchingItemsByVentureId.get(venture.id)}
                       itemsById={itemsById}
                       ventureRewards={ventureRewards}
                       isExpanded={isExpanded(venture.id)}
@@ -453,6 +312,7 @@ export function VenturesPage({
           <div className="venture-catalog-items">
             <QuickVentureCatalogItem
               venture={quickVenture}
+              matchingItems={matchingItemsByVentureId.get(quickVenture.id)}
               rewards={ventureRewards.quick}
               itemsById={itemsById}
               isExpanded={isExpanded(quickVenture.id)}

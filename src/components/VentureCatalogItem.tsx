@@ -15,6 +15,7 @@ const durationSteps = [
 
 type VentureCatalogItemProps = {
   venture: TargetedVenture | ExplorationVenture;
+  matchingItems?: ItemSearchEntry[];
   itemsById: Map<number, ItemSearchEntry>;
   ventureRewards: VentureRewardsData;
   isExpanded: boolean;
@@ -23,6 +24,7 @@ type VentureCatalogItemProps = {
 
 export function VentureCatalogItem({
   venture,
+  matchingItems,
   itemsById,
   ventureRewards,
   isExpanded,
@@ -89,6 +91,11 @@ export function VentureCatalogItem({
           .filter((id): id is number => id !== undefined)
           .slice(0, 2);
 
+  const matchingItemsNames =
+    matchingItems?.map((item) => item.name[language]).join(", ") ?? "";
+
+  const matchingItemIds = matchingItems?.map((item) => item.id) ?? [];
+
   const panelId = useId();
 
   return (
@@ -124,6 +131,18 @@ export function VentureCatalogItem({
           className={`venture-item-chevron ${isExpanded ? "venture-item-chevron--expanded" : ""}`}
           aria-hidden="true"
         />
+
+        {matchingItems !== undefined &&
+          matchingItems.length > 0 &&
+          !isTargetedVenture && (
+            <span className="venture-item-matching-rewards">
+              {t("ventures.search.matchingRewards", {
+                count: matchingItems.length,
+              }) +
+                " " +
+                matchingItemsNames}
+            </span>
+          )}
       </button>
 
       <div
@@ -225,6 +244,7 @@ export function VentureCatalogItem({
                   title={t("explorationVenture.rewards.allaganPieces")}
                   itemIds={rewards.allaganPieces}
                   itemsById={itemsById}
+                  matchingItemIds={matchingItemIds}
                 />
 
                 <ExplorationRewardGroup
@@ -233,18 +253,21 @@ export function VentureCatalogItem({
                   )}
                   itemIds={rewards.jobItems}
                   itemsById={itemsById}
+                  matchingItemIds={matchingItemIds}
                 />
 
                 <ExplorationRewardGroup
                   title={t("explorationVenture.rewards.minions")}
                   itemIds={rewards.minions}
                   itemsById={itemsById}
+                  matchingItemIds={matchingItemIds}
                 />
 
                 <ExplorationRewardGroup
                   title={t("explorationVenture.rewards.otherItems")}
                   itemIds={rewards.otherItems}
                   itemsById={itemsById}
+                  matchingItemIds={matchingItemIds}
                 />
               </div>
             )}
