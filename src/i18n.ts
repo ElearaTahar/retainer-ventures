@@ -92,8 +92,9 @@ const resources = {
           botany: "Botany",
           fishing: "Fishing",
         },
-        description: "Short ventures targeting specific items",
-        durationSummary: "40 min to 60 min depending on the retainer level",
+        title: "Targeted ventures",
+        description: "Send your retainer to gather specific resources.",
+        durationSummary: "40 to 60 min",
         details: {
           experience: "Experience",
           requirement: "Requirement",
@@ -116,6 +117,7 @@ const resources = {
           woodland: "Woodland Exploration",
           waterside: "Waterside Exploration",
         },
+        title: "Exploration ventures",
         description:
           "Send your retainer on an exploration venture to earn experience and various rewards.",
         durationSummary: "18 hours",
@@ -341,8 +343,10 @@ const resources = {
           botany: "Travail de botaniste",
           fishing: "Travail de pêche",
         },
-        description: "Missions courtes ciblant des objets spécifiques",
-        durationSummary: "40 à 60 min selon le niveau du servant",
+        title: "Tâches ciblées",
+        description:
+          "Envoyez votre servant récupérer des ressources spécifiques.",
+        durationSummary: "40 à 60 min",
         details: {
           experience: "Expérience",
           requirement: "Prérequis",
@@ -365,6 +369,7 @@ const resources = {
           woodland: "Exploration en forêt",
           waterside: "Exploration en rivage",
         },
+        title: "Tâches d'exploration",
         description:
           "Envoyez votre servant en exploration pour obtenir de l'expérience et diverses récompenses.",
         durationSummary: "18 heures",

@@ -27,6 +27,10 @@ import { MinerIcon } from "../components/icons/MinerIcon";
 import { BotanistIcon } from "../components/icons/BotanistIcon";
 import { FisherIcon } from "../components/icons/FisherIcon";
 import { FilterTabs } from "../components/FilterTabs";
+import { VentureCatalogSection } from "../components/VentureCatalogSection";
+import { VentureCatalogItem } from "../components/VentureCatalogItem";
+import { useExpandedItems } from "../hooks/useExpandedItems";
+import { QuickVentureCatalogItem } from "../components/QuickVentureCatalogItem";
 
 type RetainerTypeFilter = RetainerType | "all";
 
@@ -47,6 +51,16 @@ const ventureCategories: VentureCategoryFilter[] = [
   "quick",
 ];
 
+function hasMinionReward(
+  venture: ExplorationVenture,
+  rewards: VentureRewardsData,
+): boolean {
+  const entry =
+    rewards.rewardsByRetainerTaskRandomId[venture.retainerTaskRandomId];
+
+  return (entry?.minions.length ?? 0) > 0;
+}
+
 type VenturesPageProps = {
   targetedVentures: TargetedVenture[];
   explorationVentures: ExplorationVenture[];
@@ -66,7 +80,14 @@ export function VenturesPage({
 
   const language = toLanguage(i18n.language);
 
+  const { isExpanded, toggleExpanded } = useExpandedItems();
+
   const [retainerType, setRetainerType] = useState<RetainerTypeFilter>("all");
+
+  const [minionsOnly, setMinionsOnly] = useState(false);
+
+  const [query, setQuery] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const retainerOptions = retainerTypes.map((rType) => ({
     value: rType,
@@ -81,10 +102,34 @@ export function VenturesPage({
     label: t(`ventureCategories.${categ}`),
   }));
 
-  const [minionsOnly, setMinionsOnly] = useState(false);
+  const showTargeted =
+    (ventureCategory === "all" || ventureCategory === "targeted") &&
+    !minionsOnly;
 
-  const [query, setQuery] = useState("");
-  const searchInputRef = useRef<HTMLInputElement>(null);
+  const showExploration =
+    ventureCategory === "all" || ventureCategory === "exploration";
+
+  const showQuick = ventureCategory === "all" || ventureCategory === "quick";
+
+  const sortedTargetedVentures = [...targetedVentures].sort(
+    (a, b) => a.requiredLevel - b.requiredLevel,
+  );
+
+  const filteredExplorationVentures = explorationVentures.filter(
+    (venture) => !minionsOnly || hasMinionReward(venture, ventureRewards),
+  );
+
+  const sortedExplorationVentures = [...filteredExplorationVentures].sort(
+    (a, b) => a.requiredLevel - b.requiredLevel,
+  );
+
+  const retainerTypesForGroup = retainerTypes.filter((rType) => {
+    if (retainerType === "all") {
+      return rType !== "all";
+    } else {
+      return rType === retainerType;
+    }
+  });
 
   const searchResults = searchVentures(
     query,
@@ -335,6 +380,87 @@ export function VenturesPage({
           </label>
         </div>
       </section>
+
+      {showTargeted && (
+        <VentureCatalogSection
+          title={t("targetedVenture.title")}
+          description={t("targetedVenture.description")}
+        >
+          {retainerTypesForGroup.map((rType) => {
+            const venturesGroup = sortedTargetedVentures.filter(
+              (venture) => venture.retainerType === rType,
+            );
+
+            return (
+              <div key={rType}>
+                <h3>{t(`retainerTypes.${rType}`)}</h3>
+
+                <div className="venture-catalog-items">
+                  {venturesGroup.map((venture) => (
+                    <VentureCatalogItem
+                      key={venture.id}
+                      venture={venture}
+                      itemsById={itemsById}
+                      ventureRewards={ventureRewards}
+                      isExpanded={isExpanded(venture.id)}
+                      onToggle={() => toggleExpanded(venture.id)}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </VentureCatalogSection>
+      )}
+
+      {showExploration && (
+        <VentureCatalogSection
+          title={t("explorationVenture.title")}
+          description={t("explorationVenture.description")}
+        >
+          {retainerTypesForGroup.map((rType) => {
+            const venturesGroup = sortedExplorationVentures.filter(
+              (venture) => venture.retainerType === rType,
+            );
+
+            return (
+              <div key={rType}>
+                <h3>{t(`retainerTypes.${rType}`)}</h3>
+
+                <div className="venture-catalog-items">
+                  {venturesGroup.map((venture) => (
+                    <VentureCatalogItem
+                      key={venture.id}
+                      venture={venture}
+                      itemsById={itemsById}
+                      ventureRewards={ventureRewards}
+                      isExpanded={isExpanded(venture.id)}
+                      onToggle={() => toggleExpanded(venture.id)}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </VentureCatalogSection>
+      )}
+
+      {showQuick && (
+        <VentureCatalogSection
+          title={t("quickExplorationVenture.title")}
+          description={t("quickExplorationVenture.description")}
+        >
+          <div className="venture-catalog-items">
+            <QuickVentureCatalogItem
+              venture={quickVenture}
+              rewards={ventureRewards.quick}
+              itemsById={itemsById}
+              isExpanded={isExpanded(quickVenture.id)}
+              onToggle={() => toggleExpanded(quickVenture.id)}
+            />
+          </div>
+        </VentureCatalogSection>
+      )}
     </div>
   );
 }
