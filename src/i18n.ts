@@ -155,6 +155,7 @@ const resources = {
         deleteRetainerButton: "Permanently delete",
         confirmDeleteRetainer:
           "Permanently delete {{name}}? This action cannot be undone.",
+        notProvided: "Not provided",
         retainerActionsMenu: "Retainer actions",
         addRetainerSubmitButton: "Add",
         editRetainerSubmitButton: "Save",
@@ -396,6 +397,7 @@ const resources = {
         deleteRetainerButton: "Supprimer définitivement",
         confirmDeleteRetainer:
           "Supprimer définitivement {{name}} ? Cette action est irréversible.",
+        notProvided: "Non renseigné",
         retainerActionsMenu: "Actions du servant",
         addRetainerSubmitButton: "Ajouter",
         editRetainerSubmitButton: "Enregistrer",

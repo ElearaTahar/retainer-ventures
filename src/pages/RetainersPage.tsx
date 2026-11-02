@@ -31,6 +31,10 @@ import type { ItemSearchEntry } from "../types/items";
 import type { VentureRewardsData } from "../types/ventureRewards";
 import { ItemIconStack } from "../components/ItemIconStack";
 import { deleteVentureRun } from "../db/ventureRuns";
+import { BotanistIcon } from "../components/icons/BotanistIcon";
+import { FisherIcon } from "../components/icons/FisherIcon";
+import { MinerIcon } from "../components/icons/MinerIcon";
+import { CombatIcon } from "../components/icons/CombatIcon";
 
 type RetainersPageProps = {
   targetedVentures: TargetedVenture[];
@@ -266,57 +270,100 @@ export function RetainersPage({
                 </div>
 
                 <div className="retainer-card-stats">
-                  {retainer.retainerType === "combat" &&
-                    retainer.itemLevel !== undefined && (
-                      <span>
-                        {t("myRetainers.ilvl")}{" "}
-                        {numberFormatter.format(retainer.itemLevel)}
+                  {retainer.retainerType === "combat" && (
+                    <div className="retainer-stat">
+                      <span className="retainer-stat-label">
+                        {t("myRetainers.ilvl")}
                       </span>
-                    )}
+
+                      {retainer.itemLevel !== undefined ? (
+                        <span className="retainer-stat-value">
+                          {numberFormatter.format(retainer.itemLevel)}
+                        </span>
+                      ) : (
+                        <span className="retainer-stat-not-provided">
+                          {t("myRetainers.notProvided")}
+                        </span>
+                      )}
+                    </div>
+                  )}
 
                   {retainer.retainerType !== "combat" && (
                     <>
-                      {retainer.gathering !== undefined && (
-                        <span>
-                          {t("myRetainers.gathering")}{" "}
-                          {numberFormatter.format(retainer.gathering)}
+                      <div className="retainer-stat">
+                        <span className="retainer-stat-label">
+                          {t("myRetainers.gathering")}
                         </span>
-                      )}
-                      {retainer.perception !== undefined && (
-                        <span>
-                          {t("myRetainers.perception")}{" "}
-                          {numberFormatter.format(retainer.perception)}
+
+                        {retainer.gathering !== undefined ? (
+                          <span className="retainer-stat-value">
+                            {numberFormatter.format(retainer.gathering)}
+                          </span>
+                        ) : (
+                          <span className="retainer-stat-not-provided">
+                            {t("myRetainers.notProvided")}
+                          </span>
+                        )}
+                      </div>
+                      <div className="retainer-stat">
+                        <span className="retainer-stat-label">
+                          {t("myRetainers.perception")}
                         </span>
-                      )}
+
+                        {retainer.perception !== undefined ? (
+                          <span className="retainer-stat-value">
+                            {numberFormatter.format(retainer.perception)}
+                          </span>
+                        ) : (
+                          <span className="retainer-stat-not-provided">
+                            {t("myRetainers.notProvided")}
+                          </span>
+                        )}
+                      </div>
                     </>
                   )}
                 </div>
 
-                <button
-                  type="button"
-                  className="btn btn-subtle retainer-card-record-run"
-                  onClick={() => handleRecordRun(retainer.id)}
-                >
-                  <Plus size={16} aria-hidden="true" />
-                  {t("myRetainers.recordRunButton")}
-                </button>
-
-                {lastRun !== undefined && (
+                <div className="retainer-card-actions">
                   <button
                     type="button"
-                    className="btn btn-subtle retainer-card-repeat-run"
-                    onClick={() =>
-                      handleRepeatRun(retainer.id, lastRun.ventureId)
-                    }
+                    className="btn btn-subtle retainer-card-record-run"
+                    onClick={() => handleRecordRun(retainer.id)}
                   >
-                    <Repeat size={16} aria-hidden="true" />
-                    <div className="retainer-card-repeat-texts">
-                      <span>{t("myRetainers.repeatLastRunButton")}</span>
-                      <span className="retainer-card-repeat-venture">
-                        {lastVentureName ?? t("ventureRuns.unknownVenture")}
-                      </span>
-                    </div>
+                    <Plus size={16} aria-hidden="true" />
+                    {t("myRetainers.recordRunButton")}
                   </button>
+
+                  {lastRun !== undefined && (
+                    <button
+                      type="button"
+                      className="btn btn-subtle retainer-card-repeat-run"
+                      onClick={() =>
+                        handleRepeatRun(retainer.id, lastRun.ventureId)
+                      }
+                    >
+                      <Repeat size={16} aria-hidden="true" />
+                      <div className="retainer-card-repeat-texts">
+                        <span>{t("myRetainers.repeatLastRunButton")}</span>
+                        <span className="retainer-card-repeat-venture">
+                          {lastVentureName ?? t("ventureRuns.unknownVenture")}
+                        </span>
+                      </div>
+                    </button>
+                  )}
+                </div>
+
+                {retainer.retainerType === "botanist" && (
+                  <BotanistIcon className="retainer-card-decoration" />
+                )}
+                {retainer.retainerType === "fisher" && (
+                  <FisherIcon className="retainer-card-decoration" />
+                )}
+                {retainer.retainerType === "miner" && (
+                  <MinerIcon className="retainer-card-decoration" />
+                )}
+                {retainer.retainerType === "combat" && (
+                  <CombatIcon className="retainer-card-decoration combat-decoration" />
                 )}
               </div>
             );
