@@ -1,4 +1,12 @@
-import { ListFilter, Pencil, Plus, Repeat, Trash2, X } from "lucide-react";
+import {
+  Info,
+  ListFilter,
+  Pencil,
+  Plus,
+  Repeat,
+  Trash2,
+  X,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLiveQuery } from "dexie-react-hooks";
@@ -324,7 +332,16 @@ export function RetainersPage({
 
   return (
     <div className="page-layout retainers-page">
-      <h1>{t("navigation.retainers")}</h1>
+      <div className="retainers-page-introduction">
+        <h1>{t("navigation.retainers")}</h1>
+
+        {retainers !== undefined && activeRetainers.length > 0 && (
+          <p className="local-storage-notice">
+            <Info size={16} aria-hidden="true" />
+            <span>{t("myRetainers.localStorageNotice")}</span>
+          </p>
+        )}
+      </div>
 
       {content}
 
