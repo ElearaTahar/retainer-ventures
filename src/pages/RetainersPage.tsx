@@ -292,32 +292,34 @@ export function RetainersPage({
                   )}
                 </div>
 
-                <button
-                  type="button"
-                  className="btn btn-subtle retainer-card-record-run"
-                  onClick={() => handleRecordRun(retainer.id)}
-                >
-                  <Plus size={16} aria-hidden="true" />
-                  {t("myRetainers.recordRunButton")}
-                </button>
-
-                {lastRun !== undefined && (
+                <div className="retainer-card-actions">
                   <button
                     type="button"
-                    className="btn btn-subtle retainer-card-repeat-run"
-                    onClick={() =>
-                      handleRepeatRun(retainer.id, lastRun.ventureId)
-                    }
+                    className="btn btn-subtle retainer-card-record-run"
+                    onClick={() => handleRecordRun(retainer.id)}
                   >
-                    <Repeat size={16} aria-hidden="true" />
-                    <div className="retainer-card-repeat-texts">
-                      <span>{t("myRetainers.repeatLastRunButton")}</span>
-                      <span className="retainer-card-repeat-venture">
-                        {lastVentureName ?? t("ventureRuns.unknownVenture")}
-                      </span>
-                    </div>
+                    <Plus size={16} aria-hidden="true" />
+                    {t("myRetainers.recordRunButton")}
                   </button>
-                )}
+
+                  {lastRun !== undefined && (
+                    <button
+                      type="button"
+                      className="btn btn-subtle retainer-card-repeat-run"
+                      onClick={() =>
+                        handleRepeatRun(retainer.id, lastRun.ventureId)
+                      }
+                    >
+                      <Repeat size={16} aria-hidden="true" />
+                      <div className="retainer-card-repeat-texts">
+                        <span>{t("myRetainers.repeatLastRunButton")}</span>
+                        <span className="retainer-card-repeat-venture">
+                          {lastVentureName ?? t("ventureRuns.unknownVenture")}
+                        </span>
+                      </div>
+                    </button>
+                  )}
+                </div>
               </div>
             );
           })}
