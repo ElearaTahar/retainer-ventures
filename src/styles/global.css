@@ -219,6 +219,19 @@ textarea {
   align-self: stretch;
   align-items: stretch;
   gap: 2rem;
+  position: relative;
+}
+
+.app-navigation-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 3px;
+  background-color: var(--color-accent);
+  pointer-events: none;
+
+  transition:
+    left 200ms ease,
+    width 200ms ease;
 }
 
 .app-navigation a {
@@ -227,20 +240,6 @@ textarea {
   align-items: center;
   color: var(--color-text);
   text-decoration: none;
-}
-
-.app-navigation a::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background-color: transparent;
-}
-
-.app-navigation a.active::after {
-  background-color: var(--color-accent);
 }
 
 .app-navigation a:hover {
@@ -312,6 +311,10 @@ textarea {
   .language-select,
   .app-navigation a,
   .theme-toggle-icon {
+    transition: none;
+  }
+
+  .app-navigation-indicator {
     transition: none;
   }
 }

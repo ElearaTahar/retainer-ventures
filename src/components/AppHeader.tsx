@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { RetainerBellIcon } from "./icons/RetainerBellIcon";
 
 type Theme = "light" | "dark";
@@ -19,6 +19,14 @@ export function AppHeader() {
     return storedTheme === "light" || storedTheme === "dark"
       ? storedTheme
       : null;
+  });
+
+  const location = useLocation();
+  const navigationRef = useRef<HTMLElement>(null);
+
+  const [indicator, setIndicator] = useState({
+    left: 0,
+    width: 0,
   });
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -83,6 +91,35 @@ export function AppHeader() {
     };
   }, []);
 
+  useLayoutEffect(() => {
+    const navigation = navigationRef.current;
+    if (!navigation) return;
+
+    function updateIndicator() {
+      if (!navigation) return;
+
+      const activeLink = navigation.querySelector<HTMLAnchorElement>(
+        'a[aria-current="page"]',
+      );
+      if (!activeLink) return;
+
+      const navigationRect = navigation.getBoundingClientRect();
+      const linkRect = activeLink.getBoundingClientRect();
+
+      setIndicator({
+        left: linkRect.left - navigationRect.left,
+        width: linkRect.width,
+      });
+    }
+
+    updateIndicator();
+
+    const observer = new ResizeObserver(updateIndicator);
+    observer.observe(navigation);
+
+    return () => observer.disconnect();
+  }, [location.pathname, i18n.language]);
+
   return (
     <header
       className={`app-header${isScrolled ? " app-header--scrolled" : ""}`}
@@ -101,9 +138,19 @@ export function AppHeader() {
           </span>
         </NavLink>
 
-        <nav className="app-navigation" aria-label={t("navigation.main")}>
+        <nav
+          ref={navigationRef}
+          className="app-navigation"
+          aria-label={t("navigation.main")}
+        >
           <NavLink to="/ventures">{t("navigation.ventures")}</NavLink>
           <NavLink to="/retainers">{t("navigation.retainers")}</NavLink>
+
+          <span
+            className="app-navigation-indicator"
+            aria-hidden="true"
+            style={{ left: indicator.left, width: indicator.width }}
+          />
         </nav>
 
         <div className="app-header-actions">
