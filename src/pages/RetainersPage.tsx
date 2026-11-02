@@ -335,10 +335,12 @@ export function RetainersPage({
       <div className="retainers-page-introduction">
         <h1>{t("navigation.retainers")}</h1>
 
-        <p className="local-storage-notice">
-          <Info size={16} aria-hidden="true" />
-          <span>{t("myRetainers.localStorageNotice")}</span>
-        </p>
+        {retainers !== undefined && activeRetainers.length > 0 && (
+          <p className="local-storage-notice">
+            <Info size={16} aria-hidden="true" />
+            <span>{t("myRetainers.localStorageNotice")}</span>
+          </p>
+        )}
       </div>
 
       {content}
