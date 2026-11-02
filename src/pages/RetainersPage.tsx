@@ -266,28 +266,56 @@ export function RetainersPage({
                 </div>
 
                 <div className="retainer-card-stats">
-                  {retainer.retainerType === "combat" &&
-                    retainer.itemLevel !== undefined && (
-                      <span>
-                        {t("myRetainers.ilvl")}{" "}
-                        {numberFormatter.format(retainer.itemLevel)}
+                  {retainer.retainerType === "combat" && (
+                    <div className="retainer-stat">
+                      <span className="retainer-stat-label">
+                        {t("myRetainers.ilvl")}
                       </span>
-                    )}
+
+                      {retainer.itemLevel !== undefined ? (
+                        <span className="retainer-stat-value">
+                          {numberFormatter.format(retainer.itemLevel)}
+                        </span>
+                      ) : (
+                        <span className="retainer-stat-not-provided">
+                          {t("myRetainers.notProvided")}
+                        </span>
+                      )}
+                    </div>
+                  )}
 
                   {retainer.retainerType !== "combat" && (
                     <>
-                      {retainer.gathering !== undefined && (
-                        <span>
-                          {t("myRetainers.gathering")}{" "}
-                          {numberFormatter.format(retainer.gathering)}
+                      <div className="retainer-stat">
+                        <span className="retainer-stat-label">
+                          {t("myRetainers.gathering")}
                         </span>
-                      )}
-                      {retainer.perception !== undefined && (
-                        <span>
-                          {t("myRetainers.perception")}{" "}
-                          {numberFormatter.format(retainer.perception)}
+
+                        {retainer.gathering !== undefined ? (
+                          <span className="retainer-stat-value">
+                            {numberFormatter.format(retainer.gathering)}
+                          </span>
+                        ) : (
+                          <span className="retainer-stat-not-provided">
+                            {t("myRetainers.notProvided")}
+                          </span>
+                        )}
+                      </div>
+                      <div className="retainer-stat">
+                        <span className="retainer-stat-label">
+                          {t("myRetainers.perception")}
                         </span>
-                      )}
+
+                        {retainer.perception !== undefined ? (
+                          <span className="retainer-stat-value">
+                            {numberFormatter.format(retainer.perception)}
+                          </span>
+                        ) : (
+                          <span className="retainer-stat-not-provided">
+                            {t("myRetainers.notProvided")}
+                          </span>
+                        )}
+                      </div>
                     </>
                   )}
                 </div>
