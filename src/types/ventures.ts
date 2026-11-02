@@ -55,6 +55,7 @@ export type QuickVenture = {
     en: string;
     fr: string;
   };
+  requiredLevel: number;
   durationMinutes: number;
   ventureCost: number;
 };

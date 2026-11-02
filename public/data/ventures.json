@@ -1,7 +1,7 @@
 {
   "metadata": {
     "source": "XIVAPI",
-    "generatedAt": "2026-10-01T22:40:16.998Z",
+    "generatedAt": "2026-10-30T13:52:03.739Z",
     "counts": {
       "targeted": 968,
       "exploration": 124,
@@ -30448,6 +30448,7 @@
       "en": "Quick Exploration",
       "fr": "Tâche improvisée"
     },
+    "requiredLevel": 10,
     "durationMinutes": 60,
     "ventureCost": 2
   }

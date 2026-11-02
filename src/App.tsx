@@ -12,11 +12,8 @@ import { fetchItems } from "./data/items";
 import { fetchVentureRewards } from "./data/ventureRewards";
 import { AppHeader } from "./components/AppHeader";
 import { VenturesPage } from "./pages/VenturesPage";
-import { RetainerTypePage } from "./pages/RetainerTypePage";
-import { VentureCategoryPage } from "./pages/VentureCategoryPage";
 import { RetainersPage } from "./pages/RetainersPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
-import { QuickExplorationPage } from "./pages/QuickExplorationPage";
 import { BackToTopButton } from "./components/BackToTopButton";
 
 export function App() {
@@ -102,31 +99,6 @@ export function App() {
                 quickVenture={quickVenture}
                 itemsById={itemsById}
                 ventureRewards={ventureRewards}
-              />
-            }
-          />
-          <Route
-            path="/ventures/quick-exploration"
-            element={
-              <QuickExplorationPage
-                venture={quickVenture}
-                rewards={ventureRewards.quick}
-                itemsById={itemsById}
-              />
-            }
-          />
-          <Route
-            path="/ventures/:retainerType"
-            element={<RetainerTypePage />}
-          />
-          <Route
-            path="/ventures/:retainerType/:category"
-            element={
-              <VentureCategoryPage
-                ventures={targetedVentures}
-                explorationVentures={explorationVentures}
-                ventureRewards={ventureRewards}
-                itemsById={itemsById}
               />
             }
           />

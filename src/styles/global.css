@@ -416,6 +416,18 @@ textarea {
   border-color: var(--color-accent);
 }
 
+.btn-filter {
+  background-color: transparent;
+  color: var(--color-text);
+  border-color: transparent;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.btn-filter:hover:not(:disabled) {
+  color: var(--color-accent);
+}
+
 .form-error {
   margin: 1rem 0 0;
   padding: 0.75rem 1rem;

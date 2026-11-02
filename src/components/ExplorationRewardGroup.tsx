@@ -7,12 +7,14 @@ type ExplorationRewardGroupProps = {
   title: string;
   itemIds: number[];
   itemsById: Map<number, ItemSearchEntry>;
+  matchingItemIds: number[];
 };
 
 export function ExplorationRewardGroup({
   title,
   itemIds,
   itemsById,
+  matchingItemIds,
 }: ExplorationRewardGroupProps) {
   const { t, i18n } = useTranslation();
 
@@ -20,15 +22,20 @@ export function ExplorationRewardGroup({
 
   return (
     <section className="exploration-reward-group">
-      <h3 className="exploration-section-title">{title}</h3>
+      <h3>{title}</h3>
 
       {itemIds.length > 0 ? (
         <ul className="exploration-reward-list">
           {itemIds.map((itemId) => {
             const item = itemsById.get(itemId);
 
+            const isMatchingItem = matchingItemIds.includes(itemId);
+
             return (
-              <li key={itemId} className="exploration-reward-item">
+              <li
+                key={itemId}
+                className={`exploration-reward-item ${isMatchingItem ? "exploration-reward-item--matching" : ""}`}
+              >
                 {item && (
                   <img
                     src={buildItemIconUrl(item.iconId)}
