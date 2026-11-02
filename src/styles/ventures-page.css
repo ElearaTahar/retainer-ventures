@@ -63,6 +63,10 @@
   transition: border-color var(--transition-interactive);
 }
 
+.venture-minion-filter:active {
+  transform: scale(0.97);
+}
+
 .venture-minion-filter:has(input:checked) {
   border-color: var(--color-accent);
 }
@@ -180,5 +184,10 @@
   .venture-filters-grid {
     flex-direction: column;
     gap: 1.25rem;
+  }
+
+  .venture-filters-grid > div {
+    min-width: 0;
+    width: 100%;
   }
 }

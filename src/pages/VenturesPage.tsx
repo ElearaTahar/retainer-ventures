@@ -73,6 +73,7 @@ export function VenturesPage({
   const [retainerType, setRetainerType] = useState<RetainerTypeFilter>("all");
 
   const [minionsOnly, setMinionsOnly] = useState(false);
+  const deferredMinionOnly = useDeferredValue(minionsOnly);
 
   const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query);
@@ -118,7 +119,7 @@ export function VenturesPage({
   const showQuick =
     (ventureCategory === "all" || ventureCategory === "quick") &&
     matchesSearch(quickVenture.id) &&
-    !minionsOnly;
+    !deferredMinionOnly;
 
   const sortedTargetedVentures = targetedVentures
     .filter(
@@ -130,12 +131,12 @@ export function VenturesPage({
 
   const showTargeted =
     (ventureCategory === "all" || ventureCategory === "targeted") &&
-    !minionsOnly &&
+    !deferredMinionOnly &&
     sortedTargetedVentures.length > 0;
 
   const filteredExplorationVentures = explorationVentures.filter(
     (venture) =>
-      (!minionsOnly || hasMinionReward(venture, ventureRewards)) &&
+      (!deferredMinionOnly || hasMinionReward(venture, ventureRewards)) &&
       matchesSearch(venture.id) &&
       retainerTypesForGroup.includes(venture.retainerType),
   );
