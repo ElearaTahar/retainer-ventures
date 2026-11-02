@@ -146,6 +146,8 @@ const resources = {
         noRetainerTitle: "No registered retainer",
         noRetainerDescription:
           "Add your first retainer to start tracking its activities.",
+        localStorageNotice:
+          "Your retainers and their reports are stored only in this browser. They aren't synced across devices and may be lost if you clear your browser data.",
         addRetainerButton: "Add a retainer",
         editRetainerButton: "Edit {{name}}",
         restoreRetainerButton: "Restore",
@@ -385,6 +387,8 @@ const resources = {
         noRetainerTitle: "Aucun servant enregistré",
         noRetainerDescription:
           "Ajoutez votre premier servant pour commencer à suivre ses activités.",
+        localStorageNotice:
+          "Vos servants et leurs rapports sont enregistrés uniquement dans ce navigateur. Ils ne sont pas synchronisés entre vos appareils et peuvent être perdus si vous effacez les données du navigateur.",
         addRetainerButton: "Ajouter un servant",
         editRetainerButton: "Modifier {{name}}",
         restoreRetainerButton: "Restaurer",
