@@ -159,6 +159,7 @@
 
 .retainer-card-actions {
   visibility: hidden;
+  opacity: 0;
 
   display: grid;
   grid-auto-flow: column;
@@ -167,11 +168,16 @@
 
   position: relative;
   z-index: 1;
+
+  transition:
+    opacity var(--transition-interactive),
+    visibility var(--transition-interactive);
 }
 
 .retainer-card:hover .retainer-card-actions,
 .retainer-card:focus-within .retainer-card-actions {
   visibility: visible;
+  opacity: 1;
 }
 
 .retainer-card:hover .retainer-card-stats,
@@ -501,6 +507,7 @@
     grid-column: 1;
     grid-row: 3;
     visibility: visible;
+    opacity: 1;
   }
 
   .retainer-card:hover .retainer-card-stats,
@@ -543,6 +550,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .retainer-card-actions {
+    transition: none;
+  }
+
   .run-timeline-item {
     animation: none;
   }
