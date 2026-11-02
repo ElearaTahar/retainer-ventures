@@ -31,6 +31,10 @@ import type { ItemSearchEntry } from "../types/items";
 import type { VentureRewardsData } from "../types/ventureRewards";
 import { ItemIconStack } from "../components/ItemIconStack";
 import { deleteVentureRun } from "../db/ventureRuns";
+import { BotanistIcon } from "../components/icons/BotanistIcon";
+import { FisherIcon } from "../components/icons/FisherIcon";
+import { MinerIcon } from "../components/icons/MinerIcon";
+import { CombatIcon } from "../components/icons/CombatIcon";
 
 type RetainersPageProps = {
   targetedVentures: TargetedVenture[];
@@ -348,6 +352,19 @@ export function RetainersPage({
                     </button>
                   )}
                 </div>
+
+                {retainer.retainerType === "botanist" && (
+                  <BotanistIcon className="retainer-card-decoration" />
+                )}
+                {retainer.retainerType === "fisher" && (
+                  <FisherIcon className="retainer-card-decoration" />
+                )}
+                {retainer.retainerType === "miner" && (
+                  <MinerIcon className="retainer-card-decoration" />
+                )}
+                {retainer.retainerType === "combat" && (
+                  <CombatIcon className="retainer-card-decoration combat-decoration" />
+                )}
               </div>
             );
           })}

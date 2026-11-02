@@ -61,6 +61,9 @@
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 10px;
+
+  position: relative;
+  overflow: hidden;
 }
 
 .retainer-card-header {
@@ -161,6 +164,9 @@
   grid-auto-flow: column;
   grid-auto-columns: minmax(0, 1fr);
   gap: 0.5rem;
+
+  position: relative;
+  z-index: 1;
 }
 
 .retainer-card:hover .retainer-card-actions,
@@ -206,6 +212,21 @@
   color: var(--color-text-muted);
   font-size: 0.75rem;
   overflow-wrap: anywhere;
+}
+
+.retainer-card-decoration {
+  position: absolute;
+  height: 190px;
+  width: 190px;
+  right: -40px;
+  bottom: -30px;
+
+  color: color-mix(in srgb, var(--color-text-muted) 5%, transparent);
+  pointer-events: none;
+}
+
+.retainer-card-decoration.combat-decoration {
+  transform: rotate(-10deg);
 }
 
 .archived-retainers {
@@ -491,6 +512,11 @@
 @media (max-width: 700px) {
   .retainers-list {
     grid-template-columns: 1fr;
+  }
+
+  .retainer-card-decoration {
+    width: 230px;
+    height: 230px;
   }
 
   .run-timeline-content {
