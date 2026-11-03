@@ -222,6 +222,27 @@ textarea {
   position: relative;
 }
 
+.app-navigation .navigation-link--pending {
+  color: var(--color-accent);
+  animation: navigation-pending 700ms ease-in-out infinite alternate;
+}
+
+@keyframes navigation-pending {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-navigation .navigation-link--pending {
+    animation: none;
+  }
+}
+
 .app-navigation-indicator {
   position: absolute;
   bottom: 0;

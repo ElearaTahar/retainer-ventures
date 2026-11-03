@@ -1,6 +1,12 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { RetainerBellIcon } from "./icons/RetainerBellIcon";
 
 type Theme = "light" | "dark";
@@ -42,6 +48,27 @@ export function AppHeader() {
     } else {
       setThemeOverride(nextTheme);
     }
+  }
+
+  const navigate = useNavigate();
+  const [isPending, startTransition] = useTransition();
+
+  function navigateToVentures(event: React.MouseEvent<HTMLAnchorElement>) {
+    if (
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+
+    startTransition(() => {
+      navigate("/ventures");
+    });
   }
 
   useEffect(() => {
@@ -143,7 +170,14 @@ export function AppHeader() {
           className="app-navigation"
           aria-label={t("navigation.main")}
         >
-          <NavLink to="/ventures">{t("navigation.ventures")}</NavLink>
+          <NavLink
+            to="/ventures"
+            onClick={navigateToVentures}
+            aria-busy={isPending}
+            className={isPending ? "navigation-link--pending" : undefined}
+          >
+            {t("navigation.ventures")}
+          </NavLink>
           <NavLink to="/retainers">{t("navigation.retainers")}</NavLink>
 
           <span
