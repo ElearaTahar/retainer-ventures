@@ -71,6 +71,8 @@ export function AppHeader() {
     });
   }
 
+  const [isRinging, setIsRinging] = useState(false);
+
   useEffect(() => {
     const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -152,18 +154,42 @@ export function AppHeader() {
       className={`app-header${isScrolled ? " app-header--scrolled" : ""}`}
     >
       <div className="app-header-content">
-        <NavLink
-          to="/ventures"
-          className="app-title"
-          aria-label={t("appTitle")}
-        >
-          <RetainerBellIcon className="app-logo" aria-hidden="true" />
+        <div className="app-title-logo">
+          <button
+            className="app-logo-button"
+            type="button"
+            aria-label={t("navigation.bell")}
+            onClick={() => {
+              if (
+                !isRinging &&
+                !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+              ) {
+                setIsRinging(true);
+              }
+            }}
+            onAnimationEnd={(event) => {
+              if (event.animationName === "loading-bell-vibrate") {
+                setIsRinging(false);
+              }
+            }}
+          >
+            <RetainerBellIcon
+              className={`app-logo ${isRinging ? "ringing-bell" : ""}`}
+              aria-hidden="true"
+            />
+          </button>
 
-          <span className="app-title-text">
-            <span className="app-title-prefix">FFXIV</span>
-            <span className="app-title-name">Retainer Ventures</span>
-          </span>
-        </NavLink>
+          <NavLink
+            className="app-title"
+            to="/ventures"
+            aria-label={t("appTitle")}
+          >
+            <span className="app-title-text">
+              <span className="app-title-prefix">FFXIV</span>
+              <span className="app-title-name">Retainer Ventures</span>
+            </span>
+          </NavLink>
+        </div>
 
         <nav
           ref={navigationRef}

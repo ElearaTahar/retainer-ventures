@@ -21,6 +21,14 @@
   animation: 1.5s loading-bell-vibrate infinite linear;
 }
 
+.ringing-bell .retainer-bell-button {
+  animation: 1.5s loading-bell-ring ease-in-out;
+}
+
+.ringing-bell .retainer-bell-body {
+  animation: 1.5s loading-bell-vibrate ease-in-out;
+}
+
 @keyframes loading-bell-ring {
   0%,
   100% {
@@ -60,7 +68,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .loading-screen-bell .retainer-bell-button,
-  .loading-screen-bell .retainer-bell-body {
+  .loading-screen-bell .retainer-bell-body,
+  .ringing-bell .retainer-bell-button,
+  .ringing-bell .retainer-bell-body {
     animation: none;
   }
 }

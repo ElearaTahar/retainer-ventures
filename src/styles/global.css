@@ -179,12 +179,27 @@ textarea {
   gap: 3rem;
 }
 
-.app-title {
+.app-title-logo {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  text-decoration: none;
-  color: var(--color-text);
+}
+
+.app-logo-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.app-logo-button:focus-visible {
+  outline: 2px solid;
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 .app-logo {
@@ -192,6 +207,19 @@ textarea {
   height: auto;
   flex-shrink: 0;
   color: var(--color-accent);
+}
+
+.app-title {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.app-title:focus-visible {
+  outline: 2px solid;
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 .app-title-text {
