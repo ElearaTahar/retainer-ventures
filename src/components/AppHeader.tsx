@@ -72,6 +72,7 @@ export function AppHeader() {
   }
 
   const [isRinging, setIsRinging] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -166,6 +167,14 @@ export function AppHeader() {
               ) {
                 setIsRinging(true);
               }
+
+              if (audioRef.current === null) {
+                audioRef.current = new Audio("/sounds/retainer-bell.wav");
+                audioRef.current.volume = 0.3;
+              }
+
+              audioRef.current.currentTime = 0;
+              void audioRef.current.play().catch(() => {});
             }}
             onAnimationEnd={(event) => {
               if (event.animationName === "loading-bell-vibrate") {
