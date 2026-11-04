@@ -13,6 +13,9 @@ const resources = {
           dark: "dark",
         },
       },
+      common: {
+        loading: "Loading",
+      },
       navigation: {
         main: "Main navigation",
         ventures: "Ventures",
@@ -253,6 +256,9 @@ const resources = {
           light: "clair",
           dark: "sombre",
         },
+      },
+      common: {
+        loading: "Chargement",
       },
       navigation: {
         main: "Navigation principale",

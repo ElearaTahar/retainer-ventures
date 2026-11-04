@@ -15,6 +15,7 @@ import { VenturesPage } from "./pages/VenturesPage";
 import { RetainersPage } from "./pages/RetainersPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { BackToTopButton } from "./components/BackToTopButton";
+import { LoadingScreen } from "./components/LoadingScreen";
 
 export function App() {
   const [targetedVentures, setTargetedVentures] = useState<
@@ -80,7 +81,7 @@ export function App() {
     itemsById === null ||
     ventureRewards === null
   ) {
-    return <div>Loading...</div>;
+    return <LoadingScreen />;
   }
 
   return (
