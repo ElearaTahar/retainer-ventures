@@ -18,6 +18,7 @@ const resources = {
       },
       navigation: {
         main: "Main navigation",
+        bell: "Ring the bell",
         ventures: "Ventures",
         retainers: "My Retainers",
         backToTop: "Top",
@@ -262,6 +263,7 @@ const resources = {
       },
       navigation: {
         main: "Navigation principale",
+        bell: "Faire sonner la cloche",
         ventures: "Tâches",
         retainers: "Mes servants",
         backToTop: "En haut",

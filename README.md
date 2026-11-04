@@ -75,3 +75,11 @@ This project uses the following open-source fonts:
 Both fonts are licensed under the [SIL Open Font License 1.1](https://openfontlicense.org/open-font-license-official-text/).
 
 The fonts are self-hosted using [Fontsource](https://fontsource.org/) and are not loaded from an external CDN at runtime.
+
+### Audio
+
+The following sound effect is used in the application:
+
+- **Header bell sound** — [Ding 3](https://pixabay.com/sound-effects/film-special-effects-ding-3-90200/) by freesound_community, sourced from Pixabay and licensed under the [Pixabay Content License](https://pixabay.com/service/license-summary/).
+
+The original sound has been shortened and converted to WAV for use in the application.
