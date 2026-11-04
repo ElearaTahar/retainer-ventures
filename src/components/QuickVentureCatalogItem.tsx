@@ -8,12 +8,14 @@ import { ItemIconStack } from "./ItemIconStack";
 import "../styles/venture-catalog-item.css";
 import { buildItemIconUrl } from "../utils/itemIcon";
 import { Info } from "lucide-react";
+import { VentureHistorySummary } from "../types/ventureHistory";
 
 type QuickVentureCatalogItemProps = {
   venture: QuickVenture;
   matchingItems?: ItemSearchEntry[];
   rewards: QuickRewards;
   itemsById: Map<number, ItemSearchEntry>;
+  personalHistory: VentureHistorySummary | undefined;
   isExpanded: boolean;
   onToggle: () => void;
 };
@@ -23,6 +25,7 @@ export function QuickVentureCatalogItem({
   matchingItems,
   rewards,
   itemsById,
+  personalHistory,
   isExpanded,
   onToggle,
 }: QuickVentureCatalogItemProps) {

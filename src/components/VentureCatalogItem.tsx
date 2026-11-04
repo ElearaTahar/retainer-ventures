@@ -6,6 +6,7 @@ import type { ExplorationVenture, TargetedVenture } from "../types/ventures";
 import { ItemIconStack } from "./ItemIconStack";
 import type { VentureRewardsData } from "../types/ventureRewards";
 import "../styles/venture-catalog-item.css";
+import { VentureHistorySummary } from "../types/ventureHistory";
 
 const durationSteps = [
   { levelOffset: 0, minutes: 60 },
@@ -23,6 +24,7 @@ type VentureCatalogItemProps = {
   matchingItems?: ItemSearchEntry[];
   itemsById: Map<number, ItemSearchEntry>;
   ventureRewards: VentureRewardsData;
+  personalHistory: VentureHistorySummary | undefined;
   isExpanded: boolean;
   onToggle: (id: number) => void;
 };
@@ -32,6 +34,7 @@ export const VentureCatalogItem = memo(function VentureCatalogItem({
   matchingItems,
   itemsById,
   ventureRewards,
+  personalHistory,
   isExpanded,
   onToggle,
 }: VentureCatalogItemProps) {

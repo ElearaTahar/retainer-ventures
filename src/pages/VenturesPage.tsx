@@ -1,4 +1,4 @@
-import { useDeferredValue, useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "../styles/ventures-page.css";
 import "../styles/empty-state.css";
@@ -19,6 +19,9 @@ import { VentureCatalogItem } from "../components/VentureCatalogItem";
 import { useExpandedItems } from "../hooks/useExpandedItems";
 import { QuickVentureCatalogItem } from "../components/QuickVentureCatalogItem";
 import { RetainerBellIcon } from "../components/icons/RetainerBellIcon";
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from "../db/database";
+import { buildVenturesHistory } from "../types/ventureHistory";
 
 type RetainerTypeFilter = RetainerType | "all";
 
@@ -154,6 +157,13 @@ export function VenturesPage({
     (showExploration ? sortedExplorationVentures.length : 0) +
     (showQuick ? 1 : 0);
 
+  const ventureRuns = useLiveQuery(() => db.ventureRuns.toArray());
+
+  const venturesHistory = useMemo(
+    () => buildVenturesHistory(ventureRuns ?? []),
+    [ventureRuns],
+  );
+
   return (
     <div className="page-layout ventures-page">
       <div className="ventures-intro">
@@ -282,6 +292,7 @@ export function VenturesPage({
                       matchingItems={matchingItemsByVentureId.get(venture.id)}
                       itemsById={itemsById}
                       ventureRewards={ventureRewards}
+                      personalHistory={venturesHistory.get(venture.id)}
                       isExpanded={isExpanded(venture.id)}
                       onToggle={toggleExpanded}
                     />
@@ -317,6 +328,7 @@ export function VenturesPage({
                       matchingItems={matchingItemsByVentureId.get(venture.id)}
                       itemsById={itemsById}
                       ventureRewards={ventureRewards}
+                      personalHistory={venturesHistory.get(venture.id)}
                       isExpanded={isExpanded(venture.id)}
                       onToggle={toggleExpanded}
                     />
@@ -339,6 +351,7 @@ export function VenturesPage({
               matchingItems={matchingItemsByVentureId.get(quickVenture.id)}
               rewards={ventureRewards.quick}
               itemsById={itemsById}
+              personalHistory={venturesHistory.get(quickVenture.id)}
               isExpanded={isExpanded(quickVenture.id)}
               onToggle={() => toggleExpanded(quickVenture.id)}
             />
