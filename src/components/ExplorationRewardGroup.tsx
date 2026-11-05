@@ -2,12 +2,14 @@ import { useTranslation } from "react-i18next";
 import type { Language } from "../types/i18n";
 import type { ItemSearchEntry } from "../types/items";
 import { buildItemIconUrl } from "../utils/itemIcon";
+import { VentureHistorySummary } from "../types/ventureHistory";
 
 type ExplorationRewardGroupProps = {
   title: string;
   itemIds: number[];
   itemsById: Map<number, ItemSearchEntry>;
   matchingItemIds: number[];
+  itemsHistory?: VentureHistorySummary["itemsHistory"];
 };
 
 export function ExplorationRewardGroup({
@@ -15,6 +17,7 @@ export function ExplorationRewardGroup({
   itemIds,
   itemsById,
   matchingItemIds,
+  itemsHistory,
 }: ExplorationRewardGroupProps) {
   const { t, i18n } = useTranslation();
 
@@ -31,6 +34,8 @@ export function ExplorationRewardGroup({
 
             const isMatchingItem = matchingItemIds.includes(itemId);
 
+            const itemStats = itemsHistory?.get(itemId);
+
             return (
               <li
                 key={itemId}
@@ -45,10 +50,24 @@ export function ExplorationRewardGroup({
                   />
                 )}
 
-                <span>
-                  {item?.name[language] ??
-                    t("explorationVenture.unknownItem", { id: itemId })}
-                </span>
+                <div className="exploration-reward-item-content">
+                  <span>
+                    {item?.name[language] ??
+                      t("explorationVenture.unknownItem", { id: itemId })}
+                  </span>
+
+                  {itemStats !== undefined && (
+                    <span className="exploration-reward-item-stats">
+                      {t("ventures.history.obtention", {
+                        count: itemStats.occurrences,
+                      })}
+                      {" · "}
+                      {t("ventures.history.total", {
+                        count: itemStats.totalQuantity,
+                      })}
+                    </span>
+                  )}
+                </div>
               </li>
             );
           })}

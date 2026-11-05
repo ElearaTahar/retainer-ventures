@@ -22,6 +22,7 @@ import { RetainerBellIcon } from "../components/icons/RetainerBellIcon";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../db/database";
 import { buildVenturesHistory } from "../types/ventureHistory";
+import { Retainer } from "../types/retainers";
 
 type RetainerTypeFilter = RetainerType | "all";
 
@@ -164,6 +165,18 @@ export function VenturesPage({
     [ventureRuns],
   );
 
+  const retainers = useLiveQuery(() => db.retainers.toArray());
+
+  const retainersById = useMemo(() => {
+    const result = new Map<number, Retainer>();
+
+    retainers?.forEach((retainer) => {
+      result.set(retainer.id, retainer);
+    });
+
+    return result;
+  }, [retainers]);
+
   return (
     <div className="page-layout ventures-page">
       <div className="ventures-intro">
@@ -293,6 +306,7 @@ export function VenturesPage({
                       itemsById={itemsById}
                       ventureRewards={ventureRewards}
                       personalHistory={venturesHistory.get(venture.id)}
+                      retainers={retainersById}
                       isExpanded={isExpanded(venture.id)}
                       onToggle={toggleExpanded}
                     />
@@ -329,6 +343,7 @@ export function VenturesPage({
                       itemsById={itemsById}
                       ventureRewards={ventureRewards}
                       personalHistory={venturesHistory.get(venture.id)}
+                      retainers={retainersById}
                       isExpanded={isExpanded(venture.id)}
                       onToggle={toggleExpanded}
                     />
@@ -352,6 +367,7 @@ export function VenturesPage({
               rewards={ventureRewards.quick}
               itemsById={itemsById}
               personalHistory={venturesHistory.get(quickVenture.id)}
+              retainers={retainersById}
               isExpanded={isExpanded(quickVenture.id)}
               onToggle={() => toggleExpanded(quickVenture.id)}
             />

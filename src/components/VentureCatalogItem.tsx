@@ -7,6 +7,8 @@ import { ItemIconStack } from "./ItemIconStack";
 import type { VentureRewardsData } from "../types/ventureRewards";
 import "../styles/venture-catalog-item.css";
 import { VentureHistorySummary } from "../types/ventureHistory";
+import { VenturePersonalHistory } from "./VenturePersonalHistory";
+import { Retainer } from "../types/retainers";
 
 const durationSteps = [
   { levelOffset: 0, minutes: 60 },
@@ -25,6 +27,7 @@ type VentureCatalogItemProps = {
   itemsById: Map<number, ItemSearchEntry>;
   ventureRewards: VentureRewardsData;
   personalHistory: VentureHistorySummary | undefined;
+  retainers: Map<number, Retainer>;
   isExpanded: boolean;
   onToggle: (id: number) => void;
 };
@@ -35,6 +38,7 @@ export const VentureCatalogItem = memo(function VentureCatalogItem({
   itemsById,
   ventureRewards,
   personalHistory,
+  retainers,
   isExpanded,
   onToggle,
 }: VentureCatalogItemProps) {
@@ -249,6 +253,13 @@ export const VentureCatalogItem = memo(function VentureCatalogItem({
                   </tbody>
                 </table>
               </div>
+
+              <VenturePersonalHistory
+                ventureType="targeted"
+                personalHistory={personalHistory}
+                retainers={retainers}
+                itemsById={itemsById}
+              />
             </>
           ) : (
             <>
@@ -279,6 +290,7 @@ export const VentureCatalogItem = memo(function VentureCatalogItem({
                     itemIds={rewards.allaganPieces}
                     itemsById={itemsById}
                     matchingItemIds={matchingItemIds}
+                    itemsHistory={personalHistory?.itemsHistory}
                   />
 
                   <ExplorationRewardGroup
@@ -288,6 +300,7 @@ export const VentureCatalogItem = memo(function VentureCatalogItem({
                     itemIds={rewards.jobItems}
                     itemsById={itemsById}
                     matchingItemIds={matchingItemIds}
+                    itemsHistory={personalHistory?.itemsHistory}
                   />
 
                   <ExplorationRewardGroup
@@ -295,6 +308,7 @@ export const VentureCatalogItem = memo(function VentureCatalogItem({
                     itemIds={rewards.minions}
                     itemsById={itemsById}
                     matchingItemIds={matchingItemIds}
+                    itemsHistory={personalHistory?.itemsHistory}
                   />
 
                   <ExplorationRewardGroup
@@ -302,9 +316,18 @@ export const VentureCatalogItem = memo(function VentureCatalogItem({
                     itemIds={rewards.otherItems}
                     itemsById={itemsById}
                     matchingItemIds={matchingItemIds}
+                    itemsHistory={personalHistory?.itemsHistory}
                   />
                 </div>
               )}
+
+              <VenturePersonalHistory
+                ventureType="exploration"
+                personalHistory={personalHistory}
+                retainers={retainers}
+                itemsById={itemsById}
+                rewardItemIds={rewardItemIds}
+              />
             </>
           )}
         </div>

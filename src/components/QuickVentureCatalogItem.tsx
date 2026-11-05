@@ -9,6 +9,8 @@ import "../styles/venture-catalog-item.css";
 import { buildItemIconUrl } from "../utils/itemIcon";
 import { Info } from "lucide-react";
 import { VentureHistorySummary } from "../types/ventureHistory";
+import { VenturePersonalHistory } from "./VenturePersonalHistory";
+import { Retainer } from "../types/retainers";
 
 type QuickVentureCatalogItemProps = {
   venture: QuickVenture;
@@ -16,6 +18,7 @@ type QuickVentureCatalogItemProps = {
   rewards: QuickRewards;
   itemsById: Map<number, ItemSearchEntry>;
   personalHistory: VentureHistorySummary | undefined;
+  retainers: Map<number, Retainer>;
   isExpanded: boolean;
   onToggle: () => void;
 };
@@ -26,6 +29,7 @@ export function QuickVentureCatalogItem({
   rewards,
   itemsById,
   personalHistory,
+  retainers,
   isExpanded,
   onToggle,
 }: QuickVentureCatalogItemProps) {
@@ -140,6 +144,13 @@ export function QuickVentureCatalogItem({
           ) : (
             <p>{t("quickExplorationVenture.noKnownRewards")}</p>
           )}
+
+          <VenturePersonalHistory
+            ventureType="quick"
+            personalHistory={personalHistory}
+            retainers={retainers}
+            itemsById={itemsById}
+          />
         </div>
       </div>
     </div>
