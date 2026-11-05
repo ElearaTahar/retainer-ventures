@@ -296,6 +296,7 @@
 
   font-size: 0.8125rem;
   line-height: 1.5;
+  text-wrap: balance;
 }
 
 .exploration-community-notice svg {

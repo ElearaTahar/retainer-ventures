@@ -12,7 +12,7 @@ import type { ItemSearchEntry } from "../types/items";
 import type { VentureRewardsData } from "../types/ventureRewards";
 import { toLanguage } from "../utils/i18n";
 import { searchVentures } from "../utils/ventureSearch";
-import { Check, PawPrint, Search } from "lucide-react";
+import { Check, Info, PawPrint, Search } from "lucide-react";
 import { FilterTabs } from "../components/FilterTabs";
 import { VentureCatalogSection } from "../components/VentureCatalogSection";
 import { VentureCatalogItem } from "../components/VentureCatalogItem";
@@ -23,6 +23,10 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../db/database";
 import { buildVenturesHistory } from "../types/ventureHistory";
 import { Retainer } from "../types/retainers";
+import {
+  categoriesByRetainerType,
+  isRetainerType,
+} from "../data/ventureCategories";
 
 type RetainerTypeFilter = RetainerType | "all";
 
@@ -291,11 +295,22 @@ export function VenturesPage({
               (venture) => venture.retainerType === rType,
             );
 
+            if (!isRetainerType(rType)) return null;
+
+            const targetedCategory = categoriesByRetainerType[rType].find(
+              (category) => category.kind === "targeted",
+            );
+
             if (venturesGroup.length === 0) return null;
 
             return (
               <div key={rType} className="venture-retainer-group">
-                <h4>{t(`retainerTypes.${rType}`)}</h4>
+                <h4>
+                  {t(`retainerTypes.${rType}`)} {" - "}
+                  {targetedCategory
+                    ? t(targetedCategory.translationKey)
+                    : t(`retainerTypes.${rType}`)}
+                </h4>
 
                 <div className="venture-catalog-items">
                   {venturesGroup.map((venture) => (
@@ -323,6 +338,11 @@ export function VenturesPage({
           title={t("explorationVenture.title")}
           description={t("explorationVenture.description")}
         >
+          <p className="exploration-community-notice">
+            <Info size={16} aria-hidden="true" />
+            <span>{t("explorationVenture.communityRewardsNotice")}</span>
+          </p>
+
           {retainerTypesForGroup.map((rType) => {
             const venturesGroup = sortedExplorationVentures.filter(
               (venture) => venture.retainerType === rType,
