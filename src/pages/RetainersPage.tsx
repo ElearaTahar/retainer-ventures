@@ -645,8 +645,8 @@ export function RetainersPage({
           quickVenture={quickVenture}
           itemsById={itemsById}
           ventureRewards={ventureRewards}
+          retainers={activeRetainers}
           retainer={recordRunRetainer}
-          avatarColor={avatarColors.get(recordRunRetainer.id) ?? 1}
           initialVentureId={recordRunInitialVentureId ?? undefined}
           onClose={() => {
             setRecordRunRetainerId(null);

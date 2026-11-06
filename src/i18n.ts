@@ -207,6 +207,12 @@ const resources = {
         selectVentureHint: "Which venture did <bold>{{name}}</bold> complete?",
         levelFilterHint:
           "Only ventures available at level {{level}} are shown.",
+        noActiveRetainers:
+          "No active retainers available. Activate or add a retainer to record a result.",
+        noCompatibleRetainers:
+          "No active retainers are eligible for this venture.",
+        compatibleRetainersHint:
+          "Only retainers eligible for this venture are shown.",
         search: {
           label: "Search for a venture",
           placeholder: "Search for a venture name…",
@@ -467,6 +473,12 @@ const resources = {
           "Quelle tâche a été réalisée par <bold>{{name}}</bold> ?",
         levelFilterHint:
           "Seules les tâches accessibles au niveau {{level}} sont affichées.",
+        noActiveRetainers:
+          "Aucun servant actif disponible. Activez ou ajoutez un servant pour enregistrer un résultat.",
+        noCompatibleRetainers:
+          "Aucun servant actif n'est compatible avec cette tâche.",
+        compatibleRetainersHint:
+          "Seuls les servants compatibles avec cette tâche sont affichés.",
         search: {
           label: "Rechercher une tâche",
           placeholder: "Chercher une tâche…",

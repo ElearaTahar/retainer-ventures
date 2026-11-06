@@ -11,6 +11,7 @@ type VenturePersonalHistoryProps = {
   retainers: Map<number, Retainer>;
   itemsById: Map<number, ItemSearchEntry>;
   rewardItemIds?: number[];
+  onRecordRun: () => void;
 };
 
 export function VenturePersonalHistory({
@@ -19,6 +20,7 @@ export function VenturePersonalHistory({
   retainers,
   itemsById,
   rewardItemIds,
+  onRecordRun,
 }: VenturePersonalHistoryProps) {
   const { t, i18n } = useTranslation();
   const language = i18n.language === "fr" ? "fr" : "en";
@@ -132,7 +134,7 @@ export function VenturePersonalHistory({
         </div>
       </div>
 
-      <button className="btn btn-subtle" type="button" disabled={true}>
+      <button className="btn btn-subtle" type="button" onClick={onRecordRun}>
         {t("myRetainers.recordRunButton")}
       </button>
     </section>

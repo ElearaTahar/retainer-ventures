@@ -27,6 +27,7 @@ import {
   categoriesByRetainerType,
   isRetainerType,
 } from "../data/ventureCategories";
+import { RecordRunDialog } from "../components/RecordRunDialog";
 
 type RetainerTypeFilter = RetainerType | "all";
 
@@ -181,6 +182,13 @@ export function VenturesPage({
     return result;
   }, [retainers]);
 
+  const activeRetainers =
+    retainers?.filter((retainer) => retainer.status === "active") ?? [];
+
+  const [recordRunVentureId, setRecordRunVentureId] = useState<number | null>(
+    null,
+  );
+
   return (
     <div className="page-layout ventures-page">
       <div className="ventures-intro">
@@ -324,6 +332,7 @@ export function VenturesPage({
                       retainers={retainersById}
                       isExpanded={isExpanded(venture.id)}
                       onToggle={toggleExpanded}
+                      onRecordRun={setRecordRunVentureId}
                     />
                   ))}
                 </div>
@@ -366,6 +375,7 @@ export function VenturesPage({
                       retainers={retainersById}
                       isExpanded={isExpanded(venture.id)}
                       onToggle={toggleExpanded}
+                      onRecordRun={setRecordRunVentureId}
                     />
                   ))}
                 </div>
@@ -390,9 +400,25 @@ export function VenturesPage({
               retainers={retainersById}
               isExpanded={isExpanded(quickVenture.id)}
               onToggle={() => toggleExpanded(quickVenture.id)}
+              onRecordRun={() => setRecordRunVentureId(quickVenture.id)}
             />
           </div>
         </VentureCatalogSection>
+      )}
+
+      {recordRunVentureId !== null && (
+        <RecordRunDialog
+          targetedVentures={targetedVentures}
+          explorationVentures={explorationVentures}
+          quickVenture={quickVenture}
+          itemsById={itemsById}
+          ventureRewards={ventureRewards}
+          retainers={activeRetainers}
+          initialVentureId={recordRunVentureId}
+          onClose={() => {
+            setRecordRunVentureId(null);
+          }}
+        />
       )}
     </div>
   );

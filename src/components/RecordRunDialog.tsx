@@ -3,7 +3,10 @@ import { useEffect, useRef, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { categoriesByRetainerType } from "../data/ventureCategories";
 import type { Retainer } from "../types/retainers";
-import { getRetainerInitials } from "../utils/retainerAvatars";
+import {
+  getRetainerAvatarColors,
+  getRetainerInitials,
+} from "../utils/retainerAvatars";
 import type { Language } from "../types/i18n";
 import "../styles/record-run-dialog.css";
 import type {
@@ -34,8 +37,8 @@ type RecordRunDialogProps = {
   quickVenture: QuickVenture;
   itemsById: Map<number, ItemSearchEntry>;
   ventureRewards: VentureRewardsData;
-  retainer: Retainer;
-  avatarColor: number;
+  retainers: Retainer[];
+  retainer?: Retainer;
   initialVentureId?: number;
   onClose: () => void;
 };
@@ -46,8 +49,8 @@ export function RecordRunDialog({
   quickVenture,
   itemsById,
   ventureRewards,
+  retainers,
   retainer,
-  avatarColor,
   initialVentureId,
   onClose,
 }: RecordRunDialogProps) {
@@ -60,29 +63,65 @@ export function RecordRunDialog({
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState(false);
 
-  const categories = categoriesByRetainerType[retainer.retainerType];
+  const [selectedRetainerId, setSelectedRetainerId] = useState<number | null>(
+    retainer?.id ?? null,
+  );
+  const selectedRetainer = retainers.find(
+    (candidate) => candidate.id === selectedRetainerId,
+  );
 
-  const initials = getRetainerInitials(retainer.name);
+  const categories = selectedRetainer
+    ? categoriesByRetainerType[selectedRetainer.retainerType]
+    : [];
 
-  const initialVentureKind =
+  const avatarColors = getRetainerAvatarColors(retainers);
+
+  const initialVenture =
     initialVentureId === undefined
-      ? null
+      ? undefined
       : quickVenture.id === initialVentureId
-        ? "quick"
-        : targetedVentures.some((venture) => venture.id === initialVentureId)
-          ? "targeted"
-          : explorationVentures.some(
-                (venture) => venture.id === initialVentureId,
-              )
-            ? "exploration"
-            : null;
+        ? quickVenture
+        : (targetedVentures.find(
+            (venture) => venture.id === initialVentureId,
+          ) ??
+          explorationVentures.find(
+            (venture) => venture.id === initialVentureId,
+          ));
 
-  const [currentStep, setCurrentStep] = useState<RecordRunStep>(
-    initialVentureKind === null ? 2 : 4,
-  );
-  const [maxUnlockedStep, setMaxUnlockedStep] = useState<RecordRunStep>(
-    initialVentureKind === null ? 2 : 4,
-  );
+  const initialVentureKind = initialVenture?.kind ?? null;
+
+  function getCompatibleRetainers() {
+    if (initialVenture === undefined) return retainers;
+
+    switch (initialVenture.kind) {
+      case "targeted":
+      case "exploration":
+        return retainers.filter(
+          (candidate) =>
+            candidate.retainerType === initialVenture.retainerType &&
+            (candidate.level === undefined ||
+              candidate.level >= initialVenture.requiredLevel),
+        );
+
+      case "quick":
+        return retainers;
+
+      default:
+        return retainers;
+    }
+  }
+
+  const compatibleRetainers = getCompatibleRetainers();
+
+  const retainersToDisplay =
+    retainer !== undefined ? [retainer] : compatibleRetainers;
+
+  const initialStep: RecordRunStep =
+    retainer === undefined ? 1 : initialVentureKind === null ? 2 : 4;
+
+  const [currentStep, setCurrentStep] = useState<RecordRunStep>(initialStep);
+  const [maxUnlockedStep, setMaxUnlockedStep] =
+    useState<RecordRunStep>(initialStep);
   const steps = [
     { id: 1, label: t("recordRun.steps.retainer") },
     { id: 2, label: t("recordRun.steps.type") },
@@ -99,14 +138,11 @@ export function RecordRunDialog({
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const initialTargetedVenture =
-    initialVentureKind === "targeted"
-      ? targetedVentures.find((venture) => venture.id === initialVentureId)
-      : undefined;
-
   const [selectedQuantity, setSelectedQuantity] = useState<number | null>(
-    initialTargetedVenture !== undefined
-      ? getSuggestedQuantity(initialTargetedVenture, retainer)
+    initialVenture !== undefined &&
+      initialVenture.kind === "targeted" &&
+      selectedRetainer !== undefined
+      ? getSuggestedQuantity(initialVenture, selectedRetainer)
       : null,
   );
 
@@ -218,6 +254,15 @@ export function RecordRunDialog({
   }, [hasSearchResults]);
 
   function handlePreviousStep() {
+    if (
+      currentStep === 4 &&
+      retainer === undefined &&
+      initialVenture !== undefined
+    ) {
+      setCurrentStep(1);
+      return;
+    }
+
     if (currentStep === 4 && selectedVentureKind === "quick") {
       setCurrentStep(2);
       return;
@@ -229,6 +274,12 @@ export function RecordRunDialog({
   }
 
   function handleNextStep() {
+    if (currentStep === 1 && initialVentureKind !== null) {
+      setCurrentStep(4);
+      setMaxUnlockedStep(4);
+      return;
+    }
+
     if (currentStep === 2 && selectedVentureKind === "quick") {
       setCurrentStep(4);
       return;
@@ -262,12 +313,14 @@ export function RecordRunDialog({
   }
 
   function handleSelectVenture(ventureId: number) {
+    if (selectedRetainer === undefined) return;
+
     const venture = targetedVentures.find(
       (venture) => venture.id === ventureId,
     );
 
     if (venture !== undefined) {
-      setSelectedQuantity(getSuggestedQuantity(venture, retainer));
+      setSelectedQuantity(getSuggestedQuantity(venture, selectedRetainer));
     } else {
       setSelectedQuantity(null);
     }
@@ -324,7 +377,7 @@ export function RecordRunDialog({
   }
 
   async function handleSaveRun() {
-    if (isSaving) return;
+    if (isSaving || selectedRetainer === undefined) return;
 
     let newVentureRun: NewVentureRun | null = null;
 
@@ -343,7 +396,7 @@ export function RecordRunDialog({
       ];
 
       newVentureRun = {
-        retainerId: retainer.id,
+        retainerId: selectedRetainer.id,
         ventureId: selectedVenture.id,
         results,
       };
@@ -359,7 +412,7 @@ export function RecordRunDialog({
       if (selectedVenture === undefined) return;
 
       newVentureRun = {
-        retainerId: retainer.id,
+        retainerId: selectedRetainer.id,
         ventureId: selectedVenture.id,
         results: explorationResults,
       };
@@ -369,7 +422,7 @@ export function RecordRunDialog({
       if (!canSaveExploration || explorationResults.length !== 1) return;
 
       newVentureRun = {
-        retainerId: retainer.id,
+        retainerId: selectedRetainer.id,
         ventureId: quickVenture.id,
         results: explorationResults,
       };
@@ -391,21 +444,23 @@ export function RecordRunDialog({
   }
 
   function getAvailableVentures() {
+    if (selectedRetainer === undefined) return [];
+
     switch (selectedVentureKind) {
       case "targeted":
         return targetedVentures.filter(
           (venture) =>
-            venture.retainerType === retainer.retainerType &&
-            (retainer.level === undefined ||
-              venture.requiredLevel <= retainer.level),
+            venture.retainerType === selectedRetainer.retainerType &&
+            (selectedRetainer.level === undefined ||
+              venture.requiredLevel <= selectedRetainer.level),
         );
 
       case "exploration":
         return explorationVentures.filter(
           (venture) =>
-            venture.retainerType === retainer.retainerType &&
-            (retainer.level === undefined ||
-              venture.requiredLevel <= retainer.level),
+            venture.retainerType === selectedRetainer.retainerType &&
+            (selectedRetainer.level === undefined ||
+              venture.requiredLevel <= selectedRetainer.level),
         );
 
       case "quick":
@@ -529,51 +584,104 @@ export function RecordRunDialog({
     );
   }
 
-  function renderStepContent() {
-    switch (currentStep) {
-      case 1:
-        return (
-          <>
-            <p className="record-run-step-hint">
-              {t("recordRun.selectRetainerHint")}
-            </p>
+  function renderRetainerSelection() {
+    return (
+      <>
+        <p className="record-run-step-hint">
+          {t("recordRun.selectRetainerHint")}
+        </p>
 
-            <div className="record-run-retainer">
-              <div
-                className="retainer-avatar"
-                data-color={avatarColor}
-                aria-hidden="true"
-              >
-                {initials}
-              </div>
+        {initialVenture !== undefined && initialVenture.kind !== "quick" && (
+          <p className="record-run-filter-hint">
+            {t("recordRun.compatibleRetainersHint")}
+          </p>
+        )}
 
-              <div className="retainer-card-identity">
-                <span className="retainer-card-name" title={retainer.name}>
-                  {retainer.name}
-                </span>
-                <span className="retainer-card-subtitle">
-                  {t(`retainerTypes.${retainer.retainerType}`)}
-                  {retainer.level !== undefined && (
-                    <>
-                      {" "}
-                      · {t("myRetainers.level")}{" "}
-                      {numberFormatter.format(retainer.level)}
-                    </>
+        {retainers.length === 0 ? (
+          <p className="record-run-filter-hint">
+            {t("recordRun.noActiveRetainers")}
+          </p>
+        ) : retainersToDisplay.length === 0 ? (
+          <p className="record-run-filter-hint">
+            {t("recordRun.noCompatibleRetainers")}
+          </p>
+        ) : (
+          <div className="record-run-retainers">
+            {retainersToDisplay.map((candidate) => {
+              const isSelected = candidate.id === selectedRetainerId;
+
+              return (
+                <button
+                  key={candidate.id}
+                  type="button"
+                  className="record-run-retainer"
+                  aria-pressed={isSelected}
+                  onClick={() => {
+                    setSelectedRetainerId(candidate.id);
+                    if (initialVenture !== undefined) {
+                      setMaxUnlockedStep(4);
+                    }
+                    if (initialVenture?.kind === "targeted") {
+                      setSelectedQuantity(
+                        getSuggestedQuantity(initialVenture, candidate),
+                      );
+                    }
+                  }}
+                  disabled={retainer !== undefined}
+                >
+                  <div
+                    className="retainer-avatar"
+                    data-color={avatarColors.get(candidate.id) ?? 1}
+                    aria-hidden="true"
+                  >
+                    {getRetainerInitials(candidate.name)}
+                  </div>
+
+                  <div className="retainer-card-identity">
+                    <span className="retainer-card-name" title={candidate.name}>
+                      {candidate.name}
+                    </span>
+
+                    <span className="retainer-card-subtitle">
+                      {t(`retainerTypes.${candidate.retainerType}`)}
+                      {candidate.level !== undefined && (
+                        <>
+                          {" · "}
+                          {t("myRetainers.level")}{" "}
+                          {numberFormatter.format(candidate.level)}
+                        </>
+                      )}
+                    </span>
+                  </div>
+
+                  {isSelected && (
+                    <Check
+                      className="record-run-retainer-check"
+                      aria-hidden="true"
+                    />
                   )}
-                </span>
-              </div>
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </>
+    );
+  }
 
-              <Check className="record-run-retainer-check" aria-hidden="true" />
-            </div>
-          </>
-        );
+  function renderStepContent() {
+    if (currentStep === 1) return renderRetainerSelection();
+
+    if (selectedRetainer === undefined) return null;
+
+    switch (currentStep) {
       case 2:
         return (
           <>
             <p className="record-run-step-hint">
               <Trans
                 i18nKey="recordRun.selectVentureKindHint"
-                values={{ name: retainer.name }}
+                values={{ name: selectedRetainer.name }}
                 components={{ bold: <strong /> }}
               />
             </p>
@@ -626,14 +734,16 @@ export function RecordRunDialog({
                 <p className="record-run-step-hint">
                   <Trans
                     i18nKey="recordRun.selectVentureHint"
-                    values={{ name: retainer.name }}
+                    values={{ name: selectedRetainer.name }}
                     components={{ bold: <strong /> }}
                   />
                 </p>
 
-                {retainer.level !== undefined && (
-                  <p className="record-run-level-hint">
-                    {t("recordRun.levelFilterHint", { level: retainer.level })}
+                {selectedRetainer.level !== undefined && (
+                  <p className="record-run-filter-hint">
+                    {t("recordRun.levelFilterHint", {
+                      level: selectedRetainer.level,
+                    })}
                   </p>
                 )}
 
@@ -659,13 +769,16 @@ export function RecordRunDialog({
                   const requirementStatus =
                     venture.kind === "targeted" ||
                     venture.kind === "exploration"
-                      ? getRequirementStatus(venture.requirement, retainer)
+                      ? getRequirementStatus(
+                          venture.requirement,
+                          selectedRetainer,
+                        )
                       : "unknown";
 
                   const currentStat =
-                    retainer.retainerType === "combat"
-                      ? retainer.itemLevel
-                      : retainer.gathering;
+                    selectedRetainer.retainerType === "combat"
+                      ? selectedRetainer.itemLevel
+                      : selectedRetainer.gathering;
 
                   const requirementLabel =
                     venture.kind === "quick"
@@ -745,7 +858,7 @@ export function RecordRunDialog({
             <div>
               <p className="record-run-step-hint">
                 {t(`recordRun.quantities.${selectedVentureKind}`, {
-                  retainerName: retainer.name,
+                  retainerName: selectedRetainer.name,
                 })}
               </p>
 
@@ -828,7 +941,7 @@ export function RecordRunDialog({
             <div>
               <p className="record-run-step-hint">
                 {t("recordRun.quantities.other", {
-                  retainerName: retainer.name,
+                  retainerName: selectedRetainer.name,
                 })}
               </p>
 
@@ -951,7 +1064,7 @@ export function RecordRunDialog({
             <div>
               <p className="record-run-step-hint">
                 {t("recordRun.quantities.other", {
-                  retainerName: retainer.name,
+                  retainerName: selectedRetainer.name,
                 })}
               </p>
 
@@ -991,36 +1104,44 @@ export function RecordRunDialog({
         className="record-run-steps"
         aria-label={t("recordRun.stepsNavigation")}
       >
-        {steps.map((step) => (
-          <button
-            key={step.id}
-            type="button"
-            className="record-run-step"
-            onClick={() => setCurrentStep(step.id)}
-            aria-current={currentStep === step.id ? "step" : undefined}
-            data-state={
-              step.id === currentStep
-                ? "current"
-                : step.id < maxUnlockedStep
-                  ? "completed"
-                  : "upcoming"
-            }
-            disabled={
-              step.id > maxUnlockedStep ||
-              (selectedVentureKind === "quick" && step.id === 3)
-            }
-          >
-            <span className="record-run-step-circle" aria-hidden="true">
-              {step.id < maxUnlockedStep && step.id !== currentStep ? (
-                <Check size={16} />
-              ) : (
-                step.id
-              )}
-            </span>
+        {steps.map((step) => {
+          const isSkippedStep =
+            retainer === undefined &&
+            initialVenture !== undefined &&
+            (step.id === 2 || step.id === 3);
 
-            <span className="record-run-step-label">{step.label}</span>
-          </button>
-        ))}
+          return (
+            <button
+              key={step.id}
+              type="button"
+              className="record-run-step"
+              onClick={() => setCurrentStep(step.id)}
+              aria-current={currentStep === step.id ? "step" : undefined}
+              data-state={
+                step.id === currentStep
+                  ? "current"
+                  : step.id < maxUnlockedStep
+                    ? "completed"
+                    : "upcoming"
+              }
+              disabled={
+                step.id > maxUnlockedStep ||
+                (selectedVentureKind === "quick" && step.id === 3) ||
+                isSkippedStep
+              }
+            >
+              <span className="record-run-step-circle" aria-hidden="true">
+                {step.id < maxUnlockedStep && step.id !== currentStep ? (
+                  <Check size={16} />
+                ) : (
+                  step.id
+                )}
+              </span>
+
+              <span className="record-run-step-label">{step.label}</span>
+            </button>
+          );
+        })}
       </nav>
 
       <div className="record-run-content">
@@ -1051,6 +1172,7 @@ export function RecordRunDialog({
           className="btn btn-primary record-run-continue"
           onClick={() => (currentStep < 4 ? handleNextStep() : handleSaveRun())}
           disabled={
+            (currentStep === 1 && selectedRetainer === undefined) ||
             (currentStep >= maxUnlockedStep && currentStep < 4) ||
             (currentStep === 4 &&
               selectedVentureKind === "targeted" &&

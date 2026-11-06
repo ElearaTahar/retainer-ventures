@@ -30,6 +30,7 @@ type VentureCatalogItemProps = {
   retainers: Map<number, Retainer>;
   isExpanded: boolean;
   onToggle: (id: number) => void;
+  onRecordRun: (id: number) => void;
 };
 
 export const VentureCatalogItem = memo(function VentureCatalogItem({
@@ -41,6 +42,7 @@ export const VentureCatalogItem = memo(function VentureCatalogItem({
   retainers,
   isExpanded,
   onToggle,
+  onRecordRun,
 }: VentureCatalogItemProps) {
   const { t, i18n } = useTranslation();
   const language = i18n.language === "fr" ? "fr" : "en";
@@ -259,6 +261,7 @@ export const VentureCatalogItem = memo(function VentureCatalogItem({
                 personalHistory={personalHistory}
                 retainers={retainers}
                 itemsById={itemsById}
+                onRecordRun={() => onRecordRun(venture.id)}
               />
             </>
           ) : (
@@ -327,6 +330,7 @@ export const VentureCatalogItem = memo(function VentureCatalogItem({
                 retainers={retainers}
                 itemsById={itemsById}
                 rewardItemIds={rewardItemIds}
+                onRecordRun={() => onRecordRun(venture.id)}
               />
             </>
           )}

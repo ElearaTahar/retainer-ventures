@@ -21,6 +21,7 @@ type QuickVentureCatalogItemProps = {
   retainers: Map<number, Retainer>;
   isExpanded: boolean;
   onToggle: () => void;
+  onRecordRun: () => void;
 };
 
 export function QuickVentureCatalogItem({
@@ -32,6 +33,7 @@ export function QuickVentureCatalogItem({
   retainers,
   isExpanded,
   onToggle,
+  onRecordRun,
 }: QuickVentureCatalogItemProps) {
   const { t, i18n } = useTranslation();
   const language: Language = i18n.language === "fr" ? "fr" : "en";
@@ -150,6 +152,7 @@ export function QuickVentureCatalogItem({
             personalHistory={personalHistory}
             retainers={retainers}
             itemsById={itemsById}
+            onRecordRun={onRecordRun}
           />
         </div>
       </div>
