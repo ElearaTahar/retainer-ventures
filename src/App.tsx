@@ -16,6 +16,7 @@ import { RetainersPage } from "./pages/RetainersPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { BackToTopButton } from "./components/BackToTopButton";
 import { LoadingScreen } from "./components/LoadingScreen";
+import { LegalNoticePage } from "./pages/LegalNoticePage";
 
 export function App() {
   const [targetedVentures, setTargetedVentures] = useState<
@@ -116,6 +117,8 @@ export function App() {
               />
             }
           />
+
+          <Route path="/legal" element={<LegalNoticePage />} />
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

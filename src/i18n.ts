@@ -13,6 +13,40 @@ const resources = {
           dark: "dark",
         },
       },
+      legal: {
+        title: "Legal notice",
+        publisher: {
+          title: "Website publisher",
+          name: "Retainer Ventures",
+        },
+        publicationManager: {
+          title: "Publication manager",
+        },
+        hosting: {
+          title: "Hosting",
+          description: "This website is hosted by:",
+        },
+        intellectualProperty: {
+          title: "Intellectual property",
+          sourceCode:
+            "The original source code of Retainer Ventures is distributed under the MIT License.",
+          thirdParty:
+            "Third-party data, trademarks, graphics, icons, and other resources remain subject to the rights and licenses of their respective owners.",
+        },
+        ffxiv: {
+          title: "Final Fantasy XIV",
+          copyright: "FINAL FANTASY XIV © 2026 SQUARE ENIX CO., LTD.",
+          disclaimer:
+            "Retainer Ventures is an unofficial fan-made project and is not affiliated with or endorsed by Square Enix.",
+        },
+        liability: {
+          title: "Liability",
+          information:
+            "The information provided by Retainer Ventures is for informational purposes only and may contain errors or incomplete data.",
+          availability:
+            "The publisher does not guarantee uninterrupted availability of the service and cannot be held liable for interruptions or malfunctions, to the extent permitted by law.",
+        },
+      },
       common: {
         loading: "Loading",
       },
@@ -275,6 +309,40 @@ const resources = {
         themes: {
           light: "clair",
           dark: "sombre",
+        },
+      },
+      legal: {
+        title: "Mentions légales",
+        publisher: {
+          title: "Éditeur du site",
+          name: "Retainer Ventures",
+        },
+        publicationManager: {
+          title: "Responsable de publication",
+        },
+        hosting: {
+          title: "Hébergement",
+          description: "Le site est hébergé par :",
+        },
+        intellectualProperty: {
+          title: "Propriété intellectuelle",
+          sourceCode:
+            "Le code source original de Retainer Ventures est distribué sous licence MIT.",
+          thirdParty:
+            "Les données, marques, graphismes, icônes et autres ressources provenant de tiers restent soumis aux droits et licences de leurs titulaires respectifs.",
+        },
+        ffxiv: {
+          title: "Final Fantasy XIV",
+          copyright: "FINAL FANTASY XIV © 2026 SQUARE ENIX CO., LTD.",
+          disclaimer:
+            "Retainer Ventures est un projet non officiel créé par une fan, sans affiliation ni approbation de Square Enix.",
+        },
+        liability: {
+          title: "Responsabilité",
+          information:
+            "Les informations proposées par Retainer Ventures sont fournies à titre indicatif et peuvent comporter des erreurs ou des données incomplètes.",
+          availability:
+            "L'éditeur ne garantit pas la disponibilité permanente du service et ne saurait être tenu responsable des interruptions ou dysfonctionnements, dans les limites prévues par la loi.",
         },
       },
       common: {
