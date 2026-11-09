@@ -1,0 +1,70 @@
+.app-footer {
+  position: relative;
+  padding: 1.5rem 1rem 1rem;
+}
+
+.app-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: min(100% - 2rem, var(--content-width));
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+.app-footer-content {
+  width: min(100%, var(--content-width));
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.app-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+}
+
+.app-footer p {
+  margin: 0;
+}
+
+.app-footer-credit {
+  font-size: 0.8125rem;
+}
+
+.app-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.app-footer nav a {
+  color: var(--color-text);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.app-footer nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  color: var(--color-accent);
+}
+
+.app-footer-legal {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 700px) {
+  .app-footer-row {
+    justify-content: center;
+    text-align: center;
+  }
+}
