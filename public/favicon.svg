@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="64"
+   height="64"
+   viewBox="-0.5 -3.5 18 18"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1"
+     transform="translate(-59.266667,-115.62292)">
+    <g
+       id="g1">
+      <g
+         id="g49"
+         transform="matrix(0.15105415,0,0,0.15105415,58.520064,89.48688)"
+         style="stroke-width:7;stroke-dasharray:none">
+        <path
+           style="opacity:1;mix-blend-mode:normal;fill:none;stroke:#bd8ea7;stroke-width:7;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+           d="m 8.2960548,231.31296 c 0,0 9.8317202,-8.54645 10.6705702,-14.56381 1.0783,-7.73508 8.10176,-16.6568 15.09494,-18.23648 21.72222,-4.90717 23.29306,-10.89128 23.29306,-10.89128"
+           id="path45" />
+        <path
+           style="opacity:1;mix-blend-mode:normal;fill:none;stroke:#bd8ea7;stroke-width:7;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="m 113.69026,231.31296 c 0,0 -9.83164,-8.54645 -10.67055,-14.56381 -1.07824,-7.73508 -8.101695,-16.6568 -15.094855,-18.23648 -21.72216,-4.90717 -23.293,-10.89128 -23.293,-10.89128"
+           id="path46" />
+        <path
+           style="opacity:1;mix-blend-mode:normal;fill:none;stroke:#bd8ea7;stroke-width:7;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+           d="m 23.213975,235.53286 h 75.55837"
+           id="path47" />
+        <path
+           style="opacity:1;mix-blend-mode:normal;fill:none;stroke:#bd8ea7;stroke-width:7;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="m 60.773525,185.00133 v -4.64431"
+           id="path48" />
+        <path
+           style="opacity:1;mix-blend-mode:normal;fill:none;stroke:#bd8ea7;stroke-width:7;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="m 55.827245,176.37775 h 10.33184"
+           id="path49" />
+      </g>
+    </g>
+  </g>
+</svg>

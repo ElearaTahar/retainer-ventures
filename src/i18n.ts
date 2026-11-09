@@ -4,6 +4,10 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      meta: {
+        description:
+          "Explore Final Fantasy XIV retainer ventures, manage your retainers, and track the rewards they bring back.",
+      },
       appTitle: "FFXIV Retainer Ventures",
       header: {
         language: "Language",
@@ -341,6 +345,10 @@ const resources = {
   },
   fr: {
     translation: {
+      meta: {
+        description:
+          "Explorez les tâches des servants de Final Fantasy XIV, gérez vos servants et suivez les récompenses qu'ils rapportent.",
+      },
       appTitle: "FFXIV Retainer Ventures",
       header: {
         language: "Langue",
@@ -702,10 +710,19 @@ i18n.use(initReactI18next).init({
   },
 });
 
-document.documentElement.lang = initialLanguage;
+function updateDocumentMetadata() {
+  document.documentElement.lang = i18n.resolvedLanguage ?? "en";
 
-i18n.on("languageChanged", (language) => {
-  document.documentElement.lang = language;
-});
+  const description = document.querySelector<HTMLMetaElement>(
+    'meta[name="description"]',
+  );
+
+  if (description) {
+    description.content = i18n.t("meta.description");
+  }
+}
+
+i18n.on("languageChanged", updateDocumentMetadata);
+updateDocumentMetadata();
 
 export default i18n;
