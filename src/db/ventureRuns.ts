@@ -1,4 +1,4 @@
-import type { NewVentureRun } from "../types/ventureRuns";
+import type { NewVentureRun, VentureResult } from "../types/ventureRuns";
 import { db } from "./database";
 
 export async function addVentureRun(
@@ -25,6 +25,17 @@ export async function addVentureRun(
 
     return await db.ventureRuns.add({ ...ventureRun, completedAt: Date.now() });
   });
+}
+
+export async function updateVentureRun(
+  id: number,
+  changes: NewVentureRun,
+): Promise<void> {
+  const result = await db.ventureRuns.update(id, changes);
+
+  if (result === 0) {
+    throw new Error("Venture run not found");
+  }
 }
 
 export async function deleteVentureRun(id: number): Promise<void> {
