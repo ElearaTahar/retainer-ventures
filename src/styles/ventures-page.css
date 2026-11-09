@@ -67,6 +67,10 @@
   transform: scale(0.97);
 }
 
+.venture-minion-filter:hover {
+  color: var(--color-accent);
+}
+
 .venture-minion-filter:has(input:checked) {
   border-color: var(--color-accent);
 }
