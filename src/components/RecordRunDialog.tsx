@@ -118,7 +118,9 @@ export function RecordRunDialog({
   const compatibleRetainers = getCompatibleRetainers();
 
   const retainersToDisplay =
-    retainer !== undefined ? [retainer] : compatibleRetainers;
+    retainer !== undefined && editingRun === undefined
+      ? [retainer]
+      : compatibleRetainers;
 
   const initialStep: RecordRunStep =
     retainer === undefined ? 1 : initialVentureKind === null ? 2 : 4;
@@ -636,7 +638,7 @@ export function RecordRunDialog({
                       );
                     }
                   }}
-                  disabled={retainer !== undefined}
+                  disabled={retainer !== undefined && editingRun === undefined}
                 >
                   <div
                     className="retainer-avatar"
