@@ -46,9 +46,9 @@ npm run check:missing-rewards
 
 The project distinguishes between reward associations and game data used to classify those rewards.
 
-- **XIVAPI / FFXIV game data** — venture and item data, and structural data used to classify rewards.
-- **LuminaSupplemental** — primary source for known Retainer Venture reward associations.
-- **FFXIV Community Wiki** — manually verified supplemental reward associations currently missing from LuminaSupplemental.
+- **[XIVAPI / FFXIV game data](https://v2.xivapi.com/)** — venture and item data, and structural data used to classify rewards.
+- **[LuminaSupplemental](https://github.com/Critical-Impact/LuminaSupplemental)** — primary source for known Retainer Venture reward associations.
+- **[FFXIV Community Wiki](https://ffxiv.consolegameswiki.com/wiki/FF14_Wiki)** — manually verified supplemental reward associations currently missing from LuminaSupplemental.
 
 Generated files under `public/data/` are consumed by the frontend. The local supplement under `data/` is an input to the generation process.
 
@@ -59,7 +59,7 @@ Generated files under `public/data/` are consumed by the frontend. The local sup
 Some interface icons are derived from third-party projects:
 
 - **FFXIV class/job icons** — Miner, Botanist, and Fisher icons are derived
-  from the `xivapi/classjob-icons` project, licensed under the MIT License.
+  from the [xivapi/classjob-icons](https://github.com/xivapi/classjob-icons) project, licensed under the MIT License.
 - **Lucide** — interface icons are provided by Lucide, licensed under the
   ISC License.
 
@@ -83,3 +83,13 @@ The following sound effect is used in the application:
 - **Header bell sound** — [Ding 3](https://pixabay.com/sound-effects/film-special-effects-ding-3-90200/) by freesound_community, sourced from Pixabay and licensed under the [Pixabay Content License](https://pixabay.com/service/license-summary/).
 
 The original sound has been shortened and converted to WAV for use in the application.
+
+## License
+
+The original source code of Retainer Ventures is licensed under the MIT License. See [LICENSE](LICENSE).
+
+Final Fantasy XIV game data, names, icons, and other game assets remain the property of Square Enix and their respective rights holders.
+
+Third-party data and assets, including content derived from LuminaSupplemental, are subject to their respective licenses and terms. The MIT License does not apply to these materials.
+
+Retainer Ventures is an unofficial fan-made project and is not affiliated with or endorsed by Square Enix.
