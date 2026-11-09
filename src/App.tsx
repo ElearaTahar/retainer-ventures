@@ -18,6 +18,7 @@ import { BackToTopButton } from "./components/BackToTopButton";
 import { LoadingScreen } from "./components/LoadingScreen";
 import { LegalNoticePage } from "./pages/LegalNoticePage";
 import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
+import { AppFooter } from "./components/AppFooter";
 
 export function App() {
   const [targetedVentures, setTargetedVentures] = useState<
@@ -128,6 +129,8 @@ export function App() {
 
         <BackToTopButton />
       </main>
+
+      <AppFooter />
     </>
   );
 }

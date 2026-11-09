@@ -13,6 +13,11 @@ const resources = {
           dark: "dark",
         },
       },
+      footer: {
+        navigation: "Legal information",
+        credit: "Created for the FFXIV community by Eleara Tahar (Louisoix).",
+        disclaimer: "Independent fan project, not affiliated with Square Enix.",
+      },
       legal: {
         title: "Legal notice",
         publisher: {
@@ -342,6 +347,11 @@ const resources = {
           light: "clair",
           dark: "sombre",
         },
+      },
+      footer: {
+        navigation: "Informations légales",
+        credit: "Créé pour la communauté FFXIV par Eleara Tahar (Louisoix).",
+        disclaimer: "Projet indépendant, non affilié à Square Enix.",
       },
       legal: {
         title: "Mentions légales",
