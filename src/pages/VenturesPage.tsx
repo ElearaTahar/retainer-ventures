@@ -1,4 +1,4 @@
-import { useDeferredValue, useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "../styles/ventures-page.css";
 import "../styles/empty-state.css";
@@ -12,13 +12,22 @@ import type { ItemSearchEntry } from "../types/items";
 import type { VentureRewardsData } from "../types/ventureRewards";
 import { toLanguage } from "../utils/i18n";
 import { searchVentures } from "../utils/ventureSearch";
-import { Check, PawPrint, Search } from "lucide-react";
+import { Check, Info, PawPrint, Search } from "lucide-react";
 import { FilterTabs } from "../components/FilterTabs";
 import { VentureCatalogSection } from "../components/VentureCatalogSection";
 import { VentureCatalogItem } from "../components/VentureCatalogItem";
 import { useExpandedItems } from "../hooks/useExpandedItems";
 import { QuickVentureCatalogItem } from "../components/QuickVentureCatalogItem";
 import { RetainerBellIcon } from "../components/icons/RetainerBellIcon";
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from "../db/database";
+import { buildVenturesHistory } from "../types/ventureHistory";
+import { Retainer } from "../types/retainers";
+import {
+  categoriesByRetainerType,
+  isRetainerType,
+} from "../data/ventureCategories";
+import { RecordRunDialog } from "../components/RecordRunDialog";
 
 type RetainerTypeFilter = RetainerType | "all";
 
@@ -154,6 +163,32 @@ export function VenturesPage({
     (showExploration ? sortedExplorationVentures.length : 0) +
     (showQuick ? 1 : 0);
 
+  const ventureRuns = useLiveQuery(() => db.ventureRuns.toArray());
+
+  const venturesHistory = useMemo(
+    () => buildVenturesHistory(ventureRuns ?? []),
+    [ventureRuns],
+  );
+
+  const retainers = useLiveQuery(() => db.retainers.toArray());
+
+  const retainersById = useMemo(() => {
+    const result = new Map<number, Retainer>();
+
+    retainers?.forEach((retainer) => {
+      result.set(retainer.id, retainer);
+    });
+
+    return result;
+  }, [retainers]);
+
+  const activeRetainers =
+    retainers?.filter((retainer) => retainer.status === "active") ?? [];
+
+  const [recordRunVentureId, setRecordRunVentureId] = useState<number | null>(
+    null,
+  );
+
   return (
     <div className="page-layout ventures-page">
       <div className="ventures-intro">
@@ -268,11 +303,22 @@ export function VenturesPage({
               (venture) => venture.retainerType === rType,
             );
 
+            if (!isRetainerType(rType)) return null;
+
+            const targetedCategory = categoriesByRetainerType[rType].find(
+              (category) => category.kind === "targeted",
+            );
+
             if (venturesGroup.length === 0) return null;
 
             return (
               <div key={rType} className="venture-retainer-group">
-                <h4>{t(`retainerTypes.${rType}`)}</h4>
+                <h4>
+                  {t(`retainerTypes.${rType}`)} {" - "}
+                  {targetedCategory
+                    ? t(targetedCategory.translationKey)
+                    : t(`retainerTypes.${rType}`)}
+                </h4>
 
                 <div className="venture-catalog-items">
                   {venturesGroup.map((venture) => (
@@ -282,8 +328,11 @@ export function VenturesPage({
                       matchingItems={matchingItemsByVentureId.get(venture.id)}
                       itemsById={itemsById}
                       ventureRewards={ventureRewards}
+                      personalHistory={venturesHistory.get(venture.id)}
+                      retainers={retainersById}
                       isExpanded={isExpanded(venture.id)}
                       onToggle={toggleExpanded}
+                      onRecordRun={setRecordRunVentureId}
                     />
                   ))}
                 </div>
@@ -298,6 +347,11 @@ export function VenturesPage({
           title={t("explorationVenture.title")}
           description={t("explorationVenture.description")}
         >
+          <p className="exploration-community-notice">
+            <Info size={16} aria-hidden="true" />
+            <span>{t("explorationVenture.communityRewardsNotice")}</span>
+          </p>
+
           {retainerTypesForGroup.map((rType) => {
             const venturesGroup = sortedExplorationVentures.filter(
               (venture) => venture.retainerType === rType,
@@ -317,8 +371,11 @@ export function VenturesPage({
                       matchingItems={matchingItemsByVentureId.get(venture.id)}
                       itemsById={itemsById}
                       ventureRewards={ventureRewards}
+                      personalHistory={venturesHistory.get(venture.id)}
+                      retainers={retainersById}
                       isExpanded={isExpanded(venture.id)}
                       onToggle={toggleExpanded}
+                      onRecordRun={setRecordRunVentureId}
                     />
                   ))}
                 </div>
@@ -339,11 +396,29 @@ export function VenturesPage({
               matchingItems={matchingItemsByVentureId.get(quickVenture.id)}
               rewards={ventureRewards.quick}
               itemsById={itemsById}
+              personalHistory={venturesHistory.get(quickVenture.id)}
+              retainers={retainersById}
               isExpanded={isExpanded(quickVenture.id)}
               onToggle={() => toggleExpanded(quickVenture.id)}
+              onRecordRun={() => setRecordRunVentureId(quickVenture.id)}
             />
           </div>
         </VentureCatalogSection>
+      )}
+
+      {recordRunVentureId !== null && (
+        <RecordRunDialog
+          targetedVentures={targetedVentures}
+          explorationVentures={explorationVentures}
+          quickVenture={quickVenture}
+          itemsById={itemsById}
+          ventureRewards={ventureRewards}
+          retainers={activeRetainers}
+          initialVentureId={recordRunVentureId}
+          onClose={() => {
+            setRecordRunVentureId(null);
+          }}
+        />
       )}
     </div>
   );

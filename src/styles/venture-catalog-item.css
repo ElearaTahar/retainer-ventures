@@ -21,7 +21,7 @@
 
   padding: 0.625rem 1rem;
 
-  font-size: 0.875rem;
+  font-size: 0.975rem;
   color: var(--color-text);
   background: transparent;
   border: 0;
@@ -59,7 +59,7 @@
   justify-self: start;
   white-space: nowrap;
   color: var(--color-text-muted);
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   font-weight: 400;
   padding-inline: 0.5rem;
 }
@@ -296,6 +296,7 @@
 
   font-size: 0.8125rem;
   line-height: 1.5;
+  text-wrap: balance;
 }
 
 .exploration-community-notice svg {
@@ -330,7 +331,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  min-height: 32px;
+  min-height: 36px;
 }
 
 .exploration-reward-item--matching {
@@ -344,6 +345,17 @@
   font-weight: 500;
 }
 
+.exploration-reward-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.exploration-reward-item-stats {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
 .exploration-reward-item img {
   flex: 0 0 auto;
 }
@@ -351,7 +363,7 @@
 .exploration-reward-item,
 .exploration-reward-group > p {
   font-size: 0.875rem;
-  line-height: 1.4;
+  line-height: 1.2;
 }
 
 .exploration-reward-group > p {
@@ -376,7 +388,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.75rem 1.5rem;
-  margin: 0;
+  margin-bottom: 1rem;
   padding: 0;
   list-style: none;
 }

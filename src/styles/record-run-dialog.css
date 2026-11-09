@@ -156,21 +156,54 @@
 }
 
 .record-run-step-hint,
-.record-run-level-hint {
+.record-run-filter-hint {
   font: inherit;
   font-size: 0.8125rem;
   color: var(--color-text-muted);
+}
+
+.record-run-retainers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .record-run-retainer {
   display: flex;
   align-items: center;
   gap: 1rem;
-
+  width: 100%;
   padding: 0.75rem;
-  border: 1px solid var(--color-accent);
-  border-radius: 6px;
+
+  color: var(--color-text);
   background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  transition:
+    background-color var(--transition-interactive),
+    border-color var(--transition-interactive);
+}
+
+.record-run-retainer:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.record-run-retainer:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.record-run-retainer[aria-pressed="true"] {
+  border-color: var(--color-accent);
+}
+
+.record-run-retainer:disabled {
+  cursor: not-allowed;
 }
 
 .record-run-retainer-check {

@@ -8,14 +8,20 @@ import { ItemIconStack } from "./ItemIconStack";
 import "../styles/venture-catalog-item.css";
 import { buildItemIconUrl } from "../utils/itemIcon";
 import { Info } from "lucide-react";
+import { VentureHistorySummary } from "../types/ventureHistory";
+import { VenturePersonalHistory } from "./VenturePersonalHistory";
+import { Retainer } from "../types/retainers";
 
 type QuickVentureCatalogItemProps = {
   venture: QuickVenture;
   matchingItems?: ItemSearchEntry[];
   rewards: QuickRewards;
   itemsById: Map<number, ItemSearchEntry>;
+  personalHistory: VentureHistorySummary | undefined;
+  retainers: Map<number, Retainer>;
   isExpanded: boolean;
   onToggle: () => void;
+  onRecordRun: () => void;
 };
 
 export function QuickVentureCatalogItem({
@@ -23,8 +29,11 @@ export function QuickVentureCatalogItem({
   matchingItems,
   rewards,
   itemsById,
+  personalHistory,
+  retainers,
   isExpanded,
   onToggle,
+  onRecordRun,
 }: QuickVentureCatalogItemProps) {
   const { t, i18n } = useTranslation();
   const language: Language = i18n.language === "fr" ? "fr" : "en";
@@ -137,6 +146,14 @@ export function QuickVentureCatalogItem({
           ) : (
             <p>{t("quickExplorationVenture.noKnownRewards")}</p>
           )}
+
+          <VenturePersonalHistory
+            ventureType="quick"
+            personalHistory={personalHistory}
+            retainers={retainers}
+            itemsById={itemsById}
+            onRecordRun={onRecordRun}
+          />
         </div>
       </div>
     </div>

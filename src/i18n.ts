@@ -51,6 +51,19 @@ const resources = {
           noResults: "No ventures found",
           noResultsHint: "Try adjusting your search or filters.",
         },
+        history: {
+          title: "My history",
+          noResult: "No recorded result for this venture.",
+          totalRuns_one: "{{count}} result",
+          totalRuns_other: "{{count}} results",
+          obtention_one: "Obtained once",
+          obtention_other: "Obtained {{count}} times",
+          total: "{{count}} in total",
+          totalRewards_one: "{{count}} item obtained in total",
+          totalRewards_other: "{{count}} items obtained in total",
+          rewardsTitle: "Items obtained",
+          otherRewardsTitle: "Other items obtained",
+        },
       },
       retainerTypes: {
         all: "All",
@@ -194,6 +207,12 @@ const resources = {
         selectVentureHint: "Which venture did <bold>{{name}}</bold> complete?",
         levelFilterHint:
           "Only ventures available at level {{level}} are shown.",
+        noActiveRetainers:
+          "No active retainers available. Activate or add a retainer to record a result.",
+        noCompatibleRetainers:
+          "No active retainers are eligible for this venture.",
+        compatibleRetainersHint:
+          "Only retainers eligible for this venture are shown.",
         search: {
           label: "Search for a venture",
           placeholder: "Search for a venture name…",
@@ -295,6 +314,19 @@ const resources = {
           matchingRewards_other: "Récompenses correspondantes :",
           noResults: "Aucune tâche trouvée",
           noResultsHint: "Essayez de modifier votre recherche ou vos filtres.",
+        },
+        history: {
+          title: "Mon historique",
+          noResult: "Aucun résultat enregistré pour cette tâche.",
+          totalRuns_one: "{{count}} réalisation",
+          totalRuns_other: "{{count}} réalisations",
+          obtention_one: "{{count}} obtention",
+          obtention_other: "{{count}} obtentions",
+          total: "{{count}} au total",
+          totalRewards_one: "{{count}} objet obtenu au total",
+          totalRewards_other: "{{count}} objets obtenus au total",
+          rewardsTitle: "Objets rapportés",
+          otherRewardsTitle: "Autres objets rapportés",
         },
       },
       retainerTypes: {
@@ -441,6 +473,12 @@ const resources = {
           "Quelle tâche a été réalisée par <bold>{{name}}</bold> ?",
         levelFilterHint:
           "Seules les tâches accessibles au niveau {{level}} sont affichées.",
+        noActiveRetainers:
+          "Aucun servant actif disponible. Activez ou ajoutez un servant pour enregistrer un résultat.",
+        noCompatibleRetainers:
+          "Aucun servant actif n'est compatible avec cette tâche.",
+        compatibleRetainersHint:
+          "Seuls les servants compatibles avec cette tâche sont affichés.",
         search: {
           label: "Rechercher une tâche",
           placeholder: "Chercher une tâche…",
