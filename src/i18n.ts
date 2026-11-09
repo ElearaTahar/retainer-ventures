@@ -47,6 +47,38 @@ const resources = {
             "The publisher does not guarantee uninterrupted availability of the service and cannot be held liable for interruptions or malfunctions, to the extent permitted by law.",
         },
       },
+      privacy: {
+        title: "Privacy policy",
+        overview: {
+          title: "Overview",
+          description:
+            "Retainer Ventures is an independent web application for exploring Final Fantasy XIV ventures and tracking retainers. It does not require users to create an account.",
+        },
+        localData: {
+          title: "Data stored locally",
+          storage:
+            "Retainer and venture tracking information is stored locally in your browser, primarily using IndexedDB. Some preferences, such as the interface language, may be saved in your browser's local storage (localStorage). This data is not synchronized with a Retainer Ventures server.",
+          deletion:
+            "You can delete this data by clearing the site's stored data in your browser settings. Doing so may result in the loss of your tracking information.",
+        },
+        thirdParties: {
+          title: "Hosting",
+          hosting:
+            "Retainer Ventures is hosted by Railway. When you visit the website, technical data, such as your IP address, may be processed by the hosting provider to deliver the site and maintain its operation and security.",
+        },
+        analytics: {
+          title: "Analytics",
+          description:
+            "Retainer Ventures does not currently use any analytics service. If one is introduced, this privacy policy will be updated to explain how it works and what data may be processed.",
+        },
+        rights: {
+          title: "Data retention and rights",
+          retention:
+            "Tracking data stored in your browser remains there until you delete it, your browser removes it, or an application feature deletes it. Retainer Ventures does not keep a copy of this data on its servers.",
+          contact:
+            "For questions about privacy or exercising your rights regarding any personal data processed in connection with the website, you can contact the publisher using the address provided in the legal notice.",
+        },
+      },
       common: {
         loading: "Loading",
       },
@@ -343,6 +375,38 @@ const resources = {
             "Les informations proposées par Retainer Ventures sont fournies à titre indicatif et peuvent comporter des erreurs ou des données incomplètes.",
           availability:
             "L'éditeur ne garantit pas la disponibilité permanente du service et ne saurait être tenu responsable des interruptions ou dysfonctionnements, dans les limites prévues par la loi.",
+        },
+      },
+      privacy: {
+        title: "Politique de confidentialité",
+        overview: {
+          title: "Présentation",
+          description:
+            "Retainer Ventures est une application web indépendante permettant de consulter les tâches de servants de Final Fantasy XIV et de suivre ses servants. Elle fonctionne sans création de compte utilisateur.",
+        },
+        localData: {
+          title: "Données stockées localement",
+          storage:
+            "Les informations de suivi des servants et des tâches sont enregistrées localement dans votre navigateur, notamment à l'aide d'IndexedDB. Certaines préférences, comme la langue de l'interface, peuvent être conservées dans le stockage local du navigateur (localStorage). Ces données ne sont pas synchronisées avec un serveur de Retainer Ventures.",
+          deletion:
+            "Vous pouvez supprimer ces données en effaçant les données du site depuis les paramètres de votre navigateur. Cette opération peut entraîner la perte de vos informations de suivi.",
+        },
+        thirdParties: {
+          title: "Hébergement",
+          hosting:
+            "Retainer Ventures est hébergé par Railway. Lors de votre visite, des données techniques, telles que votre adresse IP, peuvent être traitées par l'hébergeur afin de fournir le site et d'assurer son fonctionnement et sa sécurité.",
+        },
+        analytics: {
+          title: "Mesure d'audience",
+          description:
+            "Retainer Ventures n'utilise actuellement aucun outil de mesure d'audience. Si un tel outil est ajouté, cette politique de confidentialité sera mise à jour pour préciser son fonctionnement et les données éventuellement traitées.",
+        },
+        rights: {
+          title: "Conservation et droits",
+          retention:
+            "Les données de suivi enregistrées dans votre navigateur y sont conservées jusqu'à leur suppression par vous-même, par votre navigateur ou par une fonctionnalité de l'application. Retainer Ventures ne conserve pas de copie de ces données sur ses serveurs.",
+          contact:
+            "Pour toute question concernant la confidentialité ou l'exercice de vos droits relatifs à d'éventuelles données personnelles traitées dans le cadre du fonctionnement du site, vous pouvez contacter l'éditeur à l'adresse indiquée dans les mentions légales.",
         },
       },
       common: {

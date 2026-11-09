@@ -17,6 +17,7 @@ import { NotFoundPage } from "./pages/NotFoundPage";
 import { BackToTopButton } from "./components/BackToTopButton";
 import { LoadingScreen } from "./components/LoadingScreen";
 import { LegalNoticePage } from "./pages/LegalNoticePage";
+import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
 
 export function App() {
   const [targetedVentures, setTargetedVentures] = useState<
@@ -119,6 +120,8 @@ export function App() {
           />
 
           <Route path="/legal" element={<LegalNoticePage />} />
+
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
