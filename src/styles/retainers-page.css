@@ -468,9 +468,10 @@
   font-size: 0.8125rem;
 }
 
-.run-timeline-delete-button {
+.btn-secondary.run-timeline-delete-button {
   padding: 0.375rem;
   background-color: transparent;
+  color: var(--color-text-muted);
 }
 
 .btn-secondary.run-timeline-delete-button:hover:not(:disabled) {
@@ -478,9 +479,10 @@
   color: var(--color-error);
 }
 
-.run-timeline-edit-button {
+.btn-secondary.run-timeline-edit-button {
   padding: 0.375rem;
   background-color: transparent;
+  color: var(--color-text-muted);
 }
 
 .btn-secondary.run-timeline-edit-button:hover:not(:disabled) {
@@ -526,6 +528,17 @@
   .retainer-card:focus-within .retainer-card-stats {
     opacity: 1;
   }
+
+  .run-timeline-edit-button,
+  .run-timeline-delete-button {
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 100ms ease-out;
+  }
+
+  .btn-secondary.run-timeline-edit-button:active,
+  .btn-secondary.run-timeline-delete-button:active {
+    transform: scale(0.97);
+  }
 }
 
 @media (max-width: 700px) {
@@ -539,7 +552,9 @@
   }
 
   .run-timeline-content {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    column-gap: 0.5rem;
+    row-gap: 0.75rem;
   }
 
   .run-timeline-details {
