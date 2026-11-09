@@ -35,6 +35,7 @@ import { BotanistIcon } from "../components/icons/BotanistIcon";
 import { FisherIcon } from "../components/icons/FisherIcon";
 import { MinerIcon } from "../components/icons/MinerIcon";
 import { CombatIcon } from "../components/icons/CombatIcon";
+import type { VentureRun } from "../types/ventureRuns";
 
 type RetainersPageProps = {
   targetedVentures: TargetedVenture[];
@@ -87,6 +88,8 @@ export function RetainersPage({
   const [selectedRetainerIdsForFilter, setSelectedRetainerIdsForFilter] =
     useState<number[]>([]);
 
+  const [editingRun, setEditingRun] = useState<VentureRun | null>(null);
+
   const [isRetainerFilterOpen, setIsRetainerFilterOpen] = useState(false);
   const retainerFilterRef = useRef<HTMLDivElement>(null);
 
@@ -118,13 +121,21 @@ export function RetainersPage({
   }
 
   function handleRecordRun(retainerId: number) {
+    setEditingRun(null);
     setRecordRunInitialVentureId(null);
     setRecordRunRetainerId(retainerId);
   }
 
   function handleRepeatRun(retainerId: number, ventureId: number) {
+    setEditingRun(null);
     setRecordRunInitialVentureId(ventureId);
     setRecordRunRetainerId(retainerId);
+  }
+
+  function handleEditRun(run: VentureRun) {
+    setEditingRun(run);
+    setRecordRunInitialVentureId(null);
+    setRecordRunRetainerId(run.retainerId);
   }
 
   async function handleDeleteRun(
@@ -373,7 +384,7 @@ export function RetainersPage({
     );
   }
 
-  const recordRunRetainer = activeRetainers.find(
+  const recordRunRetainer = retainers?.find(
     (retainer) => retainer.id === recordRunRetainerId,
   );
 
@@ -596,6 +607,18 @@ export function RetainersPage({
                       </div>
 
                       <button
+                        className="btn btn-secondary run-timeline-edit-button"
+                        type="button"
+                        aria-label={t("ventureRuns.editRun")}
+                        onClick={() => handleEditRun(run)}
+                      >
+                        <Pencil
+                          className="run-timeline-button-icon"
+                          aria-hidden="true"
+                        />
+                      </button>
+
+                      <button
                         className="btn btn-secondary run-timeline-delete-button"
                         type="button"
                         aria-label={t("ventureRuns.deleteRun")}
@@ -607,7 +630,10 @@ export function RetainersPage({
                           )
                         }
                       >
-                        <Trash2 className="run-timeline-delete" />
+                        <Trash2
+                          className="run-timeline-button-icon"
+                          aria-hidden="true"
+                        />
                       </button>
                     </div>
                   </li>
@@ -645,10 +671,12 @@ export function RetainersPage({
           quickVenture={quickVenture}
           itemsById={itemsById}
           ventureRewards={ventureRewards}
-          retainers={activeRetainers}
+          retainers={editingRun ? (retainers ?? []) : activeRetainers}
           retainer={recordRunRetainer}
           initialVentureId={recordRunInitialVentureId ?? undefined}
+          editingRun={editingRun ?? undefined}
           onClose={() => {
+            setEditingRun(null);
             setRecordRunRetainerId(null);
             setRecordRunInitialVentureId(null);
           }}

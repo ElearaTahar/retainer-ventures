@@ -425,8 +425,8 @@
 
 .run-timeline-content {
   display: grid;
-  grid-template-columns: 1fr 2fr auto auto;
-  gap: 1rem;
+  grid-template-columns: 1fr 2fr auto auto auto;
+  gap: 0.5rem;
   align-items: center;
 }
 
@@ -478,20 +478,32 @@
   color: var(--color-error);
 }
 
-.run-timeline-delete {
+.run-timeline-edit-button {
+  padding: 0.375rem;
+  background-color: transparent;
+}
+
+.btn-secondary.run-timeline-edit-button:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--color-text) 12%, transparent);
+}
+
+.run-timeline-button-icon {
   color: currentColor;
   width: 20px;
   height: 20px;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .run-timeline-delete-button {
+  .run-timeline-delete-button,
+  .run-timeline-edit-button {
     opacity: 0;
     transition: opacity 200ms ease-out;
   }
 
   .run-timeline-item:hover .run-timeline-delete-button,
-  .run-timeline-item:focus-within .run-timeline-delete-button {
+  .run-timeline-item:focus-within .run-timeline-delete-button,
+  .run-timeline-item:hover .run-timeline-edit-button,
+  .run-timeline-item:focus-within .run-timeline-edit-button {
     opacity: 1;
   }
 }

@@ -20,8 +20,12 @@ import type { VentureRewardsData } from "../types/ventureRewards";
 import { getVentureDisplayIconIds } from "../utils/ventureDisplay";
 import { getRequirementStatus } from "../utils/ventureRequirements";
 import { getSuggestedQuantity } from "../utils/ventureQuantities";
-import type { VentureResult, NewVentureRun } from "../types/ventureRuns";
-import { addVentureRun } from "../db/ventureRuns";
+import type {
+  VentureResult,
+  NewVentureRun,
+  VentureRun,
+} from "../types/ventureRuns";
+import { addVentureRun, updateVentureRun } from "../db/ventureRuns";
 import {
   getKnownRewardItemIds,
   isKnownVentureReward,
@@ -40,6 +44,7 @@ type RecordRunDialogProps = {
   retainers: Retainer[];
   retainer?: Retainer;
   initialVentureId?: number;
+  editingRun?: VentureRun;
   onClose: () => void;
 };
 
@@ -52,6 +57,7 @@ export function RecordRunDialog({
   retainers,
   retainer,
   initialVentureId,
+  editingRun,
   onClose,
 }: RecordRunDialogProps) {
   const { t, i18n } = useTranslation();
@@ -76,17 +82,15 @@ export function RecordRunDialog({
 
   const avatarColors = getRetainerAvatarColors(retainers);
 
+  const ventureId = editingRun?.ventureId ?? initialVentureId;
+
   const initialVenture =
-    initialVentureId === undefined
+    ventureId === undefined
       ? undefined
-      : quickVenture.id === initialVentureId
+      : quickVenture.id === ventureId
         ? quickVenture
-        : (targetedVentures.find(
-            (venture) => venture.id === initialVentureId,
-          ) ??
-          explorationVentures.find(
-            (venture) => venture.id === initialVentureId,
-          ));
+        : (targetedVentures.find((venture) => venture.id === ventureId) ??
+          explorationVentures.find((venture) => venture.id === ventureId));
 
   const initialVentureKind = initialVenture?.kind ?? null;
 
@@ -133,21 +137,21 @@ export function RecordRunDialog({
     useState<VentureKind | null>(initialVentureKind);
 
   const [selectedVentureId, setSelectedVentureId] = useState<number | null>(
-    initialVentureId ?? null,
+    ventureId ?? null,
   );
 
   const [searchQuery, setSearchQuery] = useState("");
 
   const [selectedQuantity, setSelectedQuantity] = useState<number | null>(
-    initialVenture !== undefined &&
-      initialVenture.kind === "targeted" &&
-      selectedRetainer !== undefined
-      ? getSuggestedQuantity(initialVenture, selectedRetainer)
-      : null,
+    editingRun && initialVenture?.kind === "targeted"
+      ? (editingRun.results[0]?.quantity ?? null)
+      : initialVenture?.kind === "targeted" && selectedRetainer
+        ? getSuggestedQuantity(initialVenture, selectedRetainer)
+        : null,
   );
 
   const [explorationResults, setExplorationResults] = useState<VentureResult[]>(
-    [],
+    () => editingRun?.results.map((result) => ({ ...result })) ?? [],
   );
   const [explorationQuantityInputs, setExplorationQuantityInputs] = useState<
     Record<number, string>
@@ -434,7 +438,12 @@ export function RecordRunDialog({
     setSaveError(false);
 
     try {
-      await addVentureRun(newVentureRun);
+      if (editingRun !== undefined) {
+        await updateVentureRun(editingRun.id, newVentureRun);
+      } else {
+        await addVentureRun(newVentureRun);
+      }
+
       onClose();
     } catch {
       setSaveError(true);
@@ -1089,7 +1098,11 @@ export function RecordRunDialog({
       aria-labelledby="record-run-title"
     >
       <div className="record-run-dialog-header">
-        <h2 id="record-run-title">{t("myRetainers.recordRunTitle")}</h2>
+        <h2 id="record-run-title">
+          {editingRun
+            ? t("myRetainers.editRunTitle")
+            : t("myRetainers.recordRunTitle")}
+        </h2>
 
         <button
           type="button"

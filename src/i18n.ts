@@ -252,6 +252,7 @@ const resources = {
         addRetainerTitle: "Add a retainer",
         editRetainerTitle: "Edit a retainer",
         recordRunTitle: "Record a result",
+        editRunTitle: "Edit a result",
         name: "Name",
         type: "Type",
         level: "Level",
@@ -324,6 +325,7 @@ const resources = {
         filteredRunsNumber: "{{count}} report out of {{total}}",
         filteredRunsNumber_other: "{{count}} reports out of {{total}}",
         deleteRun: "Delete the venture report",
+        editRun: "Edit the venture report",
         confirmDeleteRun:
           "Delete the {{ventureName}} result for {{retainerName}}?",
         errorDeleteRun: "Could not delete the result. Please try again.",
@@ -588,6 +590,7 @@ const resources = {
         addRetainerTitle: "Ajouter un servant",
         editRetainerTitle: "Modifier un servant",
         recordRunTitle: "Enregistrer un résultat",
+        editRunTitle: "Modifier un résultat",
         name: "Nom",
         type: "Type",
         level: "Niveau",
@@ -661,6 +664,7 @@ const resources = {
         filteredRunsNumber: "{{count}} rapport sur {{total}}",
         filteredRunsNumber_other: "{{count}} rapports sur {{total}}",
         deleteRun: "Supprimer le rapport de tâche",
+        editRun: "Modifier le rapport de tâche",
         confirmDeleteRun:
           "Supprimer le résultat de la tâche {{ventureName}} de {{retainerName}} ?",
         errorDeleteRun:
