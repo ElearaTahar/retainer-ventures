@@ -424,37 +424,38 @@ function buildRetainerTypeByTaskId(
   return result;
 }
 
+type ClassificationData = {
+  minionItemIds: Set<number>;
+  recipeIngredientItemIds: Set<number>;
+  minerItemIds: Set<number>;
+  botanistItemIds: Set<number>;
+  fisherItemIds: Set<number>;
+};
+
 function isJobItem(
   itemId: number,
   retainerType: RetainerType,
-  recipeIngredientItemIds: Set<number>,
-  minerItemIds: Set<number>,
-  botanistItemIds: Set<number>,
-  fisherItemIds: Set<number>,
+  data: ClassificationData,
 ): boolean {
   switch (retainerType) {
     case "combat":
-      return recipeIngredientItemIds.has(itemId);
+      return data.recipeIngredientItemIds.has(itemId);
 
     case "miner":
-      return minerItemIds.has(itemId);
+      return data.minerItemIds.has(itemId);
 
     case "botanist":
-      return botanistItemIds.has(itemId);
+      return data.botanistItemIds.has(itemId);
 
     case "fisher":
-      return fisherItemIds.has(itemId);
+      return data.fisherItemIds.has(itemId);
   }
 }
 
 function classifyRewards(
   itemIds: number[],
   retainerType: RetainerType,
-  minionItemIds: Set<number>,
-  recipeIngredientItemIds: Set<number>,
-  minerItemIds: Set<number>,
-  botanistItemIds: Set<number>,
-  fisherItemIds: Set<number>,
+  data: ClassificationData,
 ): VentureRewards {
   const result: VentureRewards = {
     allaganPieces: [],
@@ -473,21 +474,12 @@ function classifyRewards(
       continue;
     }
 
-    if (minionItemIds.has(itemId)) {
+    if (data.minionItemIds.has(itemId)) {
       result.minions.push(itemId);
       continue;
     }
 
-    if (
-      isJobItem(
-        itemId,
-        retainerType,
-        recipeIngredientItemIds,
-        minerItemIds,
-        botanistItemIds,
-        fisherItemIds,
-      )
-    ) {
+    if (isJobItem(itemId, retainerType, data)) {
       result.jobItems.push(itemId);
       continue;
     }
@@ -624,6 +616,14 @@ async function main() {
   let skippedVentureCount = 0;
   let skippedRewardCount = 0;
 
+  const data: ClassificationData = {
+    minionItemIds,
+    recipeIngredientItemIds,
+    minerItemIds,
+    botanistItemIds,
+    fisherItemIds,
+  };
+
   for (const [taskId, itemIds] of rawRewards) {
     if (taskId === quickTaskId) {
       continue;
@@ -638,18 +638,7 @@ async function main() {
       continue;
     }
 
-    classifiedRewards.set(
-      taskId,
-      classifyRewards(
-        itemIds,
-        retainerType,
-        minionItemIds,
-        recipeIngredientItemIds,
-        minerItemIds,
-        botanistItemIds,
-        fisherItemIds,
-      ),
-    );
+    classifiedRewards.set(taskId, classifyRewards(itemIds, retainerType, data));
   }
 
   const classifiedRewardCount = [...classifiedRewards.values()].reduce(
