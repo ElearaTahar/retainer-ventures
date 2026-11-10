@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import "../styles/legal-page.css";
+import { ExternalLink } from "lucide-react";
 
 export function PrivacyPolicyPage() {
   const { t } = useTranslation();
@@ -39,7 +40,11 @@ export function PrivacyPolicyPage() {
           <h2 id="privacy-third-parties">{t("privacy.thirdParties.title")}</h2>
         </div>
 
+        <h3>{t("privacy.thirdParties.hostingTitle")}</h3>
         <p>{t("privacy.thirdParties.hosting")}</p>
+
+        <h3>{t("privacy.thirdParties.iconsTitle")}</h3>
+        <p>{t("privacy.thirdParties.icons")}</p>
       </section>
 
       <section aria-labelledby="privacy-analytics">
@@ -54,11 +59,14 @@ export function PrivacyPolicyPage() {
 
         <p>
           <a
+            className="legal-external-link"
             href="https://www.cloudflare.com/web-analytics/"
             target="_blank"
             rel="noopener noreferrer"
           >
             {t("privacy.analytics.learnMore")}
+            <ExternalLink size={14} aria-hidden="true" />
+            <span className="sr-only">{t("common.opensInNewTab")}</span>
           </a>
         </p>
       </section>
