@@ -51,6 +51,16 @@ export function PrivacyPolicyPage() {
         </div>
 
         <p>{t("privacy.analytics.description")}</p>
+
+        <p>
+          <a
+            href="https://www.cloudflare.com/web-analytics/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t("privacy.analytics.learnMore")}
+          </a>
+        </p>
       </section>
 
       <section aria-labelledby="privacy-rights">
