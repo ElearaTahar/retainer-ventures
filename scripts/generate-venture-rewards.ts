@@ -57,8 +57,9 @@ type VenturesFile = {
 
 type RewardSupplementFile = {
   metadata: {
-    source: string;
+    sources: string[];
     purpose: string;
+    generatedAt: string;
   };
   rewardsByRetainerTaskRandomId: Record<string, number[]>;
 };
@@ -423,37 +424,38 @@ function buildRetainerTypeByTaskId(
   return result;
 }
 
+type ClassificationData = {
+  minionItemIds: Set<number>;
+  recipeIngredientItemIds: Set<number>;
+  minerItemIds: Set<number>;
+  botanistItemIds: Set<number>;
+  fisherItemIds: Set<number>;
+};
+
 function isJobItem(
   itemId: number,
   retainerType: RetainerType,
-  recipeIngredientItemIds: Set<number>,
-  minerItemIds: Set<number>,
-  botanistItemIds: Set<number>,
-  fisherItemIds: Set<number>,
+  data: ClassificationData,
 ): boolean {
   switch (retainerType) {
     case "combat":
-      return recipeIngredientItemIds.has(itemId);
+      return data.recipeIngredientItemIds.has(itemId);
 
     case "miner":
-      return minerItemIds.has(itemId);
+      return data.minerItemIds.has(itemId);
 
     case "botanist":
-      return botanistItemIds.has(itemId);
+      return data.botanistItemIds.has(itemId);
 
     case "fisher":
-      return fisherItemIds.has(itemId);
+      return data.fisherItemIds.has(itemId);
   }
 }
 
 function classifyRewards(
   itemIds: number[],
   retainerType: RetainerType,
-  minionItemIds: Set<number>,
-  recipeIngredientItemIds: Set<number>,
-  minerItemIds: Set<number>,
-  botanistItemIds: Set<number>,
-  fisherItemIds: Set<number>,
+  data: ClassificationData,
 ): VentureRewards {
   const result: VentureRewards = {
     allaganPieces: [],
@@ -463,30 +465,19 @@ function classifyRewards(
   };
 
   for (const itemId of itemIds) {
-    /*
-     * Allagan Pieces always take priority.
-     */
+    // Allagan Pieces always take priority.
     if (ALLAGAN_PIECE_ITEM_IDS.has(itemId)) {
       result.allaganPieces.push(itemId);
 
       continue;
     }
 
-    if (minionItemIds.has(itemId)) {
+    if (data.minionItemIds.has(itemId)) {
       result.minions.push(itemId);
       continue;
     }
 
-    if (
-      isJobItem(
-        itemId,
-        retainerType,
-        recipeIngredientItemIds,
-        minerItemIds,
-        botanistItemIds,
-        fisherItemIds,
-      )
-    ) {
+    if (isJobItem(itemId, retainerType, data)) {
       result.jobItems.push(itemId);
       continue;
     }
@@ -495,6 +486,64 @@ function classifyRewards(
   }
 
   return result;
+}
+
+type SupplementMergeStats = {
+  ventureCount: number;
+  rewardCount: number;
+  additionalRewardCount: number;
+};
+
+/*
+ * Merges supplemental rewards into rawRewards in place.
+ * Returns statistics about the merge.
+ *
+ * Use a Set while merging so that the supplement
+ * remains safe if Lumina later adds the same rewards.
+ */
+function mergeSupplementRewards(
+  supplementFile: RewardSupplementFile,
+  rawRewards: Map<number, number[]>,
+): SupplementMergeStats {
+  const mergeStats: SupplementMergeStats = {
+    ventureCount: 0,
+    rewardCount: 0,
+    additionalRewardCount: 0,
+  };
+
+  for (const [taskIdText, supplementItemIds] of Object.entries(
+    supplementFile.rewardsByRetainerTaskRandomId,
+  )) {
+    const taskId = Number(taskIdText);
+
+    if (!Number.isInteger(taskId) || taskId <= 0) {
+      throw new Error(`Invalid supplement task ID: ${taskIdText}`);
+    }
+
+    mergeStats.ventureCount++;
+
+    const mergedItemIds = new Set(rawRewards.get(taskId) ?? []);
+
+    for (const itemId of supplementItemIds) {
+      if (!Number.isInteger(itemId) || itemId <= 0) {
+        throw new Error(
+          `Invalid supplement item ID ${itemId} for task ${taskId}`,
+        );
+      }
+
+      mergeStats.rewardCount++;
+
+      if (!mergedItemIds.has(itemId)) {
+        mergeStats.additionalRewardCount++;
+      }
+
+      mergedItemIds.add(itemId);
+    }
+
+    rawRewards.set(taskId, [...mergedItemIds]);
+  }
+
+  return mergeStats;
 }
 
 async function main() {
@@ -566,34 +615,9 @@ async function main() {
 
   /*
    * Add locally maintained rewards that are missing
-   * from LuminaSupplemental.
-   *
-   * Use a Set while merging so that the supplement
-   * remains safe if Lumina later adds the same rewards.
+   * from LuminaSupplemental and compute stats about merge.
    */
-  for (const [taskIdText, supplementItemIds] of Object.entries(
-    supplementFile.rewardsByRetainerTaskRandomId,
-  )) {
-    const taskId = Number(taskIdText);
-
-    if (!Number.isInteger(taskId) || taskId <= 0) {
-      throw new Error(`Invalid supplement task ID: ${taskIdText}`);
-    }
-
-    const mergedItemIds = new Set(rawRewards.get(taskId) ?? []);
-
-    for (const itemId of supplementItemIds) {
-      if (!Number.isInteger(itemId) || itemId <= 0) {
-        throw new Error(
-          `Invalid supplement item ID ${itemId} for task ${taskId}`,
-        );
-      }
-
-      mergedItemIds.add(itemId);
-    }
-
-    rawRewards.set(taskId, [...mergedItemIds]);
-  }
+  const stats = mergeSupplementRewards(supplementFile, rawRewards);
 
   /*
    * LuminaSupplemental contains Quick
@@ -611,6 +635,14 @@ async function main() {
   let skippedVentureCount = 0;
   let skippedRewardCount = 0;
 
+  const data: ClassificationData = {
+    minionItemIds,
+    recipeIngredientItemIds,
+    minerItemIds,
+    botanistItemIds,
+    fisherItemIds,
+  };
+
   for (const [taskId, itemIds] of rawRewards) {
     if (taskId === quickTaskId) {
       continue;
@@ -625,18 +657,7 @@ async function main() {
       continue;
     }
 
-    classifiedRewards.set(
-      taskId,
-      classifyRewards(
-        itemIds,
-        retainerType,
-        minionItemIds,
-        recipeIngredientItemIds,
-        minerItemIds,
-        botanistItemIds,
-        fisherItemIds,
-      ),
-    );
+    classifiedRewards.set(taskId, classifyRewards(itemIds, retainerType, data));
   }
 
   const classifiedRewardCount = [...classifiedRewards.values()].reduce(
@@ -651,7 +672,8 @@ async function main() {
 
   const output = {
     metadata: {
-      rewardSource: "LuminaSupplemental + FFXIV Community Wiki supplement",
+      rewardSource:
+        "LuminaSupplemental + manually verified community supplements",
       classificationSource: "FFXIV game data",
       generatedAt: new Date().toISOString(),
       sourceRewardCount: rewardRows.length,
@@ -683,8 +705,17 @@ async function main() {
       `unclassified ventures ` +
       `(${skippedRewardCount} rewards)`,
   );
+
+  console.log("\nSupplement contribution:");
+  console.log(`  ${stats.ventureCount} ventures covered`);
+  console.log(`  ${stats.rewardCount} reward associations`);
+  console.log(
+    `  ${stats.rewardCount - stats.additionalRewardCount} already covered`,
+  );
+  console.log(`  ${stats.additionalRewardCount} additional rewards`);
 }
 
 main().catch((error: unknown) => {
   console.error(error);
+  process.exitCode = 1;
 });

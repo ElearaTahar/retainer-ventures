@@ -16,6 +16,7 @@ type ItemSearchIndex = {
 type VentureRewardNames = {
   retainerTaskRandomId: number;
   ventureName: string;
+  source: "FFXIV Community Wiki" | "XIVStats";
   rewards: string[];
 };
 
@@ -25,6 +26,7 @@ const ventures: VentureRewardNames[] = [
   {
     retainerTaskRandomId: 30040,
     ventureName: "Waterside Exploration I",
+    source: "FFXIV Community Wiki",
     rewards: [
       "Allagan Bronze Piece",
       "Finger Shrimp",
@@ -32,10 +34,23 @@ const ventures: VentureRewardNames[] = [
       "Water Shard",
     ],
   },
-
+  {
+    retainerTaskRandomId: 30041,
+    ventureName: "Waterside Exploration II",
+    source: "XIVStats",
+    rewards: [
+      "Allagan Bronze Piece",
+      "Ice Shard",
+      "Water Shard",
+      "Coral Butterfly",
+      "Crimson Crayfish",
+      "Dusk Goby",
+    ],
+  },
   {
     retainerTaskRandomId: 30114,
     ventureName: "Field Exploration XXIX",
+    source: "FFXIV Community Wiki",
     rewards: [
       "Allagan Silver Piece",
       "Alpaca Fillet",
@@ -49,6 +64,7 @@ const ventures: VentureRewardNames[] = [
   {
     retainerTaskRandomId: 30115,
     ventureName: "Field Exploration XXX",
+    source: "FFXIV Community Wiki",
     rewards: [
       "Allagan Silver Piece",
       "Br'aax Hide",
@@ -62,6 +78,7 @@ const ventures: VentureRewardNames[] = [
   {
     retainerTaskRandomId: 30116,
     ventureName: "Field Exploration XXXI",
+    source: "FFXIV Community Wiki",
     rewards: [
       "Allagan Silver Piece",
       "Alexandrian Axe Beak Wing",
@@ -78,6 +95,7 @@ const ventures: VentureRewardNames[] = [
   {
     retainerTaskRandomId: 30117,
     ventureName: "Highland Exploration XXIX",
+    source: "FFXIV Community Wiki",
     rewards: [
       "Allagan Silver Piece",
       "Lar Ore",
@@ -91,6 +109,7 @@ const ventures: VentureRewardNames[] = [
   {
     retainerTaskRandomId: 30118,
     ventureName: "Highland Exploration XXX",
+    source: "FFXIV Community Wiki",
     rewards: [
       "Allagan Silver Piece",
       "Raw Ihuykanite",
@@ -101,6 +120,7 @@ const ventures: VentureRewardNames[] = [
   {
     retainerTaskRandomId: 30119,
     ventureName: "Highland Exploration XXXI",
+    source: "FFXIV Community Wiki",
     rewards: [
       "Allagan Silver Piece",
       "Magnesia Powder",
@@ -115,6 +135,7 @@ const ventures: VentureRewardNames[] = [
   {
     retainerTaskRandomId: 30120,
     ventureName: "Woodland Exploration XXIX",
+    source: "FFXIV Community Wiki",
     rewards: [
       "Allagan Silver Piece",
       "Ceiba Log",
@@ -130,6 +151,7 @@ const ventures: VentureRewardNames[] = [
   {
     retainerTaskRandomId: 30121,
     ventureName: "Woodland Exploration XXX",
+    source: "FFXIV Community Wiki",
     rewards: [
       "Allagan Silver Piece",
       "Kozama'uka Chamomile",
@@ -139,6 +161,7 @@ const ventures: VentureRewardNames[] = [
   {
     retainerTaskRandomId: 30122,
     ventureName: "Woodland Exploration XXXI",
+    source: "FFXIV Community Wiki",
     rewards: [
       "Allagan Silver Piece",
       "Bell Pepper",
@@ -152,6 +175,7 @@ const ventures: VentureRewardNames[] = [
   {
     retainerTaskRandomId: 30123,
     ventureName: "Waterside Exploration XXIX",
+    source: "FFXIV Community Wiki",
     rewards: [
       "Allagan Silver Piece",
       "Blue Purse",
@@ -165,6 +189,7 @@ const ventures: VentureRewardNames[] = [
   {
     retainerTaskRandomId: 30124,
     ventureName: "Waterside Exploration XXX",
+    source: "FFXIV Community Wiki",
     rewards: [
       "Allagan Silver Piece",
       "Karvarichthys",
@@ -175,6 +200,7 @@ const ventures: VentureRewardNames[] = [
   {
     retainerTaskRandomId: 30125,
     ventureName: "Waterside Exploration XXXI",
+    source: "FFXIV Community Wiki",
     rewards: [
       "Allagan Silver Piece",
       "Karvarichthys",
@@ -247,16 +273,17 @@ async function main() {
   );
 
   if (hasErrors) {
-    console.error(
-      "\nSome rewards could not be resolved uniquely. No supplement was generated.",
+    throw new Error(
+      "Some rewards could not be resolved uniquely. No supplement was generated.",
     );
-    return;
   }
+
+  const sources = [...new Set(ventures.map((venture) => venture.source))];
 
   const output = {
     metadata: {
-      source: "FFXIV Community Wiki",
-      purpose: "Exploration venture rewards missing from LuminaSupplemental",
+      sources,
+      purpose: "Manually verified supplemental Exploration venture rewards",
       generatedAt: new Date().toISOString(),
     },
     rewardsByRetainerTaskRandomId: result,
@@ -275,4 +302,5 @@ async function main() {
 
 main().catch((error) => {
   console.error(error);
+  process.exitCode = 1;
 });

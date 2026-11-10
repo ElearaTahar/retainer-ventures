@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import "../styles/legal-page.css";
+import { ExternalLink } from "lucide-react";
 
 export function LegalNoticePage() {
   const { t } = useTranslation();
@@ -52,7 +53,16 @@ export function LegalNoticePage() {
           <br />
           San Francisco, CA, USA
           <br />
-          <a href="https://railway.app">https://railway.app</a>
+          <a
+            className="legal-external-link"
+            href="https://railway.app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            https://railway.app
+            <ExternalLink size={14} aria-hidden="true" />
+            <span className="sr-only">{t("common.opensInNewTab")}</span>
+          </a>
         </address>
       </section>
 

@@ -21,6 +21,7 @@ const resources = {
         navigation: "Legal information",
         credit: "Created for the FFXIV community by Eleara Tahar (Louisoix).",
         disclaimer: "Independent fan project, not affiliated with Square Enix.",
+        dataGeneratedAt: "Last data generation: {{date}}",
       },
       legal: {
         title: "Legal notice",
@@ -72,9 +73,13 @@ const resources = {
             "You can delete this data by clearing the site's stored data in your browser settings. Doing so may result in the loss of your tracking information.",
         },
         thirdParties: {
-          title: "Hosting",
+          title: "Third-party services",
+          hostingTitle: "Hosting",
           hosting:
             "Retainer Ventures is hosted by Railway. When you visit the website, technical data, such as your IP address, may be processed by the hosting provider to deliver the site and maintain its operation and security.",
+          iconsTitle: "Item icons",
+          icons:
+            "Item icons are loaded directly from XIVAPI (v2.xivapi.com). When your browser requests these images, technical information, such as your IP address, may be transmitted to this third-party service. Retainer Ventures does not transmit your locally stored retainer tracking data to XIVAPI.",
         },
         analytics: {
           title: "Analytics",
@@ -92,6 +97,7 @@ const resources = {
       },
       common: {
         loading: "Loading",
+        opensInNewTab: "(opens in a new tab)",
       },
       navigation: {
         main: "Main navigation",
@@ -364,6 +370,7 @@ const resources = {
         navigation: "Informations légales",
         credit: "Créé pour la communauté FFXIV par Eleara Tahar (Louisoix).",
         disclaimer: "Projet indépendant, non affilié à Square Enix.",
+        dataGeneratedAt: "Dernière génération des données : {{date}}",
       },
       legal: {
         title: "Mentions légales",
@@ -415,9 +422,13 @@ const resources = {
             "Vous pouvez supprimer ces données en effaçant les données du site depuis les paramètres de votre navigateur. Cette opération peut entraîner la perte de vos informations de suivi.",
         },
         thirdParties: {
-          title: "Hébergement",
+          title: "Services tiers",
+          hostingTitle: "Hébergement",
           hosting:
             "Retainer Ventures est hébergé par Railway. Lors de votre visite, des données techniques, telles que votre adresse IP, peuvent être traitées par l'hébergeur afin de fournir le site et d'assurer son fonctionnement et sa sécurité.",
+          iconsTitle: "Icônes des objets",
+          icons:
+            "Les icônes des objets sont chargées directement depuis XIVAPI (v2.xivapi.com). Lorsque votre navigateur demande ces images, des informations techniques, telles que votre adresse IP, peuvent être transmises à ce service tiers. Les données de suivi de vos servants enregistrées localement ne sont pas transmises à XIVAPI par l'application.",
         },
         analytics: {
           title: "Mesure d'audience",
@@ -435,6 +446,7 @@ const resources = {
       },
       common: {
         loading: "Chargement",
+        opensInNewTab: "(s'ouvre dans un nouvel onglet)",
       },
       navigation: {
         main: "Navigation principale",
