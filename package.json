@@ -19,13 +19,15 @@
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-i18next": "^17.0.15",
-    "react-router-dom": "^7.18.4"
+    "react-router-dom": "^7.18.4",
+    "serve": "^14.2.7"
   },
   "scripts": {
     "dev": "vite",
     "test": "vitest",
     "build": "vite build",
     "preview": "vite preview",
+    "start": "serve -s dist -l tcp://0.0.0.0:${PORT:-3000}",
     "generate:ventures": "tsc -p tsconfig.scripts.json && node .generated-scripts/generate-ventures.js",
     "generate:items": "tsc -p tsconfig.scripts.json && node .generated-scripts/generate-items.js",
     "generate:rewards": "tsc -p tsconfig.scripts.json && node .generated-scripts/generate-venture-rewards.js",

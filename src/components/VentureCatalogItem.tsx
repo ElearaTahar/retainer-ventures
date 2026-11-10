@@ -256,13 +256,15 @@ export const VentureCatalogItem = memo(function VentureCatalogItem({
                 </table>
               </div>
 
-              <VenturePersonalHistory
-                ventureType="targeted"
-                personalHistory={personalHistory}
-                retainers={retainers}
-                itemsById={itemsById}
-                onRecordRun={() => onRecordRun(venture.id)}
-              />
+              {retainers.size > 0 && (
+                <VenturePersonalHistory
+                  ventureType="targeted"
+                  personalHistory={personalHistory}
+                  retainers={retainers}
+                  itemsById={itemsById}
+                  onRecordRun={() => onRecordRun(venture.id)}
+                />
+              )}
             </>
           ) : (
             <>
@@ -324,14 +326,16 @@ export const VentureCatalogItem = memo(function VentureCatalogItem({
                 </div>
               )}
 
-              <VenturePersonalHistory
-                ventureType="exploration"
-                personalHistory={personalHistory}
-                retainers={retainers}
-                itemsById={itemsById}
-                rewardItemIds={rewardItemIds}
-                onRecordRun={() => onRecordRun(venture.id)}
-              />
+              {retainers.size > 0 && (
+                <VenturePersonalHistory
+                  ventureType="exploration"
+                  personalHistory={personalHistory}
+                  retainers={retainers}
+                  itemsById={itemsById}
+                  rewardItemIds={rewardItemIds}
+                  onRecordRun={() => onRecordRun(venture.id)}
+                />
+              )}
             </>
           )}
         </div>
