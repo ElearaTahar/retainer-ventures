@@ -21,6 +21,7 @@ const resources = {
         navigation: "Legal information",
         credit: "Created for the FFXIV community by Eleara Tahar (Louisoix).",
         disclaimer: "Independent fan project, not affiliated with Square Enix.",
+        dataGeneratedAt: "Last data generation: {{date}}",
       },
       legal: {
         title: "Legal notice",
@@ -364,6 +365,7 @@ const resources = {
         navigation: "Informations légales",
         credit: "Créé pour la communauté FFXIV par Eleara Tahar (Louisoix).",
         disclaimer: "Projet indépendant, non affilié à Square Enix.",
+        dataGeneratedAt: "Dernière génération des données : {{date}}",
       },
       legal: {
         title: "Mentions légales",

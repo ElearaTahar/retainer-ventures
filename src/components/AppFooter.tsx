@@ -2,8 +2,19 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import "../styles/app-footer.css";
 
-export function AppFooter() {
-  const { t } = useTranslation();
+type AppFooterProps = {
+  generatedAt: string;
+};
+
+export function AppFooter({ generatedAt }: AppFooterProps) {
+  const { t, i18n } = useTranslation();
+
+  const formattedDate = new Intl.DateTimeFormat(i18n.language, {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(generatedAt));
 
   return (
     <footer className="app-footer">
@@ -24,6 +35,10 @@ export function AppFooter() {
             </a>
           </nav>
         </div>
+
+        <p className="app-footer-data-date">
+          {t("footer.dataGeneratedAt", { date: formattedDate })}
+        </p>
 
         <div className="app-footer-row app-footer-legal">
           <p>© SQUARE ENIX</p>
