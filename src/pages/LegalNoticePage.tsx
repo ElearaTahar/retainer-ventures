@@ -31,7 +31,10 @@ export function LegalNoticePage() {
 
         <p>Eleara Tahar</p>
 
-        <p>Contact: {/*TODO*/}</p>
+        <p>
+          {t("legal.publicationManager.contact")}:{" "}
+          <a href="mailto:contact@xiv-ventures.com">contact@xiv-ventures.com</a>
+        </p>
       </section>
 
       <section aria-labelledby="legal-hosting">

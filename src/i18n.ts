@@ -30,6 +30,7 @@ const resources = {
         },
         publicationManager: {
           title: "Publication manager",
+          contact: "Contact",
         },
         hosting: {
           title: "Hosting",
@@ -371,6 +372,7 @@ const resources = {
         },
         publicationManager: {
           title: "Responsable de publication",
+          contact: "Contact",
         },
         hosting: {
           title: "Hébergement",
