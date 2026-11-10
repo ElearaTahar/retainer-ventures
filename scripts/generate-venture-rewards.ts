@@ -57,8 +57,9 @@ type VenturesFile = {
 
 type RewardSupplementFile = {
   metadata: {
-    source: string;
+    sources: string[];
     purpose: string;
+    generatedAt: string;
   };
   rewardsByRetainerTaskRandomId: Record<string, number[]>;
 };
@@ -571,6 +572,10 @@ async function main() {
    * Use a Set while merging so that the supplement
    * remains safe if Lumina later adds the same rewards.
    */
+  let supplementVentureCount = 0;
+  let supplementRewardCount = 0;
+  let supplementAdditionalRewardCount = 0;
+
   for (const [taskIdText, supplementItemIds] of Object.entries(
     supplementFile.rewardsByRetainerTaskRandomId,
   )) {
@@ -580,6 +585,8 @@ async function main() {
       throw new Error(`Invalid supplement task ID: ${taskIdText}`);
     }
 
+    supplementVentureCount++;
+
     const mergedItemIds = new Set(rawRewards.get(taskId) ?? []);
 
     for (const itemId of supplementItemIds) {
@@ -587,6 +594,12 @@ async function main() {
         throw new Error(
           `Invalid supplement item ID ${itemId} for task ${taskId}`,
         );
+      }
+
+      supplementRewardCount++;
+
+      if (!mergedItemIds.has(itemId)) {
+        supplementAdditionalRewardCount++;
       }
 
       mergedItemIds.add(itemId);
@@ -651,7 +664,8 @@ async function main() {
 
   const output = {
     metadata: {
-      rewardSource: "LuminaSupplemental + FFXIV Community Wiki supplement",
+      rewardSource:
+        "LuminaSupplemental + manually verified community supplements",
       classificationSource: "FFXIV game data",
       generatedAt: new Date().toISOString(),
       sourceRewardCount: rewardRows.length,
@@ -683,8 +697,17 @@ async function main() {
       `unclassified ventures ` +
       `(${skippedRewardCount} rewards)`,
   );
+
+  console.log("\nSupplement contribution:");
+  console.log(`  ${supplementVentureCount} ventures covered`);
+  console.log(`  ${supplementRewardCount} reward associations`);
+  console.log(
+    `  ${supplementRewardCount - supplementAdditionalRewardCount} already covered`,
+  );
+  console.log(`  ${supplementAdditionalRewardCount} additional rewards`);
 }
 
 main().catch((error: unknown) => {
   console.error(error);
+  process.exitCode = 1;
 });

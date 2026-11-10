@@ -1,8 +1,11 @@
 {
   "metadata": {
-    "source": "FFXIV Community Wiki",
-    "purpose": "Exploration venture rewards missing from LuminaSupplemental",
-    "generatedAt": "2026-10-02T01:59:00.730Z"
+    "sources": [
+      "FFXIV Community Wiki",
+      "XIVStats"
+    ],
+    "purpose": "Manually verified supplemental Exploration venture rewards",
+    "generatedAt": "2026-11-10T11:31:58.101Z"
   },
   "rewardsByRetainerTaskRandomId": {
     "30040": [
@@ -10,6 +13,14 @@
       4871,
       5460,
       7
+    ],
+    "30041": [
+      5824,
+      3,
+      7,
+      4876,
+      4933,
+      4931
     ],
     "30114": [
       5825,

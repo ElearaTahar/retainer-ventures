@@ -8,3 +8,4 @@ dist/
 *.log
 
 .generated-scripts/
+*.tsbuildinfo
