@@ -465,9 +465,7 @@ function classifyRewards(
   };
 
   for (const itemId of itemIds) {
-    /*
-     * Allagan Pieces always take priority.
-     */
+    // Allagan Pieces always take priority.
     if (ALLAGAN_PIECE_ITEM_IDS.has(itemId)) {
       result.allaganPieces.push(itemId);
 
@@ -488,6 +486,64 @@ function classifyRewards(
   }
 
   return result;
+}
+
+type SupplementMergeStats = {
+  ventureCount: number;
+  rewardCount: number;
+  additionalRewardCount: number;
+};
+
+/*
+ * Merges supplemental rewards into rawRewards in place.
+ * Returns statistics about the merge.
+ *
+ * Use a Set while merging so that the supplement
+ * remains safe if Lumina later adds the same rewards.
+ */
+function mergeSupplementRewards(
+  supplementFile: RewardSupplementFile,
+  rawRewards: Map<number, number[]>,
+): SupplementMergeStats {
+  const mergeStats: SupplementMergeStats = {
+    ventureCount: 0,
+    rewardCount: 0,
+    additionalRewardCount: 0,
+  };
+
+  for (const [taskIdText, supplementItemIds] of Object.entries(
+    supplementFile.rewardsByRetainerTaskRandomId,
+  )) {
+    const taskId = Number(taskIdText);
+
+    if (!Number.isInteger(taskId) || taskId <= 0) {
+      throw new Error(`Invalid supplement task ID: ${taskIdText}`);
+    }
+
+    mergeStats.ventureCount++;
+
+    const mergedItemIds = new Set(rawRewards.get(taskId) ?? []);
+
+    for (const itemId of supplementItemIds) {
+      if (!Number.isInteger(itemId) || itemId <= 0) {
+        throw new Error(
+          `Invalid supplement item ID ${itemId} for task ${taskId}`,
+        );
+      }
+
+      mergeStats.rewardCount++;
+
+      if (!mergedItemIds.has(itemId)) {
+        mergeStats.additionalRewardCount++;
+      }
+
+      mergedItemIds.add(itemId);
+    }
+
+    rawRewards.set(taskId, [...mergedItemIds]);
+  }
+
+  return mergeStats;
 }
 
 async function main() {
@@ -559,46 +615,9 @@ async function main() {
 
   /*
    * Add locally maintained rewards that are missing
-   * from LuminaSupplemental.
-   *
-   * Use a Set while merging so that the supplement
-   * remains safe if Lumina later adds the same rewards.
+   * from LuminaSupplemental and compute stats about merge.
    */
-  let supplementVentureCount = 0;
-  let supplementRewardCount = 0;
-  let supplementAdditionalRewardCount = 0;
-
-  for (const [taskIdText, supplementItemIds] of Object.entries(
-    supplementFile.rewardsByRetainerTaskRandomId,
-  )) {
-    const taskId = Number(taskIdText);
-
-    if (!Number.isInteger(taskId) || taskId <= 0) {
-      throw new Error(`Invalid supplement task ID: ${taskIdText}`);
-    }
-
-    supplementVentureCount++;
-
-    const mergedItemIds = new Set(rawRewards.get(taskId) ?? []);
-
-    for (const itemId of supplementItemIds) {
-      if (!Number.isInteger(itemId) || itemId <= 0) {
-        throw new Error(
-          `Invalid supplement item ID ${itemId} for task ${taskId}`,
-        );
-      }
-
-      supplementRewardCount++;
-
-      if (!mergedItemIds.has(itemId)) {
-        supplementAdditionalRewardCount++;
-      }
-
-      mergedItemIds.add(itemId);
-    }
-
-    rawRewards.set(taskId, [...mergedItemIds]);
-  }
+  const stats = mergeSupplementRewards(supplementFile, rawRewards);
 
   /*
    * LuminaSupplemental contains Quick
@@ -688,12 +707,12 @@ async function main() {
   );
 
   console.log("\nSupplement contribution:");
-  console.log(`  ${supplementVentureCount} ventures covered`);
-  console.log(`  ${supplementRewardCount} reward associations`);
+  console.log(`  ${stats.ventureCount} ventures covered`);
+  console.log(`  ${stats.rewardCount} reward associations`);
   console.log(
-    `  ${supplementRewardCount - supplementAdditionalRewardCount} already covered`,
+    `  ${stats.rewardCount - stats.additionalRewardCount} already covered`,
   );
-  console.log(`  ${supplementAdditionalRewardCount} additional rewards`);
+  console.log(`  ${stats.additionalRewardCount} additional rewards`);
 }
 
 main().catch((error: unknown) => {
