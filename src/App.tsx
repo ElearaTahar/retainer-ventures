@@ -130,7 +130,7 @@ export function App() {
         <BackToTopButton />
       </main>
 
-      <AppFooter />
+      <AppFooter generatedAt={ventureRewards.metadata.generatedAt} />
     </>
   );
 }

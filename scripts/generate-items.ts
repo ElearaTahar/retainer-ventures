@@ -1,6 +1,5 @@
 import { writeFile } from "node:fs/promises";
-
-const XIVAPI_BASE_URL = "https://v2.xivapi.com/api";
+import { fetchAllSheetRows } from "./lib/xivapi.js";
 
 type ItemRowResponse = {
   row_id: number;
@@ -13,12 +12,6 @@ type ItemRowResponse = {
       path_hr1: string;
     };
   };
-};
-
-type ItemCollectionResponse = {
-  schema: string;
-  version: string;
-  rows: ItemRowResponse[];
 };
 
 type ItemSearchEntry = {
@@ -49,49 +42,10 @@ function buildIconPath(iconId: number): string {
   return `ui/icon/${paddedDirectory}/${paddedId}_hr1.tex`;
 }
 
-async function fetchJSON<T>(url: string): Promise<T> {
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    throw new Error(
-      `XIVAPI request failed: ${response.status} ${response.statusText}`,
-    );
-  }
-
-  return (await response.json()) as T;
-}
-
-async function fetchAllItems(fieldsParam: string): Promise<ItemRowResponse[]> {
-  const rows: ItemRowResponse[] = [];
-  let after: number | undefined;
-
-  while (true) {
-    let url =
-      `${XIVAPI_BASE_URL}/sheet/Item` + `?limit=500&fields=${fieldsParam}`;
-
-    if (after !== undefined) {
-      url += `&after=${after}`;
-    }
-
-    const data = await fetchJSON<ItemCollectionResponse>(url);
-    const lastRow = data.rows[data.rows.length - 1];
-
-    if (!lastRow) {
-      break;
-    }
-
-    rows.push(...data.rows);
-    after = lastRow.row_id;
-  }
-
-  return rows;
-}
-
 async function main() {
   const fields = ["Name", "Name@lang(fr)", "Icon"];
-  const fieldsParam = fields.join(",");
 
-  const rows = await fetchAllItems(fieldsParam);
+  const rows = await fetchAllSheetRows<ItemRowResponse>("Item", fields);
 
   console.log("all item rows:", rows.length);
   console.log("first row:", rows[0]?.row_id);
@@ -130,4 +84,7 @@ async function main() {
   await writeFile("public/data/item-search-index.json", json, "utf-8");
 }
 
-main();
+main().catch((error: unknown) => {
+  console.error(error);
+  process.exitCode = 1;
+});

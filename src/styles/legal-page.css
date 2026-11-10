@@ -34,6 +34,7 @@
 }
 
 .legal-page section > p,
+.legal-page section > h3,
 .legal-page section > address {
   margin-left: 2.5rem;
   line-height: 1.7;
@@ -46,4 +47,21 @@
 .legal-page a {
   color: inherit;
   text-underline-offset: 0.2em;
+}
+
+.legal-page a:hover {
+  color: var(--color-accent);
+  text-underline-offset: 0.2em;
+}
+
+.legal-page a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.legal-external-link svg {
+  display: inline-block;
+  vertical-align: -0.125em;
+  margin-left: 0.25rem;
 }
