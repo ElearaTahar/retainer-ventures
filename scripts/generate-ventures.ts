@@ -561,4 +561,7 @@ async function main() {
   await writeFile("public/data/ventures.json", json, "utf-8");
 }
 
-main();
+main().catch((error: unknown) => {
+  console.error(error);
+  process.exitCode = 1;
+});
