@@ -1,6 +1,5 @@
 import { writeFile } from "node:fs/promises";
-
-const XIVAPI_BASE_URL = "https://v2.xivapi.com/api";
+import { fetchAllSheetRows } from "./lib/xivapi.js";
 
 const QUICK_EXPLORATION_REQUIRED_LEVEL = 10;
 
@@ -66,22 +65,12 @@ type RetainerTaskResponse = {
   };
 };
 
-type RetainerTaskCollectionResponse = {
-  schema: string;
-  version: string;
-  rows: RetainerTaskResponse[];
-};
-
 type RetainerTaskRandomNameResponse = {
   row_id: number;
   fields: {
     Name: string;
     "Name@lang(fr)": string;
   };
-};
-
-type RetainerTaskRandomNameCollectionResponse = {
-  rows: RetainerTaskRandomNameResponse[];
 };
 
 function getRetainerType(classJobCategoryId: number): RetainerType {
@@ -424,77 +413,6 @@ function toVenture(
   }
 }
 
-async function fetchJSON<T>(url: string): Promise<T> {
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    throw new Error(
-      `XIVAPI request failed: ${response.status} ${response.statusText}`,
-    );
-  }
-
-  return (await response.json()) as T;
-}
-
-async function fetchAllRetainerTasks(
-  fieldsParam: string,
-): Promise<RetainerTaskResponse[]> {
-  const rows: RetainerTaskResponse[] = [];
-  let after: number | undefined;
-
-  while (true) {
-    let url =
-      `${XIVAPI_BASE_URL}/sheet/RetainerTask` +
-      `?limit=500&fields=${fieldsParam}`;
-
-    if (after !== undefined) {
-      url += `&after=${after}`;
-    }
-
-    const data = await fetchJSON<RetainerTaskCollectionResponse>(url);
-    const lastRow = data.rows[data.rows.length - 1];
-
-    if (!lastRow) {
-      break;
-    }
-
-    rows.push(...data.rows);
-    after = lastRow.row_id;
-  }
-
-  return rows;
-}
-
-async function fetchAllRetainerTaskRandomNames(): Promise<
-  RetainerTaskRandomNameResponse[]
-> {
-  const rows: RetainerTaskRandomNameResponse[] = [];
-  let after: number | undefined;
-
-  while (true) {
-    let url =
-      `${XIVAPI_BASE_URL}/sheet/RetainerTaskRandom` +
-      `?limit=500&fields=Name,Name@lang(fr)`;
-
-    if (after !== undefined) {
-      url += `&after=${after}`;
-    }
-
-    const data = await fetchJSON<RetainerTaskRandomNameCollectionResponse>(url);
-
-    const lastRow = data.rows[data.rows.length - 1];
-
-    if (!lastRow) {
-      break;
-    }
-
-    rows.push(...data.rows);
-    after = lastRow.row_id;
-  }
-
-  return rows;
-}
-
 async function main() {
   const fields = [
     "ClassJobCategory",
@@ -508,11 +426,16 @@ async function main() {
     "Task",
     "RetainerTaskParameter",
   ];
-  const fieldsParam = fields.join(",");
 
-  const rows = await fetchAllRetainerTasks(fieldsParam);
+  const randomTasksFields = ["Name", "Name@lang(fr)"];
 
-  const randomTasks = await fetchAllRetainerTaskRandomNames();
+  const [rows, randomTasks] = await Promise.all([
+    fetchAllSheetRows<RetainerTaskResponse>("RetainerTask", fields),
+    fetchAllSheetRows<RetainerTaskRandomNameResponse>(
+      "RetainerTaskRandom",
+      randomTasksFields,
+    ),
+  ]);
 
   const randomTasksById = new Map(
     randomTasks.map((task) => [task.row_id, task]),
