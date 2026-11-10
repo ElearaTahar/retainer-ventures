@@ -147,13 +147,15 @@ export function QuickVentureCatalogItem({
             <p>{t("quickExplorationVenture.noKnownRewards")}</p>
           )}
 
-          <VenturePersonalHistory
-            ventureType="quick"
-            personalHistory={personalHistory}
-            retainers={retainers}
-            itemsById={itemsById}
-            onRecordRun={onRecordRun}
-          />
+          {retainers.size > 0 && (
+            <VenturePersonalHistory
+              ventureType="quick"
+              personalHistory={personalHistory}
+              retainers={retainers}
+              itemsById={itemsById}
+              onRecordRun={onRecordRun}
+            />
+          )}
         </div>
       </div>
     </div>
