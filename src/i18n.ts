@@ -30,6 +30,7 @@ const resources = {
         },
         publicationManager: {
           title: "Publication manager",
+          contact: "Contact",
         },
         hosting: {
           title: "Hosting",
@@ -78,7 +79,8 @@ const resources = {
         analytics: {
           title: "Analytics",
           description:
-            "Retainer Ventures does not currently use any analytics service. If one is introduced, this privacy policy will be updated to explain how it works and what data may be processed.",
+            "Retainer Ventures uses Cloudflare Web Analytics to measure website traffic and understand how the site is used. This service provides aggregated statistics, such as page views and visitor trends, without using tracking cookies or creating individual visitor profiles. Technical information may be processed by Cloudflare to produce these statistics.",
+          learnMore: "Learn more about Cloudflare Web Analytics",
         },
         rights: {
           title: "Data retention and rights",
@@ -371,6 +373,7 @@ const resources = {
         },
         publicationManager: {
           title: "Responsable de publication",
+          contact: "Contact",
         },
         hosting: {
           title: "Hébergement",
@@ -419,7 +422,8 @@ const resources = {
         analytics: {
           title: "Mesure d'audience",
           description:
-            "Retainer Ventures n'utilise actuellement aucun outil de mesure d'audience. Si un tel outil est ajouté, cette politique de confidentialité sera mise à jour pour préciser son fonctionnement et les données éventuellement traitées.",
+            "Retainer Ventures utilise Cloudflare Web Analytics pour mesurer la fréquentation du site et mieux comprendre son utilisation. Ce service fournit des statistiques agrégées, notamment sur les pages consultées et l'évolution des visites, sans utiliser de cookies de suivi ni créer de profils individuels des visiteurs. Des informations techniques peuvent être traitées par Cloudflare pour produire ces statistiques.",
+          learnMore: "En savoir plus sur Cloudflare Web Analytics",
         },
         rights: {
           title: "Conservation et droits",
