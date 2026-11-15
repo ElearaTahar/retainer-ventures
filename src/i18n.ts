@@ -540,7 +540,7 @@ const resources = {
           duration: "Durée",
           yieldStats: {
             "item-level": "Niv. objet du servant",
-            perception: "Discernement",
+            perception: "Savoir-faire",
           },
           possibleQuantities: "Quantités possibles",
           quantity: "Quantité",
@@ -620,7 +620,7 @@ const resources = {
         level: "Niveau",
         ilvl: "Niveau d'objet",
         gathering: "Collecte",
-        perception: "Discernement",
+        perception: "Savoir-faire",
         saveError: "Une erreur est survenue. Veuillez réessayer.",
         saving: "Enregistrement...",
         retainersNumber_one: "{{count}} servant",
