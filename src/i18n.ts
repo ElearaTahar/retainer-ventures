@@ -5,8 +5,30 @@ const resources = {
   en: {
     translation: {
       meta: {
-        description:
-          "Explore Final Fantasy XIV retainer ventures, manage your retainers, and track the rewards they bring back.",
+        ventures: {
+          title: "FFXIV Retainer Ventures",
+          description:
+            "Explore Final Fantasy XIV retainer ventures, discover their rewards, and find the right venture for your retainers.",
+        },
+        retainers: {
+          title: "My Retainers",
+          description:
+            "Manage your FFXIV retainers and keep a personal history of their venture rewards.",
+        },
+        legal: {
+          title: "Legal Notice",
+          description:
+            "Read the legal information and publisher details for XIV Ventures.",
+        },
+        privacy: {
+          title: "Privacy Policy",
+          description:
+            "Learn how XIV Ventures handles local retainer data and website analytics.",
+        },
+        notFound: {
+          title: "Page Not Found",
+          description: "The requested page could not be found.",
+        },
       },
       appTitle: "FFXIV Retainer Ventures",
       header: {
@@ -354,8 +376,30 @@ const resources = {
   fr: {
     translation: {
       meta: {
-        description:
-          "Explorez les tâches des servants de Final Fantasy XIV, gérez vos servants et suivez les récompenses qu'ils rapportent.",
+        ventures: {
+          title: "Tâches des servants FFXIV",
+          description:
+            "Explorez les tâches des servants de Final Fantasy XIV, découvrez leurs récompenses et trouvez les tâches adaptées à vos servants.",
+        },
+        retainers: {
+          title: "Mes servants",
+          description:
+            "Gérez vos servants FFXIV et conservez un historique personnel des récompenses rapportées lors de leurs tâches.",
+        },
+        legal: {
+          title: "Mentions légales",
+          description:
+            "Consultez les mentions légales et les informations sur l'éditeur de XIV Ventures.",
+        },
+        privacy: {
+          title: "Politique de confidentialité",
+          description:
+            "Découvrez comment XIV Ventures gère les données locales de vos servants et les statistiques de fréquentation.",
+        },
+        notFound: {
+          title: "Page introuvable",
+          description: "La page demandée est introuvable.",
+        },
       },
       appTitle: "FFXIV Retainer Ventures",
       header: {
@@ -726,19 +770,11 @@ i18n.use(initReactI18next).init({
   },
 });
 
-function updateDocumentMetadata() {
+function updateDocumentLanguage() {
   document.documentElement.lang = i18n.resolvedLanguage ?? "en";
-
-  const description = document.querySelector<HTMLMetaElement>(
-    'meta[name="description"]',
-  );
-
-  if (description) {
-    description.content = i18n.t("meta.description");
-  }
 }
 
-i18n.on("languageChanged", updateDocumentMetadata);
-updateDocumentMetadata();
+i18n.on("languageChanged", updateDocumentLanguage);
+updateDocumentLanguage();
 
 export default i18n;

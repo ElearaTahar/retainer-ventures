@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./i18n";
 import { App } from "./App";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { PageMetadata } from "./components/PageMetadata";
 import "./styles/global.css";
 import "./styles/empty-state.css";
 import "./styles/avatars.css";
@@ -20,6 +21,7 @@ if (!rootElement) {
 createRoot(rootElement).render(
   <StrictMode>
     <BrowserRouter>
+      <PageMetadata />
       <ScrollToTop />
       <App />
     </BrowserRouter>
